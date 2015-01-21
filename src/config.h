@@ -95,6 +95,7 @@ static const int64 nInterval = nTargetTimespan / nTargetSpacing;
 #define  CONF_TESTNET_PORT_STRING "19109"
 #define  CONF_PORT_STRING "9109"
 
+#define  CONF_DEFAULT_CLENT_NAME "Coolcash Desktop Wallet"
 #define  CONF_DEFAULT_DATA_DIR_WINDOW "Coolcash"
 #define  CONF_DEFAULT_DATA_DIR_MAC_OSX "Coolcash"
 #define  CONF_DEFAULT_DATA_DIR_UNIX ".coolcash"
