@@ -18,10 +18,10 @@
 
 
 
-pkgdatadir = $(datadir)/litecoin
-pkgincludedir = $(includedir)/litecoin
-pkglibdir = $(libdir)/litecoin
-pkglibexecdir = $(libexecdir)/litecoin
+pkgdatadir = $(datadir)/safecoin
+pkgincludedir = $(includedir)/safecoin
+pkglibdir = $(libdir)/safecoin
+pkglibexecdir = $(libexecdir)/safecoin
 am__cd = CDPATH="$${ZSH_VERSION+.}$(PATH_SEPARATOR)" && cd
 install_sh_DATA = $(install_sh) -c -m 644
 install_sh_PROGRAM = $(install_sh) -c
@@ -45,8 +45,8 @@ am__append_5 = libbitcoin_wallet.a
 bin_PROGRAMS = $(am__EXEEXT_1) $(am__EXEEXT_2) $(am__EXEEXT_3) \
 	$(am__EXEEXT_4) $(am__EXEEXT_5)
 TESTS = $(am__EXEEXT_6) $(am__EXEEXT_5)
-am__append_6 = litecoind
-am__append_7 = litecoin-cli litecoin-tx
+am__append_6 = safecoind
+am__append_7 = safecoin-cli safecoin-tx
 #am__append_8 = compat/glibc_compat.cpp \
 #	compat/glibcxx_compat.cpp
 am__append_9 = libbitcoin_wallet.a
@@ -60,8 +60,8 @@ DIST_COMMON = $(am__include_HEADERS_DIST) $(srcdir)/Makefile.am \
 	$(srcdir)/Makefile.in $(srcdir)/Makefile.qt.include \
 	$(srcdir)/Makefile.qttest.include \
 	$(srcdir)/Makefile.test.include
-am__append_14 = test/test_litecoin test/bitcoin-util-test.py
-am__append_15 = test/test_litecoin
+am__append_14 = test/test_safecoin test/bitcoin-util-test.py
+am__append_15 = test/test_safecoin
 am__append_16 = \
 	test/bctest.py \
 	test/bitcoin-util-test.py \
@@ -82,7 +82,7 @@ am__append_17 = \
 
 am__append_18 = $(LIBBITCOIN_WALLET)
 am__append_19 = $(CLEAN_BITCOIN_TEST)
-am__append_20 = qt/litecoin-qt
+am__append_20 = qt/safecoin-qt
 am__append_21 = qt/libbitcoinqt.a
 am__append_22 = \
   qt/addressbookpage.cpp \
@@ -116,8 +116,8 @@ am__append_22 = \
 #am__append_24 = $(BITCOIN_RC)
 am__append_25 = $(LIBBITCOIN_WALLET)
 am__append_26 = $(CLEAN_QT)
-am__append_27 = qt/test/test_litecoin-qt
-am__append_28 = qt/test/test_litecoin-qt
+am__append_27 = qt/test/test_safecoin-qt
+am__append_28 = qt/test/test_safecoin-qt
 am__append_29 = qt/test/moc_paymentservertests.cpp
 am__append_30 = \
   qt/test/paymentservertests.cpp
@@ -590,63 +590,31 @@ libbitcoinconsensus_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX \
 	$(LDFLAGS) -o $@
 am_libbitcoinconsensus_la_rpath = -rpath \
 	$(libdir)
-am__EXEEXT_1 = litecoind$(EXEEXT)
-am__EXEEXT_2 = litecoin-cli$(EXEEXT) \
-	litecoin-tx$(EXEEXT)
-am__EXEEXT_3 = test/test_litecoin$(EXEEXT)
-am__EXEEXT_4 = qt/litecoin-qt$(EXEEXT)
+am__EXEEXT_1 = safecoind$(EXEEXT)
+am__EXEEXT_2 = safecoin-cli$(EXEEXT) \
+	safecoin-tx$(EXEEXT)
+am__EXEEXT_3 = test/test_safecoin$(EXEEXT)
+am__EXEEXT_4 = qt/safecoin-qt$(EXEEXT)
 am__EXEEXT_5 =  \
-	qt/test/test_litecoin-qt$(EXEEXT)
+	qt/test/test_safecoin-qt$(EXEEXT)
 PROGRAMS = $(bin_PROGRAMS)
-am__litecoin_cli_SOURCES_DIST = bitcoin-cli.cpp bitcoin-cli-res.rc
-#am__objects_10 = bitcoin-cli-res.$(OBJEXT)
-am_litecoin_cli_OBJECTS = litecoin_cli-bitcoin-cli.$(OBJEXT) \
-	$(am__objects_10)
-litecoin_cli_OBJECTS = $(am_litecoin_cli_OBJECTS)
-litecoin_cli_DEPENDENCIES = $(LIBBITCOIN_CLI) $(LIBBITCOIN_UTIL) \
-	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
-	$(am__DEPENDENCIES_1)
-litecoin_cli_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) \
-	$(LIBTOOLFLAGS) --mode=link $(CXXLD) $(AM_CXXFLAGS) \
-	$(CXXFLAGS) $(litecoin_cli_LDFLAGS) $(LDFLAGS) -o $@
-am_litecoin_tx_OBJECTS = litecoin_tx-bitcoin-tx.$(OBJEXT)
-litecoin_tx_OBJECTS = $(am_litecoin_tx_OBJECTS)
-litecoin_tx_DEPENDENCIES = $(LIBBITCOIN_UNIVALUE) $(LIBBITCOIN_COMMON) \
-	$(LIBBITCOIN_UTIL) $(LIBBITCOIN_CRYPTO) $(LIBSECP256K1) \
-	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
-litecoin_tx_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) \
-	$(LIBTOOLFLAGS) --mode=link $(CXXLD) $(AM_CXXFLAGS) \
-	$(CXXFLAGS) $(litecoin_tx_LDFLAGS) $(LDFLAGS) -o $@
-am__litecoind_SOURCES_DIST = bitcoind.cpp bitcoind-res.rc
-#am__objects_11 = bitcoind-res.$(OBJEXT)
-am_litecoind_OBJECTS = litecoind-bitcoind.$(OBJEXT) $(am__objects_11)
-litecoind_OBJECTS = $(am_litecoind_OBJECTS)
-am__DEPENDENCIES_2 = $(am__append_2)
-am__DEPENDENCIES_3 = $(am__append_3)
-litecoind_DEPENDENCIES = $(LIBBITCOIN_SERVER) $(LIBBITCOIN_COMMON) \
-	$(LIBBITCOIN_UNIVALUE) $(LIBBITCOIN_UTIL) $(LIBBITCOIN_CRYPTO) \
-	$(am__DEPENDENCIES_2) $(am__DEPENDENCIES_3) $(LIBSECP256K1) \
-	$(am__append_9) $(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
-	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
-	$(am__DEPENDENCIES_1)
-litecoind_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) \
-	$(LIBTOOLFLAGS) --mode=link $(CXXLD) $(AM_CXXFLAGS) \
-	$(CXXFLAGS) $(litecoind_LDFLAGS) $(LDFLAGS) -o $@
-am__qt_litecoin_qt_SOURCES_DIST = qt/bitcoin.cpp \
+am__qt_safecoin_qt_SOURCES_DIST = qt/bitcoin.cpp \
 	qt/macdockiconhandler.mm qt/macnotificationhandler.mm \
 	qt/res/bitcoin-qt-res.rc
-am__objects_12 = qt/macdockiconhandler.$(OBJEXT) \
+am__objects_10 = qt/macdockiconhandler.$(OBJEXT) \
 	qt/macnotificationhandler.$(OBJEXT)
+#am__objects_11 =  \
+#	$(am__objects_10)
+am__objects_12 = qt/res/bitcoin-qt-res.$(OBJEXT)
 #am__objects_13 =  \
 #	$(am__objects_12)
-am__objects_14 = qt/res/bitcoin-qt-res.$(OBJEXT)
-#am__objects_15 =  \
-#	$(am__objects_14)
-am_qt_litecoin_qt_OBJECTS =  \
-	qt/qt_litecoin_qt-bitcoin.$(OBJEXT) \
-	$(am__objects_13) $(am__objects_15)
-qt_litecoin_qt_OBJECTS = $(am_qt_litecoin_qt_OBJECTS)
-qt_litecoin_qt_DEPENDENCIES = qt/libbitcoinqt.a \
+am_qt_safecoin_qt_OBJECTS =  \
+	qt/qt_safecoin_qt-bitcoin.$(OBJEXT) \
+	$(am__objects_11) $(am__objects_13)
+qt_safecoin_qt_OBJECTS = $(am_qt_safecoin_qt_OBJECTS)
+am__DEPENDENCIES_2 = $(am__append_2)
+am__DEPENDENCIES_3 = $(am__append_3)
+qt_safecoin_qt_DEPENDENCIES = qt/libbitcoinqt.a \
 	$(LIBBITCOIN_SERVER) $(am__append_25) \
 	$(LIBBITCOIN_CLI) $(LIBBITCOIN_COMMON) \
 	$(LIBBITCOIN_UTIL) $(LIBBITCOIN_CRYPTO) \
@@ -657,27 +625,27 @@ qt_litecoin_qt_DEPENDENCIES = qt/libbitcoinqt.a \
 	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
 	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
 	$(LIBSECP256K1)
-qt_litecoin_qt_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX \
-	$(qt_litecoin_qt_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link \
-	$(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) $(qt_litecoin_qt_LDFLAGS) \
+qt_safecoin_qt_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX \
+	$(qt_safecoin_qt_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link \
+	$(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) $(qt_safecoin_qt_LDFLAGS) \
 	$(LDFLAGS) -o $@
-am__qt_test_test_litecoin_qt_SOURCES_DIST = qt/test/test_main.cpp \
+am__qt_test_test_safecoin_qt_SOURCES_DIST = qt/test/test_main.cpp \
 	qt/test/uritests.cpp qt/test/uritests.h \
 	qt/test/paymentrequestdata.h qt/test/paymentservertests.h \
 	qt/test/paymentservertests.cpp
-am__objects_16 = qt/test/qt_test_test_litecoin_qt-paymentservertests.$(OBJEXT)
-am_qt_test_test_litecoin_qt_OBJECTS = qt/test/qt_test_test_litecoin_qt-test_main.$(OBJEXT) \
-	qt/test/qt_test_test_litecoin_qt-uritests.$(OBJEXT) \
-	$(am__objects_1) $(am__objects_16)
-am__objects_17 = qt/test/qt_test_test_litecoin_qt-moc_paymentservertests.$(OBJEXT)
-am__objects_18 = qt/test/qt_test_test_litecoin_qt-moc_uritests.$(OBJEXT) \
-	$(am__objects_17)
-nodist_qt_test_test_litecoin_qt_OBJECTS =  \
-	$(am__objects_18)
-qt_test_test_litecoin_qt_OBJECTS =  \
-	$(am_qt_test_test_litecoin_qt_OBJECTS) \
-	$(nodist_qt_test_test_litecoin_qt_OBJECTS)
-qt_test_test_litecoin_qt_DEPENDENCIES =  \
+am__objects_14 = qt/test/qt_test_test_safecoin_qt-paymentservertests.$(OBJEXT)
+am_qt_test_test_safecoin_qt_OBJECTS = qt/test/qt_test_test_safecoin_qt-test_main.$(OBJEXT) \
+	qt/test/qt_test_test_safecoin_qt-uritests.$(OBJEXT) \
+	$(am__objects_1) $(am__objects_14)
+am__objects_15 = qt/test/qt_test_test_safecoin_qt-moc_paymentservertests.$(OBJEXT)
+am__objects_16 = qt/test/qt_test_test_safecoin_qt-moc_uritests.$(OBJEXT) \
+	$(am__objects_15)
+nodist_qt_test_test_safecoin_qt_OBJECTS =  \
+	$(am__objects_16)
+qt_test_test_safecoin_qt_OBJECTS =  \
+	$(am_qt_test_test_safecoin_qt_OBJECTS) \
+	$(nodist_qt_test_test_safecoin_qt_OBJECTS)
+qt_test_test_safecoin_qt_DEPENDENCIES =  \
 	$(LIBBITCOINQT) $(LIBBITCOIN_SERVER) \
 	$(am__append_31) $(LIBBITCOIN_CLI) \
 	$(LIBBITCOIN_COMMON) $(LIBBITCOIN_UTIL) \
@@ -695,11 +663,43 @@ qt_test_test_litecoin_qt_DEPENDENCIES =  \
 	$(am__DEPENDENCIES_1) \
 	$(am__DEPENDENCIES_1) \
 	$(am__DEPENDENCIES_1) $(LIBSECP256K1)
-qt_test_test_litecoin_qt_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX \
+qt_test_test_safecoin_qt_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX \
 	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CXXLD) \
-	$(AM_CXXFLAGS) $(CXXFLAGS) $(qt_test_test_litecoin_qt_LDFLAGS) \
+	$(AM_CXXFLAGS) $(CXXFLAGS) $(qt_test_test_safecoin_qt_LDFLAGS) \
 	$(LDFLAGS) -o $@
-am__test_test_litecoin_SOURCES_DIST = test/bignum.h \
+am__safecoin_cli_SOURCES_DIST = bitcoin-cli.cpp bitcoin-cli-res.rc
+#am__objects_17 = bitcoin-cli-res.$(OBJEXT)
+am_safecoin_cli_OBJECTS = safecoin_cli-bitcoin-cli.$(OBJEXT) \
+	$(am__objects_17)
+safecoin_cli_OBJECTS = $(am_safecoin_cli_OBJECTS)
+safecoin_cli_DEPENDENCIES = $(LIBBITCOIN_CLI) $(LIBBITCOIN_UTIL) \
+	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
+	$(am__DEPENDENCIES_1)
+safecoin_cli_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) \
+	$(LIBTOOLFLAGS) --mode=link $(CXXLD) $(AM_CXXFLAGS) \
+	$(CXXFLAGS) $(safecoin_cli_LDFLAGS) $(LDFLAGS) -o $@
+am_safecoin_tx_OBJECTS = safecoin_tx-bitcoin-tx.$(OBJEXT)
+safecoin_tx_OBJECTS = $(am_safecoin_tx_OBJECTS)
+safecoin_tx_DEPENDENCIES = $(LIBBITCOIN_UNIVALUE) $(LIBBITCOIN_COMMON) \
+	$(LIBBITCOIN_UTIL) $(LIBBITCOIN_CRYPTO) $(LIBSECP256K1) \
+	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
+safecoin_tx_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) \
+	$(LIBTOOLFLAGS) --mode=link $(CXXLD) $(AM_CXXFLAGS) \
+	$(CXXFLAGS) $(safecoin_tx_LDFLAGS) $(LDFLAGS) -o $@
+am__safecoind_SOURCES_DIST = bitcoind.cpp bitcoind-res.rc
+#am__objects_18 = bitcoind-res.$(OBJEXT)
+am_safecoind_OBJECTS = safecoind-bitcoind.$(OBJEXT) $(am__objects_18)
+safecoind_OBJECTS = $(am_safecoind_OBJECTS)
+safecoind_DEPENDENCIES = $(LIBBITCOIN_SERVER) $(LIBBITCOIN_COMMON) \
+	$(LIBBITCOIN_UNIVALUE) $(LIBBITCOIN_UTIL) $(LIBBITCOIN_CRYPTO) \
+	$(am__DEPENDENCIES_2) $(am__DEPENDENCIES_3) $(LIBSECP256K1) \
+	$(am__append_9) $(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
+	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
+	$(am__DEPENDENCIES_1)
+safecoind_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) \
+	$(LIBTOOLFLAGS) --mode=link $(CXXLD) $(AM_CXXFLAGS) \
+	$(CXXFLAGS) $(safecoind_LDFLAGS) $(LDFLAGS) -o $@
+am__test_test_safecoin_SOURCES_DIST = test/bignum.h \
 	test/alert_tests.cpp test/allocator_tests.cpp \
 	test/base32_tests.cpp test/base58_tests.cpp \
 	test/base64_tests.cpp test/bloom_tests.cpp \
@@ -726,56 +726,56 @@ am__test_test_litecoin_SOURCES_DIST = test/bignum.h \
 	test/data/script_invalid.json test/data/tx_invalid.json \
 	test/data/tx_valid.json test/data/sighash.json \
 	test/data/alertTests.raw
-am__objects_19 = test/test_test_litecoin-accounting_tests.$(OBJEXT) \
-	test/test_test_litecoin-wallet_tests.$(OBJEXT) \
-	test/test_test_litecoin-rpc_wallet_tests.$(OBJEXT)
-am__objects_20 = test/test_test_litecoin-alert_tests.$(OBJEXT) \
-	test/test_test_litecoin-allocator_tests.$(OBJEXT) \
-	test/test_test_litecoin-base32_tests.$(OBJEXT) \
-	test/test_test_litecoin-base58_tests.$(OBJEXT) \
-	test/test_test_litecoin-base64_tests.$(OBJEXT) \
-	test/test_test_litecoin-bloom_tests.$(OBJEXT) \
-	test/test_test_litecoin-checkblock_tests.$(OBJEXT) \
-	test/test_test_litecoin-Checkpoints_tests.$(OBJEXT) \
-	test/test_test_litecoin-coins_tests.$(OBJEXT) \
-	test/test_test_litecoin-compress_tests.$(OBJEXT) \
-	test/test_test_litecoin-crypto_tests.$(OBJEXT) \
-	test/test_test_litecoin-DoS_tests.$(OBJEXT) \
-	test/test_test_litecoin-getarg_tests.$(OBJEXT) \
-	test/test_test_litecoin-hash_tests.$(OBJEXT) \
-	test/test_test_litecoin-key_tests.$(OBJEXT) \
-	test/test_test_litecoin-main_tests.$(OBJEXT) \
-	test/test_test_litecoin-mempool_tests.$(OBJEXT) \
-	test/test_test_litecoin-miner_tests.$(OBJEXT) \
-	test/test_test_litecoin-mruset_tests.$(OBJEXT) \
-	test/test_test_litecoin-multisig_tests.$(OBJEXT) \
-	test/test_test_litecoin-netbase_tests.$(OBJEXT) \
-	test/test_test_litecoin-pmt_tests.$(OBJEXT) \
-	test/test_test_litecoin-rpc_tests.$(OBJEXT) \
-	test/test_test_litecoin-sanity_tests.$(OBJEXT) \
-	test/test_test_litecoin-script_P2SH_tests.$(OBJEXT) \
-	test/test_test_litecoin-script_tests.$(OBJEXT) \
-	test/test_test_litecoin-scriptnum_tests.$(OBJEXT) \
-	test/test_test_litecoin-serialize_tests.$(OBJEXT) \
-	test/test_test_litecoin-sighash_tests.$(OBJEXT) \
-	test/test_test_litecoin-sigopcount_tests.$(OBJEXT) \
-	test/test_test_litecoin-skiplist_tests.$(OBJEXT) \
-	test/test_test_litecoin-test_bitcoin.$(OBJEXT) \
-	test/test_test_litecoin-timedata_tests.$(OBJEXT) \
-	test/test_test_litecoin-transaction_tests.$(OBJEXT) \
-	test/test_test_litecoin-uint256_tests.$(OBJEXT) \
-	test/test_test_litecoin-univalue_tests.$(OBJEXT) \
-	test/test_test_litecoin-util_tests.$(OBJEXT) \
+am__objects_19 = test/test_test_safecoin-accounting_tests.$(OBJEXT) \
+	test/test_test_safecoin-wallet_tests.$(OBJEXT) \
+	test/test_test_safecoin-rpc_wallet_tests.$(OBJEXT)
+am__objects_20 = test/test_test_safecoin-alert_tests.$(OBJEXT) \
+	test/test_test_safecoin-allocator_tests.$(OBJEXT) \
+	test/test_test_safecoin-base32_tests.$(OBJEXT) \
+	test/test_test_safecoin-base58_tests.$(OBJEXT) \
+	test/test_test_safecoin-base64_tests.$(OBJEXT) \
+	test/test_test_safecoin-bloom_tests.$(OBJEXT) \
+	test/test_test_safecoin-checkblock_tests.$(OBJEXT) \
+	test/test_test_safecoin-Checkpoints_tests.$(OBJEXT) \
+	test/test_test_safecoin-coins_tests.$(OBJEXT) \
+	test/test_test_safecoin-compress_tests.$(OBJEXT) \
+	test/test_test_safecoin-crypto_tests.$(OBJEXT) \
+	test/test_test_safecoin-DoS_tests.$(OBJEXT) \
+	test/test_test_safecoin-getarg_tests.$(OBJEXT) \
+	test/test_test_safecoin-hash_tests.$(OBJEXT) \
+	test/test_test_safecoin-key_tests.$(OBJEXT) \
+	test/test_test_safecoin-main_tests.$(OBJEXT) \
+	test/test_test_safecoin-mempool_tests.$(OBJEXT) \
+	test/test_test_safecoin-miner_tests.$(OBJEXT) \
+	test/test_test_safecoin-mruset_tests.$(OBJEXT) \
+	test/test_test_safecoin-multisig_tests.$(OBJEXT) \
+	test/test_test_safecoin-netbase_tests.$(OBJEXT) \
+	test/test_test_safecoin-pmt_tests.$(OBJEXT) \
+	test/test_test_safecoin-rpc_tests.$(OBJEXT) \
+	test/test_test_safecoin-sanity_tests.$(OBJEXT) \
+	test/test_test_safecoin-script_P2SH_tests.$(OBJEXT) \
+	test/test_test_safecoin-script_tests.$(OBJEXT) \
+	test/test_test_safecoin-scriptnum_tests.$(OBJEXT) \
+	test/test_test_safecoin-serialize_tests.$(OBJEXT) \
+	test/test_test_safecoin-sighash_tests.$(OBJEXT) \
+	test/test_test_safecoin-sigopcount_tests.$(OBJEXT) \
+	test/test_test_safecoin-skiplist_tests.$(OBJEXT) \
+	test/test_test_safecoin-test_bitcoin.$(OBJEXT) \
+	test/test_test_safecoin-timedata_tests.$(OBJEXT) \
+	test/test_test_safecoin-transaction_tests.$(OBJEXT) \
+	test/test_test_safecoin-uint256_tests.$(OBJEXT) \
+	test/test_test_safecoin-univalue_tests.$(OBJEXT) \
+	test/test_test_safecoin-util_tests.$(OBJEXT) \
 	$(am__objects_19)
-am_test_test_litecoin_OBJECTS = $(am__objects_20) \
+am_test_test_safecoin_OBJECTS = $(am__objects_20) \
 	$(am__objects_1) $(am__objects_1)
 am__objects_21 = $(am__objects_1) $(am__objects_1)
-nodist_test_test_litecoin_OBJECTS =  \
+nodist_test_test_safecoin_OBJECTS =  \
 	$(am__objects_21)
-test_test_litecoin_OBJECTS = $(am_test_test_litecoin_OBJECTS) \
-	$(nodist_test_test_litecoin_OBJECTS)
+test_test_safecoin_OBJECTS = $(am_test_test_safecoin_OBJECTS) \
+	$(nodist_test_test_safecoin_OBJECTS)
 am__DEPENDENCIES_4 = libbitcoinconsensus.la
-test_test_litecoin_DEPENDENCIES =  \
+test_test_safecoin_DEPENDENCIES =  \
 	$(LIBBITCOIN_SERVER) $(LIBBITCOIN_CLI) \
 	$(LIBBITCOIN_COMMON) $(LIBBITCOIN_UTIL) \
 	$(LIBBITCOIN_CRYPTO) $(LIBBITCOIN_UNIVALUE) \
@@ -785,9 +785,9 @@ test_test_litecoin_DEPENDENCIES =  \
 	$(am__DEPENDENCIES_4) $(am__DEPENDENCIES_1) \
 	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
 	$(am__DEPENDENCIES_1)
-test_test_litecoin_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX \
+test_test_safecoin_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX \
 	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CXXLD) \
-	$(AM_CXXFLAGS) $(CXXFLAGS) $(test_test_litecoin_LDFLAGS) \
+	$(AM_CXXFLAGS) $(CXXFLAGS) $(test_test_safecoin_LDFLAGS) \
 	$(LDFLAGS) -o $@
 DEFAULT_INCLUDES = -I. -I$(top_builddir)/src/config
 depcomp = $(SHELL) $(top_srcdir)/build-aux/depcomp
@@ -835,12 +835,12 @@ SOURCES = $(crypto_libbitcoin_crypto_a_SOURCES) \
 	$(libbitcoin_wallet_a_SOURCES) $(qt_libbitcoinqt_a_SOURCES) \
 	$(nodist_qt_libbitcoinqt_a_SOURCES) \
 	$(univalue_libbitcoin_univalue_a_SOURCES) \
-	$(libbitcoinconsensus_la_SOURCES) $(litecoin_cli_SOURCES) \
-	$(litecoin_tx_SOURCES) $(litecoind_SOURCES) \
-	$(qt_litecoin_qt_SOURCES) $(qt_test_test_litecoin_qt_SOURCES) \
-	$(nodist_qt_test_test_litecoin_qt_SOURCES) \
-	$(test_test_litecoin_SOURCES) \
-	$(nodist_test_test_litecoin_SOURCES)
+	$(libbitcoinconsensus_la_SOURCES) $(qt_safecoin_qt_SOURCES) \
+	$(qt_test_test_safecoin_qt_SOURCES) \
+	$(nodist_qt_test_test_safecoin_qt_SOURCES) \
+	$(safecoin_cli_SOURCES) $(safecoin_tx_SOURCES) \
+	$(safecoind_SOURCES) $(test_test_safecoin_SOURCES) \
+	$(nodist_test_test_safecoin_SOURCES)
 DIST_SOURCES = $(crypto_libbitcoin_crypto_a_SOURCES) \
 	$(libbitcoin_cli_a_SOURCES) $(libbitcoin_common_a_SOURCES) \
 	$(libbitcoin_server_a_SOURCES) \
@@ -849,11 +849,11 @@ DIST_SOURCES = $(crypto_libbitcoin_crypto_a_SOURCES) \
 	$(am__qt_libbitcoinqt_a_SOURCES_DIST) \
 	$(univalue_libbitcoin_univalue_a_SOURCES) \
 	$(am__libbitcoinconsensus_la_SOURCES_DIST) \
-	$(am__litecoin_cli_SOURCES_DIST) $(litecoin_tx_SOURCES) \
-	$(am__litecoind_SOURCES_DIST) \
-	$(am__qt_litecoin_qt_SOURCES_DIST) \
-	$(am__qt_test_test_litecoin_qt_SOURCES_DIST) \
-	$(am__test_test_litecoin_SOURCES_DIST)
+	$(am__qt_safecoin_qt_SOURCES_DIST) \
+	$(am__qt_test_test_safecoin_qt_SOURCES_DIST) \
+	$(am__safecoin_cli_SOURCES_DIST) $(safecoin_tx_SOURCES) \
+	$(am__safecoind_SOURCES_DIST) \
+	$(am__test_test_safecoin_SOURCES_DIST)
 RECURSIVE_TARGETS = all-recursive check-recursive dvi-recursive \
 	html-recursive info-recursive install-data-recursive \
 	install-dvi-recursive install-exec-recursive \
@@ -872,7 +872,7 @@ ETAGS = etags
 CTAGS = ctags
 am__tty_colors = \
 red=; grn=; lgn=; blu=; std=
-am__EXEEXT_6 = test/test_litecoin$(EXEEXT) \
+am__EXEEXT_6 = test/test_safecoin$(EXEEXT) \
 	test/bitcoin-util-test.py
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 am__relativize = \
@@ -900,13 +900,13 @@ am__relativize = \
     dir1=`echo "$$dir1" | sed -e "$$sed_rest"`; \
   done; \
   reldir="$$dir2"
-ACLOCAL = ${SHELL} /home/ntrung/PROJ/GLB/BitcoreFullNode/litecoin-v0.10/build-aux/missing --run aclocal-1.11
+ACLOCAL = ${SHELL} /home/ntrung/PROJ/GLB/BitcoreFullNode/safecoin-0.10/build-aux/missing --run aclocal-1.11
 AMTAR = $${TAR-tar}
 AM_DEFAULT_VERBOSITY = 0
 AR = /usr/bin/ar
-AUTOCONF = ${SHELL} /home/ntrung/PROJ/GLB/BitcoreFullNode/litecoin-v0.10/build-aux/missing --run autoconf
-AUTOHEADER = ${SHELL} /home/ntrung/PROJ/GLB/BitcoreFullNode/litecoin-v0.10/build-aux/missing --run autoheader
-AUTOMAKE = ${SHELL} /home/ntrung/PROJ/GLB/BitcoreFullNode/litecoin-v0.10/build-aux/missing --run automake-1.11
+AUTOCONF = ${SHELL} /home/ntrung/PROJ/GLB/BitcoreFullNode/safecoin-0.10/build-aux/missing --run autoconf
+AUTOHEADER = ${SHELL} /home/ntrung/PROJ/GLB/BitcoreFullNode/safecoin-0.10/build-aux/missing --run autoheader
+AUTOMAKE = ${SHELL} /home/ntrung/PROJ/GLB/BitcoreFullNode/safecoin-0.10/build-aux/missing --run automake-1.11
 AWK = mawk
 BDB_CPPFLAGS = 
 BDB_LIBS = -ldb_cxx
@@ -985,7 +985,7 @@ LRELEASE = /usr/bin/lrelease-qt4
 LTLIBOBJS = 
 LUPDATE = /usr/bin/lupdate-qt4
 MAINT = 
-MAKEINFO = ${SHELL} /home/ntrung/PROJ/GLB/BitcoreFullNode/litecoin-v0.10/build-aux/missing --run makeinfo
+MAKEINFO = ${SHELL} /home/ntrung/PROJ/GLB/BitcoreFullNode/safecoin-0.10/build-aux/missing --run makeinfo
 MAKENSIS = 
 MANIFEST_TOOL = :
 MINIUPNPC_CPPFLAGS = 
@@ -1001,11 +1001,11 @@ OBJDUMP = objdump
 OBJEXT = o
 OTOOL = 
 OTOOL64 = 
-PACKAGE = litecoin
-PACKAGE_BUGREPORT = info@litecoin.org
-PACKAGE_NAME = Litecoin Core
-PACKAGE_STRING = Litecoin Core 0.10.3.0
-PACKAGE_TARNAME = litecoin
+PACKAGE = safecoin
+PACKAGE_BUGREPORT = info@safe.cash
+PACKAGE_NAME = Safecoin Core
+PACKAGE_STRING = Safecoin Core 0.10.3.0
+PACKAGE_TARNAME = safecoin
 PACKAGE_URL = 
 PACKAGE_VERSION = 0.10.3.0
 PATH_SEPARATOR = :
@@ -1056,10 +1056,10 @@ WINDRES =
 X11XCB_CFLAGS = 
 X11XCB_LIBS = 
 XGETTEXT = 
-abs_builddir = /home/ntrung/PROJ/GLB/BitcoreFullNode/litecoin-v0.10/src
-abs_srcdir = /home/ntrung/PROJ/GLB/BitcoreFullNode/litecoin-v0.10/src
-abs_top_builddir = /home/ntrung/PROJ/GLB/BitcoreFullNode/litecoin-v0.10
-abs_top_srcdir = /home/ntrung/PROJ/GLB/BitcoreFullNode/litecoin-v0.10
+abs_builddir = /home/ntrung/PROJ/GLB/BitcoreFullNode/safecoin-0.10/src
+abs_srcdir = /home/ntrung/PROJ/GLB/BitcoreFullNode/safecoin-0.10/src
+abs_top_builddir = /home/ntrung/PROJ/GLB/BitcoreFullNode/safecoin-0.10
+abs_top_srcdir = /home/ntrung/PROJ/GLB/BitcoreFullNode/safecoin-0.10
 ac_ct_AR = ar
 ac_ct_CC = gcc
 ac_ct_CXX = g++
@@ -1091,7 +1091,7 @@ host_vendor = unknown
 htmldir = ${docdir}
 includedir = ${prefix}/include
 infodir = ${datarootdir}/info
-install_sh = ${SHELL} /home/ntrung/PROJ/GLB/BitcoreFullNode/litecoin-v0.10/build-aux/install-sh
+install_sh = ${SHELL} /home/ntrung/PROJ/GLB/BitcoreFullNode/safecoin-0.10/build-aux/install-sh
 libdir = ${exec_prefix}/lib
 libexecdir = ${exec_prefix}/libexec
 localedir = ${datarootdir}/locale
@@ -1347,30 +1347,30 @@ libbitcoin_cli_a_SOURCES = \
 nodist_libbitcoin_util_a_SOURCES = $(srcdir)/obj/build.h
 #
 
-# litecoind binary #
-litecoind_LDADD = $(LIBBITCOIN_SERVER) $(LIBBITCOIN_COMMON) \
+# safecoind binary #
+safecoind_LDADD = $(LIBBITCOIN_SERVER) $(LIBBITCOIN_COMMON) \
 	$(LIBBITCOIN_UNIVALUE) $(LIBBITCOIN_UTIL) $(LIBBITCOIN_CRYPTO) \
 	$(LIBLEVELDB) $(LIBMEMENV) $(LIBSECP256K1) $(am__append_9) \
 	$(BOOST_LIBS) $(BDB_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) \
 	$(MINIUPNPC_LIBS)
-litecoind_SOURCES = bitcoind.cpp $(am__append_10)
-litecoind_CPPFLAGS = $(BITCOIN_INCLUDES)
-litecoind_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+safecoind_SOURCES = bitcoind.cpp $(am__append_10)
+safecoind_CPPFLAGS = $(BITCOIN_INCLUDES)
+safecoind_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 
 # bitcoin-cli binary #
-litecoin_cli_LDADD = \
+safecoin_cli_LDADD = \
   $(LIBBITCOIN_CLI) \
   $(LIBBITCOIN_UTIL) \
   $(BOOST_LIBS) \
   $(SSL_LIBS) \
   $(CRYPTO_LIBS)
 
-litecoin_cli_SOURCES = bitcoin-cli.cpp $(am__append_11)
-litecoin_cli_CPPFLAGS = $(BITCOIN_INCLUDES)
+safecoin_cli_SOURCES = bitcoin-cli.cpp $(am__append_11)
+safecoin_cli_CPPFLAGS = $(BITCOIN_INCLUDES)
 #
 
 # bitcoin-tx binary #
-litecoin_tx_LDADD = \
+safecoin_tx_LDADD = \
   $(LIBBITCOIN_UNIVALUE) \
   $(LIBBITCOIN_COMMON) \
   $(LIBBITCOIN_UTIL) \
@@ -1379,11 +1379,11 @@ litecoin_tx_LDADD = \
   $(BOOST_LIBS) \
   $(CRYPTO_LIBS)
 
-litecoin_tx_SOURCES = bitcoin-tx.cpp
-litecoin_tx_CPPFLAGS = $(BITCOIN_INCLUDES)
+safecoin_tx_SOURCES = bitcoin-tx.cpp
+safecoin_tx_CPPFLAGS = $(BITCOIN_INCLUDES)
 #
-litecoin_tx_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
-litecoin_cli_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+safecoin_tx_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+safecoin_cli_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 include_HEADERS = script/bitcoinconsensus.h
 libbitcoinconsensus_la_SOURCES =  \
 	primitives/transaction.cpp \
@@ -1406,7 +1406,7 @@ CLEANFILES = leveldb/libleveldb.a leveldb/libmemenv.a *.gcda *.gcno \
 DISTCLEANFILES = obj/build.h
 EXTRA_DIST = leveldb $(am__append_16)
 TEST_SRCDIR = test
-TEST_BINARY = test/test_litecoin$(EXEEXT)
+TEST_BINARY = test/test_safecoin$(EXEEXT)
 JSON_TEST_FILES = \
   test/data/script_valid.json \
   test/data/base58_keys_valid.json \
@@ -1450,9 +1450,9 @@ BITCOIN_TESTS = test/bignum.h test/alert_tests.cpp \
 	test/uint256_tests.cpp \
 	test/univalue_tests.cpp test/util_tests.cpp \
 	$(am__append_17)
-test_test_litecoin_SOURCES = $(BITCOIN_TESTS) $(JSON_TEST_FILES) $(RAW_TEST_FILES)
-test_test_litecoin_CPPFLAGS = $(BITCOIN_INCLUDES) -I$(builddir)/test/ $(TESTDEFS)
-test_test_litecoin_LDADD = $(LIBBITCOIN_SERVER) \
+test_test_safecoin_SOURCES = $(BITCOIN_TESTS) $(JSON_TEST_FILES) $(RAW_TEST_FILES)
+test_test_safecoin_CPPFLAGS = $(BITCOIN_INCLUDES) -I$(builddir)/test/ $(TESTDEFS)
+test_test_safecoin_LDADD = $(LIBBITCOIN_SERVER) \
 	$(LIBBITCOIN_CLI) $(LIBBITCOIN_COMMON) \
 	$(LIBBITCOIN_UTIL) $(LIBBITCOIN_CRYPTO) \
 	$(LIBBITCOIN_UNIVALUE) $(LIBLEVELDB) \
@@ -1462,8 +1462,8 @@ test_test_litecoin_LDADD = $(LIBBITCOIN_SERVER) \
 	$(LIBBITCOIN_CONSENSUS) $(BDB_LIBS) \
 	$(SSL_LIBS) $(CRYPTO_LIBS) \
 	$(MINIUPNPC_LIBS)
-test_test_litecoin_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS) -static
-nodist_test_test_litecoin_SOURCES = $(GENERATED_TEST_FILES)
+test_test_safecoin_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS) -static
+nodist_test_test_safecoin_SOURCES = $(GENERATED_TEST_FILES)
 CLEAN_BITCOIN_TEST = test/*.gcda test/*.gcno $(GENERATED_TEST_FILES)
 
 # bitcoin qt core #
@@ -1757,12 +1757,12 @@ nodist_qt_libbitcoinqt_a_SOURCES = $(QT_MOC_CPP) $(QT_MOC) $(PROTOBUF_CC) \
 QT_FORMS_H = $(join $(dir $(QT_FORMS_UI)),$(addprefix ui_, $(notdir $(QT_FORMS_UI:.ui=.h))))
 
 # bitcoin-qt binary #
-qt_litecoin_qt_CPPFLAGS = $(BITCOIN_INCLUDES) $(BITCOIN_QT_INCLUDES) \
+qt_safecoin_qt_CPPFLAGS = $(BITCOIN_INCLUDES) $(BITCOIN_QT_INCLUDES) \
   $(QT_INCLUDES) $(PROTOBUF_CFLAGS) $(QR_CFLAGS)
 
-qt_litecoin_qt_SOURCES = qt/bitcoin.cpp \
+qt_safecoin_qt_SOURCES = qt/bitcoin.cpp \
 	$(am__append_23) $(am__append_24)
-qt_litecoin_qt_LDADD = qt/libbitcoinqt.a \
+qt_safecoin_qt_LDADD = qt/libbitcoinqt.a \
 	$(LIBBITCOIN_SERVER) $(am__append_25) \
 	$(LIBBITCOIN_CLI) $(LIBBITCOIN_COMMON) \
 	$(LIBBITCOIN_UTIL) $(LIBBITCOIN_CRYPTO) \
@@ -1771,8 +1771,8 @@ qt_litecoin_qt_LDADD = qt/libbitcoinqt.a \
 	$(QT_DBUS_LIBS) $(QR_LIBS) $(PROTOBUF_LIBS) \
 	$(BDB_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) \
 	$(MINIUPNPC_LIBS) $(LIBSECP256K1)
-qt_litecoin_qt_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(QT_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
-qt_litecoin_qt_LIBTOOLFLAGS = --tag CXX
+qt_safecoin_qt_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(QT_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+qt_safecoin_qt_LIBTOOLFLAGS = --tag CXX
 
 #locale/foo.ts -> locale/foo.qm
 QT_QM = $(QT_TS:.ts=.qm)
@@ -1784,15 +1784,15 @@ TEST_QT_H = \
   qt/test/paymentrequestdata.h \
   qt/test/paymentservertests.h
 
-qt_test_test_litecoin_qt_CPPFLAGS = $(BITCOIN_INCLUDES) $(BITCOIN_QT_INCLUDES) \
+qt_test_test_safecoin_qt_CPPFLAGS = $(BITCOIN_INCLUDES) $(BITCOIN_QT_INCLUDES) \
   $(QT_INCLUDES) $(QT_TEST_INCLUDES) $(PROTOBUF_CFLAGS)
 
-qt_test_test_litecoin_qt_SOURCES =  \
+qt_test_test_safecoin_qt_SOURCES =  \
 	qt/test/test_main.cpp \
 	qt/test/uritests.cpp $(TEST_QT_H) \
 	$(am__append_30)
-nodist_qt_test_test_litecoin_qt_SOURCES = $(TEST_QT_MOC_CPP)
-qt_test_test_litecoin_qt_LDADD =  \
+nodist_qt_test_test_safecoin_qt_SOURCES = $(TEST_QT_MOC_CPP)
+qt_test_test_safecoin_qt_LDADD =  \
 	$(LIBBITCOINQT) $(LIBBITCOIN_SERVER) \
 	$(am__append_31) $(LIBBITCOIN_CLI) \
 	$(LIBBITCOIN_COMMON) $(LIBBITCOIN_UTIL) \
@@ -1803,7 +1803,7 @@ qt_test_test_litecoin_qt_LDADD =  \
 	$(QT_LIBS) $(QR_LIBS) $(PROTOBUF_LIBS) \
 	$(BDB_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) \
 	$(MINIUPNPC_LIBS) $(LIBSECP256K1)
-qt_test_test_litecoin_qt_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(QT_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+qt_test_test_safecoin_qt_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(QT_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 CLEAN_BITCOIN_QT_TEST = $(TEST_QT_MOC_CPP) qt/test/*.gcda qt/test/*.gcno
 all: all-recursive
 
@@ -2243,16 +2243,7 @@ clean-binPROGRAMS:
 	list=`for p in $$list; do echo "$$p"; done | sed 's/$(EXEEXT)$$//'`; \
 	echo " rm -f" $$list; \
 	rm -f $$list
-litecoin-cli$(EXEEXT): $(litecoin_cli_OBJECTS) $(litecoin_cli_DEPENDENCIES) $(EXTRA_litecoin_cli_DEPENDENCIES) 
-	@rm -f litecoin-cli$(EXEEXT)
-	$(AM_V_CXXLD)$(litecoin_cli_LINK) $(litecoin_cli_OBJECTS) $(litecoin_cli_LDADD) $(LIBS)
-litecoin-tx$(EXEEXT): $(litecoin_tx_OBJECTS) $(litecoin_tx_DEPENDENCIES) $(EXTRA_litecoin_tx_DEPENDENCIES) 
-	@rm -f litecoin-tx$(EXEEXT)
-	$(AM_V_CXXLD)$(litecoin_tx_LINK) $(litecoin_tx_OBJECTS) $(litecoin_tx_LDADD) $(LIBS)
-litecoind$(EXEEXT): $(litecoind_OBJECTS) $(litecoind_DEPENDENCIES) $(EXTRA_litecoind_DEPENDENCIES) 
-	@rm -f litecoind$(EXEEXT)
-	$(AM_V_CXXLD)$(litecoind_LINK) $(litecoind_OBJECTS) $(litecoind_LDADD) $(LIBS)
-qt/qt_litecoin_qt-bitcoin.$(OBJEXT): qt/$(am__dirstamp) \
+qt/qt_safecoin_qt-bitcoin.$(OBJEXT): qt/$(am__dirstamp) \
 	qt/$(DEPDIR)/$(am__dirstamp)
 qt/macdockiconhandler.$(OBJEXT): qt/$(am__dirstamp) \
 	qt/$(DEPDIR)/$(am__dirstamp)
@@ -2266,117 +2257,126 @@ qt/res/$(DEPDIR)/$(am__dirstamp):
 	@: > qt/res/$(DEPDIR)/$(am__dirstamp)
 qt/res/bitcoin-qt-res.$(OBJEXT): qt/res/$(am__dirstamp) \
 	qt/res/$(DEPDIR)/$(am__dirstamp)
-qt/litecoin-qt$(EXEEXT): $(qt_litecoin_qt_OBJECTS) $(qt_litecoin_qt_DEPENDENCIES) $(EXTRA_qt_litecoin_qt_DEPENDENCIES) qt/$(am__dirstamp)
-	@rm -f qt/litecoin-qt$(EXEEXT)
-	$(AM_V_CXXLD)$(qt_litecoin_qt_LINK) $(qt_litecoin_qt_OBJECTS) $(qt_litecoin_qt_LDADD) $(LIBS)
+qt/safecoin-qt$(EXEEXT): $(qt_safecoin_qt_OBJECTS) $(qt_safecoin_qt_DEPENDENCIES) $(EXTRA_qt_safecoin_qt_DEPENDENCIES) qt/$(am__dirstamp)
+	@rm -f qt/safecoin-qt$(EXEEXT)
+	$(AM_V_CXXLD)$(qt_safecoin_qt_LINK) $(qt_safecoin_qt_OBJECTS) $(qt_safecoin_qt_LDADD) $(LIBS)
 qt/test/$(am__dirstamp):
 	@$(MKDIR_P) qt/test
 	@: > qt/test/$(am__dirstamp)
 qt/test/$(DEPDIR)/$(am__dirstamp):
 	@$(MKDIR_P) qt/test/$(DEPDIR)
 	@: > qt/test/$(DEPDIR)/$(am__dirstamp)
-qt/test/qt_test_test_litecoin_qt-test_main.$(OBJEXT):  \
+qt/test/qt_test_test_safecoin_qt-test_main.$(OBJEXT):  \
 	qt/test/$(am__dirstamp) qt/test/$(DEPDIR)/$(am__dirstamp)
-qt/test/qt_test_test_litecoin_qt-uritests.$(OBJEXT):  \
+qt/test/qt_test_test_safecoin_qt-uritests.$(OBJEXT):  \
 	qt/test/$(am__dirstamp) qt/test/$(DEPDIR)/$(am__dirstamp)
-qt/test/qt_test_test_litecoin_qt-paymentservertests.$(OBJEXT):  \
+qt/test/qt_test_test_safecoin_qt-paymentservertests.$(OBJEXT):  \
 	qt/test/$(am__dirstamp) qt/test/$(DEPDIR)/$(am__dirstamp)
-qt/test/qt_test_test_litecoin_qt-moc_uritests.$(OBJEXT):  \
+qt/test/qt_test_test_safecoin_qt-moc_uritests.$(OBJEXT):  \
 	qt/test/$(am__dirstamp) qt/test/$(DEPDIR)/$(am__dirstamp)
-qt/test/qt_test_test_litecoin_qt-moc_paymentservertests.$(OBJEXT):  \
+qt/test/qt_test_test_safecoin_qt-moc_paymentservertests.$(OBJEXT):  \
 	qt/test/$(am__dirstamp) qt/test/$(DEPDIR)/$(am__dirstamp)
-qt/test/test_litecoin-qt$(EXEEXT): $(qt_test_test_litecoin_qt_OBJECTS) $(qt_test_test_litecoin_qt_DEPENDENCIES) $(EXTRA_qt_test_test_litecoin_qt_DEPENDENCIES) qt/test/$(am__dirstamp)
-	@rm -f qt/test/test_litecoin-qt$(EXEEXT)
-	$(AM_V_CXXLD)$(qt_test_test_litecoin_qt_LINK) $(qt_test_test_litecoin_qt_OBJECTS) $(qt_test_test_litecoin_qt_LDADD) $(LIBS)
+qt/test/test_safecoin-qt$(EXEEXT): $(qt_test_test_safecoin_qt_OBJECTS) $(qt_test_test_safecoin_qt_DEPENDENCIES) $(EXTRA_qt_test_test_safecoin_qt_DEPENDENCIES) qt/test/$(am__dirstamp)
+	@rm -f qt/test/test_safecoin-qt$(EXEEXT)
+	$(AM_V_CXXLD)$(qt_test_test_safecoin_qt_LINK) $(qt_test_test_safecoin_qt_OBJECTS) $(qt_test_test_safecoin_qt_LDADD) $(LIBS)
+safecoin-cli$(EXEEXT): $(safecoin_cli_OBJECTS) $(safecoin_cli_DEPENDENCIES) $(EXTRA_safecoin_cli_DEPENDENCIES) 
+	@rm -f safecoin-cli$(EXEEXT)
+	$(AM_V_CXXLD)$(safecoin_cli_LINK) $(safecoin_cli_OBJECTS) $(safecoin_cli_LDADD) $(LIBS)
+safecoin-tx$(EXEEXT): $(safecoin_tx_OBJECTS) $(safecoin_tx_DEPENDENCIES) $(EXTRA_safecoin_tx_DEPENDENCIES) 
+	@rm -f safecoin-tx$(EXEEXT)
+	$(AM_V_CXXLD)$(safecoin_tx_LINK) $(safecoin_tx_OBJECTS) $(safecoin_tx_LDADD) $(LIBS)
+safecoind$(EXEEXT): $(safecoind_OBJECTS) $(safecoind_DEPENDENCIES) $(EXTRA_safecoind_DEPENDENCIES) 
+	@rm -f safecoind$(EXEEXT)
+	$(AM_V_CXXLD)$(safecoind_LINK) $(safecoind_OBJECTS) $(safecoind_LDADD) $(LIBS)
 test/$(am__dirstamp):
 	@$(MKDIR_P) test
 	@: > test/$(am__dirstamp)
 test/$(DEPDIR)/$(am__dirstamp):
 	@$(MKDIR_P) test/$(DEPDIR)
 	@: > test/$(DEPDIR)/$(am__dirstamp)
-test/test_test_litecoin-alert_tests.$(OBJEXT): test/$(am__dirstamp) \
+test/test_test_safecoin-alert_tests.$(OBJEXT): test/$(am__dirstamp) \
 	test/$(DEPDIR)/$(am__dirstamp)
-test/test_test_litecoin-allocator_tests.$(OBJEXT):  \
+test/test_test_safecoin-allocator_tests.$(OBJEXT):  \
 	test/$(am__dirstamp) test/$(DEPDIR)/$(am__dirstamp)
-test/test_test_litecoin-base32_tests.$(OBJEXT): test/$(am__dirstamp) \
+test/test_test_safecoin-base32_tests.$(OBJEXT): test/$(am__dirstamp) \
 	test/$(DEPDIR)/$(am__dirstamp)
-test/test_test_litecoin-base58_tests.$(OBJEXT): test/$(am__dirstamp) \
+test/test_test_safecoin-base58_tests.$(OBJEXT): test/$(am__dirstamp) \
 	test/$(DEPDIR)/$(am__dirstamp)
-test/test_test_litecoin-base64_tests.$(OBJEXT): test/$(am__dirstamp) \
+test/test_test_safecoin-base64_tests.$(OBJEXT): test/$(am__dirstamp) \
 	test/$(DEPDIR)/$(am__dirstamp)
-test/test_test_litecoin-bloom_tests.$(OBJEXT): test/$(am__dirstamp) \
+test/test_test_safecoin-bloom_tests.$(OBJEXT): test/$(am__dirstamp) \
 	test/$(DEPDIR)/$(am__dirstamp)
-test/test_test_litecoin-checkblock_tests.$(OBJEXT):  \
+test/test_test_safecoin-checkblock_tests.$(OBJEXT):  \
 	test/$(am__dirstamp) test/$(DEPDIR)/$(am__dirstamp)
-test/test_test_litecoin-Checkpoints_tests.$(OBJEXT):  \
+test/test_test_safecoin-Checkpoints_tests.$(OBJEXT):  \
 	test/$(am__dirstamp) test/$(DEPDIR)/$(am__dirstamp)
-test/test_test_litecoin-coins_tests.$(OBJEXT): test/$(am__dirstamp) \
+test/test_test_safecoin-coins_tests.$(OBJEXT): test/$(am__dirstamp) \
 	test/$(DEPDIR)/$(am__dirstamp)
-test/test_test_litecoin-compress_tests.$(OBJEXT):  \
+test/test_test_safecoin-compress_tests.$(OBJEXT):  \
 	test/$(am__dirstamp) test/$(DEPDIR)/$(am__dirstamp)
-test/test_test_litecoin-crypto_tests.$(OBJEXT): test/$(am__dirstamp) \
+test/test_test_safecoin-crypto_tests.$(OBJEXT): test/$(am__dirstamp) \
 	test/$(DEPDIR)/$(am__dirstamp)
-test/test_test_litecoin-DoS_tests.$(OBJEXT): test/$(am__dirstamp) \
+test/test_test_safecoin-DoS_tests.$(OBJEXT): test/$(am__dirstamp) \
 	test/$(DEPDIR)/$(am__dirstamp)
-test/test_test_litecoin-getarg_tests.$(OBJEXT): test/$(am__dirstamp) \
+test/test_test_safecoin-getarg_tests.$(OBJEXT): test/$(am__dirstamp) \
 	test/$(DEPDIR)/$(am__dirstamp)
-test/test_test_litecoin-hash_tests.$(OBJEXT): test/$(am__dirstamp) \
+test/test_test_safecoin-hash_tests.$(OBJEXT): test/$(am__dirstamp) \
 	test/$(DEPDIR)/$(am__dirstamp)
-test/test_test_litecoin-key_tests.$(OBJEXT): test/$(am__dirstamp) \
+test/test_test_safecoin-key_tests.$(OBJEXT): test/$(am__dirstamp) \
 	test/$(DEPDIR)/$(am__dirstamp)
-test/test_test_litecoin-main_tests.$(OBJEXT): test/$(am__dirstamp) \
+test/test_test_safecoin-main_tests.$(OBJEXT): test/$(am__dirstamp) \
 	test/$(DEPDIR)/$(am__dirstamp)
-test/test_test_litecoin-mempool_tests.$(OBJEXT): test/$(am__dirstamp) \
+test/test_test_safecoin-mempool_tests.$(OBJEXT): test/$(am__dirstamp) \
 	test/$(DEPDIR)/$(am__dirstamp)
-test/test_test_litecoin-miner_tests.$(OBJEXT): test/$(am__dirstamp) \
+test/test_test_safecoin-miner_tests.$(OBJEXT): test/$(am__dirstamp) \
 	test/$(DEPDIR)/$(am__dirstamp)
-test/test_test_litecoin-mruset_tests.$(OBJEXT): test/$(am__dirstamp) \
+test/test_test_safecoin-mruset_tests.$(OBJEXT): test/$(am__dirstamp) \
 	test/$(DEPDIR)/$(am__dirstamp)
-test/test_test_litecoin-multisig_tests.$(OBJEXT):  \
+test/test_test_safecoin-multisig_tests.$(OBJEXT):  \
 	test/$(am__dirstamp) test/$(DEPDIR)/$(am__dirstamp)
-test/test_test_litecoin-netbase_tests.$(OBJEXT): test/$(am__dirstamp) \
+test/test_test_safecoin-netbase_tests.$(OBJEXT): test/$(am__dirstamp) \
 	test/$(DEPDIR)/$(am__dirstamp)
-test/test_test_litecoin-pmt_tests.$(OBJEXT): test/$(am__dirstamp) \
+test/test_test_safecoin-pmt_tests.$(OBJEXT): test/$(am__dirstamp) \
 	test/$(DEPDIR)/$(am__dirstamp)
-test/test_test_litecoin-rpc_tests.$(OBJEXT): test/$(am__dirstamp) \
+test/test_test_safecoin-rpc_tests.$(OBJEXT): test/$(am__dirstamp) \
 	test/$(DEPDIR)/$(am__dirstamp)
-test/test_test_litecoin-sanity_tests.$(OBJEXT): test/$(am__dirstamp) \
+test/test_test_safecoin-sanity_tests.$(OBJEXT): test/$(am__dirstamp) \
 	test/$(DEPDIR)/$(am__dirstamp)
-test/test_test_litecoin-script_P2SH_tests.$(OBJEXT):  \
+test/test_test_safecoin-script_P2SH_tests.$(OBJEXT):  \
 	test/$(am__dirstamp) test/$(DEPDIR)/$(am__dirstamp)
-test/test_test_litecoin-script_tests.$(OBJEXT): test/$(am__dirstamp) \
+test/test_test_safecoin-script_tests.$(OBJEXT): test/$(am__dirstamp) \
 	test/$(DEPDIR)/$(am__dirstamp)
-test/test_test_litecoin-scriptnum_tests.$(OBJEXT):  \
+test/test_test_safecoin-scriptnum_tests.$(OBJEXT):  \
 	test/$(am__dirstamp) test/$(DEPDIR)/$(am__dirstamp)
-test/test_test_litecoin-serialize_tests.$(OBJEXT):  \
+test/test_test_safecoin-serialize_tests.$(OBJEXT):  \
 	test/$(am__dirstamp) test/$(DEPDIR)/$(am__dirstamp)
-test/test_test_litecoin-sighash_tests.$(OBJEXT): test/$(am__dirstamp) \
+test/test_test_safecoin-sighash_tests.$(OBJEXT): test/$(am__dirstamp) \
 	test/$(DEPDIR)/$(am__dirstamp)
-test/test_test_litecoin-sigopcount_tests.$(OBJEXT):  \
+test/test_test_safecoin-sigopcount_tests.$(OBJEXT):  \
 	test/$(am__dirstamp) test/$(DEPDIR)/$(am__dirstamp)
-test/test_test_litecoin-skiplist_tests.$(OBJEXT):  \
+test/test_test_safecoin-skiplist_tests.$(OBJEXT):  \
 	test/$(am__dirstamp) test/$(DEPDIR)/$(am__dirstamp)
-test/test_test_litecoin-test_bitcoin.$(OBJEXT): test/$(am__dirstamp) \
+test/test_test_safecoin-test_bitcoin.$(OBJEXT): test/$(am__dirstamp) \
 	test/$(DEPDIR)/$(am__dirstamp)
-test/test_test_litecoin-timedata_tests.$(OBJEXT):  \
+test/test_test_safecoin-timedata_tests.$(OBJEXT):  \
 	test/$(am__dirstamp) test/$(DEPDIR)/$(am__dirstamp)
-test/test_test_litecoin-transaction_tests.$(OBJEXT):  \
+test/test_test_safecoin-transaction_tests.$(OBJEXT):  \
 	test/$(am__dirstamp) test/$(DEPDIR)/$(am__dirstamp)
-test/test_test_litecoin-uint256_tests.$(OBJEXT): test/$(am__dirstamp) \
+test/test_test_safecoin-uint256_tests.$(OBJEXT): test/$(am__dirstamp) \
 	test/$(DEPDIR)/$(am__dirstamp)
-test/test_test_litecoin-univalue_tests.$(OBJEXT):  \
+test/test_test_safecoin-univalue_tests.$(OBJEXT):  \
 	test/$(am__dirstamp) test/$(DEPDIR)/$(am__dirstamp)
-test/test_test_litecoin-util_tests.$(OBJEXT): test/$(am__dirstamp) \
+test/test_test_safecoin-util_tests.$(OBJEXT): test/$(am__dirstamp) \
 	test/$(DEPDIR)/$(am__dirstamp)
-test/test_test_litecoin-accounting_tests.$(OBJEXT):  \
+test/test_test_safecoin-accounting_tests.$(OBJEXT):  \
 	test/$(am__dirstamp) test/$(DEPDIR)/$(am__dirstamp)
-test/test_test_litecoin-wallet_tests.$(OBJEXT): test/$(am__dirstamp) \
+test/test_test_safecoin-wallet_tests.$(OBJEXT): test/$(am__dirstamp) \
 	test/$(DEPDIR)/$(am__dirstamp)
-test/test_test_litecoin-rpc_wallet_tests.$(OBJEXT):  \
+test/test_test_safecoin-rpc_wallet_tests.$(OBJEXT):  \
 	test/$(am__dirstamp) test/$(DEPDIR)/$(am__dirstamp)
-test/test_litecoin$(EXEEXT): $(test_test_litecoin_OBJECTS) $(test_test_litecoin_DEPENDENCIES) $(EXTRA_test_test_litecoin_DEPENDENCIES) test/$(am__dirstamp)
-	@rm -f test/test_litecoin$(EXEEXT)
-	$(AM_V_CXXLD)$(test_test_litecoin_LINK) $(test_test_litecoin_OBJECTS) $(test_test_litecoin_LDADD) $(LIBS)
+test/test_safecoin$(EXEEXT): $(test_test_safecoin_OBJECTS) $(test_test_safecoin_DEPENDENCIES) $(EXTRA_test_test_safecoin_DEPENDENCIES) test/$(am__dirstamp)
+	@rm -f test/test_safecoin$(EXEEXT)
+	$(AM_V_CXXLD)$(test_test_safecoin_LINK) $(test_test_safecoin_OBJECTS) $(test_test_safecoin_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -2507,13 +2507,13 @@ mostlyclean-compile:
 	-rm -f qt/qt_libbitcoinqt_a-walletmodeltransaction.$(OBJEXT)
 	-rm -f qt/qt_libbitcoinqt_a-walletview.$(OBJEXT)
 	-rm -f qt/qt_libbitcoinqt_a-winshutdownmonitor.$(OBJEXT)
-	-rm -f qt/qt_litecoin_qt-bitcoin.$(OBJEXT)
+	-rm -f qt/qt_safecoin_qt-bitcoin.$(OBJEXT)
 	-rm -f qt/res/bitcoin-qt-res.$(OBJEXT)
-	-rm -f qt/test/qt_test_test_litecoin_qt-moc_paymentservertests.$(OBJEXT)
-	-rm -f qt/test/qt_test_test_litecoin_qt-moc_uritests.$(OBJEXT)
-	-rm -f qt/test/qt_test_test_litecoin_qt-paymentservertests.$(OBJEXT)
-	-rm -f qt/test/qt_test_test_litecoin_qt-test_main.$(OBJEXT)
-	-rm -f qt/test/qt_test_test_litecoin_qt-uritests.$(OBJEXT)
+	-rm -f qt/test/qt_test_test_safecoin_qt-moc_paymentservertests.$(OBJEXT)
+	-rm -f qt/test/qt_test_test_safecoin_qt-moc_uritests.$(OBJEXT)
+	-rm -f qt/test/qt_test_test_safecoin_qt-paymentservertests.$(OBJEXT)
+	-rm -f qt/test/qt_test_test_safecoin_qt-test_main.$(OBJEXT)
+	-rm -f qt/test/qt_test_test_safecoin_qt-uritests.$(OBJEXT)
 	-rm -f script/libbitcoin_common_a-interpreter.$(OBJEXT)
 	-rm -f script/libbitcoin_common_a-script.$(OBJEXT)
 	-rm -f script/libbitcoin_common_a-script_error.$(OBJEXT)
@@ -2526,46 +2526,46 @@ mostlyclean-compile:
 	-rm -f script/libbitcoinconsensus_la-interpreter.lo
 	-rm -f script/libbitcoinconsensus_la-script.$(OBJEXT)
 	-rm -f script/libbitcoinconsensus_la-script.lo
-	-rm -f test/test_test_litecoin-Checkpoints_tests.$(OBJEXT)
-	-rm -f test/test_test_litecoin-DoS_tests.$(OBJEXT)
-	-rm -f test/test_test_litecoin-accounting_tests.$(OBJEXT)
-	-rm -f test/test_test_litecoin-alert_tests.$(OBJEXT)
-	-rm -f test/test_test_litecoin-allocator_tests.$(OBJEXT)
-	-rm -f test/test_test_litecoin-base32_tests.$(OBJEXT)
-	-rm -f test/test_test_litecoin-base58_tests.$(OBJEXT)
-	-rm -f test/test_test_litecoin-base64_tests.$(OBJEXT)
-	-rm -f test/test_test_litecoin-bloom_tests.$(OBJEXT)
-	-rm -f test/test_test_litecoin-checkblock_tests.$(OBJEXT)
-	-rm -f test/test_test_litecoin-coins_tests.$(OBJEXT)
-	-rm -f test/test_test_litecoin-compress_tests.$(OBJEXT)
-	-rm -f test/test_test_litecoin-crypto_tests.$(OBJEXT)
-	-rm -f test/test_test_litecoin-getarg_tests.$(OBJEXT)
-	-rm -f test/test_test_litecoin-hash_tests.$(OBJEXT)
-	-rm -f test/test_test_litecoin-key_tests.$(OBJEXT)
-	-rm -f test/test_test_litecoin-main_tests.$(OBJEXT)
-	-rm -f test/test_test_litecoin-mempool_tests.$(OBJEXT)
-	-rm -f test/test_test_litecoin-miner_tests.$(OBJEXT)
-	-rm -f test/test_test_litecoin-mruset_tests.$(OBJEXT)
-	-rm -f test/test_test_litecoin-multisig_tests.$(OBJEXT)
-	-rm -f test/test_test_litecoin-netbase_tests.$(OBJEXT)
-	-rm -f test/test_test_litecoin-pmt_tests.$(OBJEXT)
-	-rm -f test/test_test_litecoin-rpc_tests.$(OBJEXT)
-	-rm -f test/test_test_litecoin-rpc_wallet_tests.$(OBJEXT)
-	-rm -f test/test_test_litecoin-sanity_tests.$(OBJEXT)
-	-rm -f test/test_test_litecoin-script_P2SH_tests.$(OBJEXT)
-	-rm -f test/test_test_litecoin-script_tests.$(OBJEXT)
-	-rm -f test/test_test_litecoin-scriptnum_tests.$(OBJEXT)
-	-rm -f test/test_test_litecoin-serialize_tests.$(OBJEXT)
-	-rm -f test/test_test_litecoin-sighash_tests.$(OBJEXT)
-	-rm -f test/test_test_litecoin-sigopcount_tests.$(OBJEXT)
-	-rm -f test/test_test_litecoin-skiplist_tests.$(OBJEXT)
-	-rm -f test/test_test_litecoin-test_bitcoin.$(OBJEXT)
-	-rm -f test/test_test_litecoin-timedata_tests.$(OBJEXT)
-	-rm -f test/test_test_litecoin-transaction_tests.$(OBJEXT)
-	-rm -f test/test_test_litecoin-uint256_tests.$(OBJEXT)
-	-rm -f test/test_test_litecoin-univalue_tests.$(OBJEXT)
-	-rm -f test/test_test_litecoin-util_tests.$(OBJEXT)
-	-rm -f test/test_test_litecoin-wallet_tests.$(OBJEXT)
+	-rm -f test/test_test_safecoin-Checkpoints_tests.$(OBJEXT)
+	-rm -f test/test_test_safecoin-DoS_tests.$(OBJEXT)
+	-rm -f test/test_test_safecoin-accounting_tests.$(OBJEXT)
+	-rm -f test/test_test_safecoin-alert_tests.$(OBJEXT)
+	-rm -f test/test_test_safecoin-allocator_tests.$(OBJEXT)
+	-rm -f test/test_test_safecoin-base32_tests.$(OBJEXT)
+	-rm -f test/test_test_safecoin-base58_tests.$(OBJEXT)
+	-rm -f test/test_test_safecoin-base64_tests.$(OBJEXT)
+	-rm -f test/test_test_safecoin-bloom_tests.$(OBJEXT)
+	-rm -f test/test_test_safecoin-checkblock_tests.$(OBJEXT)
+	-rm -f test/test_test_safecoin-coins_tests.$(OBJEXT)
+	-rm -f test/test_test_safecoin-compress_tests.$(OBJEXT)
+	-rm -f test/test_test_safecoin-crypto_tests.$(OBJEXT)
+	-rm -f test/test_test_safecoin-getarg_tests.$(OBJEXT)
+	-rm -f test/test_test_safecoin-hash_tests.$(OBJEXT)
+	-rm -f test/test_test_safecoin-key_tests.$(OBJEXT)
+	-rm -f test/test_test_safecoin-main_tests.$(OBJEXT)
+	-rm -f test/test_test_safecoin-mempool_tests.$(OBJEXT)
+	-rm -f test/test_test_safecoin-miner_tests.$(OBJEXT)
+	-rm -f test/test_test_safecoin-mruset_tests.$(OBJEXT)
+	-rm -f test/test_test_safecoin-multisig_tests.$(OBJEXT)
+	-rm -f test/test_test_safecoin-netbase_tests.$(OBJEXT)
+	-rm -f test/test_test_safecoin-pmt_tests.$(OBJEXT)
+	-rm -f test/test_test_safecoin-rpc_tests.$(OBJEXT)
+	-rm -f test/test_test_safecoin-rpc_wallet_tests.$(OBJEXT)
+	-rm -f test/test_test_safecoin-sanity_tests.$(OBJEXT)
+	-rm -f test/test_test_safecoin-script_P2SH_tests.$(OBJEXT)
+	-rm -f test/test_test_safecoin-script_tests.$(OBJEXT)
+	-rm -f test/test_test_safecoin-scriptnum_tests.$(OBJEXT)
+	-rm -f test/test_test_safecoin-serialize_tests.$(OBJEXT)
+	-rm -f test/test_test_safecoin-sighash_tests.$(OBJEXT)
+	-rm -f test/test_test_safecoin-sigopcount_tests.$(OBJEXT)
+	-rm -f test/test_test_safecoin-skiplist_tests.$(OBJEXT)
+	-rm -f test/test_test_safecoin-test_bitcoin.$(OBJEXT)
+	-rm -f test/test_test_safecoin-timedata_tests.$(OBJEXT)
+	-rm -f test/test_test_safecoin-transaction_tests.$(OBJEXT)
+	-rm -f test/test_test_safecoin-uint256_tests.$(OBJEXT)
+	-rm -f test/test_test_safecoin-univalue_tests.$(OBJEXT)
+	-rm -f test/test_test_safecoin-util_tests.$(OBJEXT)
+	-rm -f test/test_test_safecoin-wallet_tests.$(OBJEXT)
 	-rm -f univalue/univalue.$(OBJEXT)
 	-rm -f univalue/univalue_read.$(OBJEXT)
 	-rm -f univalue/univalue_write.$(OBJEXT)
@@ -2636,9 +2636,9 @@ include ./$(DEPDIR)/libbitcoinconsensus_la-hash.Plo
 include ./$(DEPDIR)/libbitcoinconsensus_la-pubkey.Plo
 include ./$(DEPDIR)/libbitcoinconsensus_la-uint256.Plo
 include ./$(DEPDIR)/libbitcoinconsensus_la-utilstrencodings.Plo
-include ./$(DEPDIR)/litecoin_cli-bitcoin-cli.Po
-include ./$(DEPDIR)/litecoin_tx-bitcoin-tx.Po
-include ./$(DEPDIR)/litecoind-bitcoind.Po
+include ./$(DEPDIR)/safecoin_cli-bitcoin-cli.Po
+include ./$(DEPDIR)/safecoin_tx-bitcoin-tx.Po
+include ./$(DEPDIR)/safecoind-bitcoind.Po
 include compat/$(DEPDIR)/libbitcoin_util_a-glibc_compat.Po
 include compat/$(DEPDIR)/libbitcoin_util_a-glibc_sanity.Po
 include compat/$(DEPDIR)/libbitcoin_util_a-glibcxx_compat.Po
@@ -2755,12 +2755,12 @@ include qt/$(DEPDIR)/qt_libbitcoinqt_a-walletmodel.Po
 include qt/$(DEPDIR)/qt_libbitcoinqt_a-walletmodeltransaction.Po
 include qt/$(DEPDIR)/qt_libbitcoinqt_a-walletview.Po
 include qt/$(DEPDIR)/qt_libbitcoinqt_a-winshutdownmonitor.Po
-include qt/$(DEPDIR)/qt_litecoin_qt-bitcoin.Po
-include qt/test/$(DEPDIR)/qt_test_test_litecoin_qt-moc_paymentservertests.Po
-include qt/test/$(DEPDIR)/qt_test_test_litecoin_qt-moc_uritests.Po
-include qt/test/$(DEPDIR)/qt_test_test_litecoin_qt-paymentservertests.Po
-include qt/test/$(DEPDIR)/qt_test_test_litecoin_qt-test_main.Po
-include qt/test/$(DEPDIR)/qt_test_test_litecoin_qt-uritests.Po
+include qt/$(DEPDIR)/qt_safecoin_qt-bitcoin.Po
+include qt/test/$(DEPDIR)/qt_test_test_safecoin_qt-moc_paymentservertests.Po
+include qt/test/$(DEPDIR)/qt_test_test_safecoin_qt-moc_uritests.Po
+include qt/test/$(DEPDIR)/qt_test_test_safecoin_qt-paymentservertests.Po
+include qt/test/$(DEPDIR)/qt_test_test_safecoin_qt-test_main.Po
+include qt/test/$(DEPDIR)/qt_test_test_safecoin_qt-uritests.Po
 include script/$(DEPDIR)/libbitcoin_common_a-interpreter.Po
 include script/$(DEPDIR)/libbitcoin_common_a-script.Po
 include script/$(DEPDIR)/libbitcoin_common_a-script_error.Po
@@ -2770,46 +2770,46 @@ include script/$(DEPDIR)/libbitcoin_server_a-sigcache.Po
 include script/$(DEPDIR)/libbitcoinconsensus_la-bitcoinconsensus.Plo
 include script/$(DEPDIR)/libbitcoinconsensus_la-interpreter.Plo
 include script/$(DEPDIR)/libbitcoinconsensus_la-script.Plo
-include test/$(DEPDIR)/test_test_litecoin-Checkpoints_tests.Po
-include test/$(DEPDIR)/test_test_litecoin-DoS_tests.Po
-include test/$(DEPDIR)/test_test_litecoin-accounting_tests.Po
-include test/$(DEPDIR)/test_test_litecoin-alert_tests.Po
-include test/$(DEPDIR)/test_test_litecoin-allocator_tests.Po
-include test/$(DEPDIR)/test_test_litecoin-base32_tests.Po
-include test/$(DEPDIR)/test_test_litecoin-base58_tests.Po
-include test/$(DEPDIR)/test_test_litecoin-base64_tests.Po
-include test/$(DEPDIR)/test_test_litecoin-bloom_tests.Po
-include test/$(DEPDIR)/test_test_litecoin-checkblock_tests.Po
-include test/$(DEPDIR)/test_test_litecoin-coins_tests.Po
-include test/$(DEPDIR)/test_test_litecoin-compress_tests.Po
-include test/$(DEPDIR)/test_test_litecoin-crypto_tests.Po
-include test/$(DEPDIR)/test_test_litecoin-getarg_tests.Po
-include test/$(DEPDIR)/test_test_litecoin-hash_tests.Po
-include test/$(DEPDIR)/test_test_litecoin-key_tests.Po
-include test/$(DEPDIR)/test_test_litecoin-main_tests.Po
-include test/$(DEPDIR)/test_test_litecoin-mempool_tests.Po
-include test/$(DEPDIR)/test_test_litecoin-miner_tests.Po
-include test/$(DEPDIR)/test_test_litecoin-mruset_tests.Po
-include test/$(DEPDIR)/test_test_litecoin-multisig_tests.Po
-include test/$(DEPDIR)/test_test_litecoin-netbase_tests.Po
-include test/$(DEPDIR)/test_test_litecoin-pmt_tests.Po
-include test/$(DEPDIR)/test_test_litecoin-rpc_tests.Po
-include test/$(DEPDIR)/test_test_litecoin-rpc_wallet_tests.Po
-include test/$(DEPDIR)/test_test_litecoin-sanity_tests.Po
-include test/$(DEPDIR)/test_test_litecoin-script_P2SH_tests.Po
-include test/$(DEPDIR)/test_test_litecoin-script_tests.Po
-include test/$(DEPDIR)/test_test_litecoin-scriptnum_tests.Po
-include test/$(DEPDIR)/test_test_litecoin-serialize_tests.Po
-include test/$(DEPDIR)/test_test_litecoin-sighash_tests.Po
-include test/$(DEPDIR)/test_test_litecoin-sigopcount_tests.Po
-include test/$(DEPDIR)/test_test_litecoin-skiplist_tests.Po
-include test/$(DEPDIR)/test_test_litecoin-test_bitcoin.Po
-include test/$(DEPDIR)/test_test_litecoin-timedata_tests.Po
-include test/$(DEPDIR)/test_test_litecoin-transaction_tests.Po
-include test/$(DEPDIR)/test_test_litecoin-uint256_tests.Po
-include test/$(DEPDIR)/test_test_litecoin-univalue_tests.Po
-include test/$(DEPDIR)/test_test_litecoin-util_tests.Po
-include test/$(DEPDIR)/test_test_litecoin-wallet_tests.Po
+include test/$(DEPDIR)/test_test_safecoin-Checkpoints_tests.Po
+include test/$(DEPDIR)/test_test_safecoin-DoS_tests.Po
+include test/$(DEPDIR)/test_test_safecoin-accounting_tests.Po
+include test/$(DEPDIR)/test_test_safecoin-alert_tests.Po
+include test/$(DEPDIR)/test_test_safecoin-allocator_tests.Po
+include test/$(DEPDIR)/test_test_safecoin-base32_tests.Po
+include test/$(DEPDIR)/test_test_safecoin-base58_tests.Po
+include test/$(DEPDIR)/test_test_safecoin-base64_tests.Po
+include test/$(DEPDIR)/test_test_safecoin-bloom_tests.Po
+include test/$(DEPDIR)/test_test_safecoin-checkblock_tests.Po
+include test/$(DEPDIR)/test_test_safecoin-coins_tests.Po
+include test/$(DEPDIR)/test_test_safecoin-compress_tests.Po
+include test/$(DEPDIR)/test_test_safecoin-crypto_tests.Po
+include test/$(DEPDIR)/test_test_safecoin-getarg_tests.Po
+include test/$(DEPDIR)/test_test_safecoin-hash_tests.Po
+include test/$(DEPDIR)/test_test_safecoin-key_tests.Po
+include test/$(DEPDIR)/test_test_safecoin-main_tests.Po
+include test/$(DEPDIR)/test_test_safecoin-mempool_tests.Po
+include test/$(DEPDIR)/test_test_safecoin-miner_tests.Po
+include test/$(DEPDIR)/test_test_safecoin-mruset_tests.Po
+include test/$(DEPDIR)/test_test_safecoin-multisig_tests.Po
+include test/$(DEPDIR)/test_test_safecoin-netbase_tests.Po
+include test/$(DEPDIR)/test_test_safecoin-pmt_tests.Po
+include test/$(DEPDIR)/test_test_safecoin-rpc_tests.Po
+include test/$(DEPDIR)/test_test_safecoin-rpc_wallet_tests.Po
+include test/$(DEPDIR)/test_test_safecoin-sanity_tests.Po
+include test/$(DEPDIR)/test_test_safecoin-script_P2SH_tests.Po
+include test/$(DEPDIR)/test_test_safecoin-script_tests.Po
+include test/$(DEPDIR)/test_test_safecoin-scriptnum_tests.Po
+include test/$(DEPDIR)/test_test_safecoin-serialize_tests.Po
+include test/$(DEPDIR)/test_test_safecoin-sighash_tests.Po
+include test/$(DEPDIR)/test_test_safecoin-sigopcount_tests.Po
+include test/$(DEPDIR)/test_test_safecoin-skiplist_tests.Po
+include test/$(DEPDIR)/test_test_safecoin-test_bitcoin.Po
+include test/$(DEPDIR)/test_test_safecoin-timedata_tests.Po
+include test/$(DEPDIR)/test_test_safecoin-transaction_tests.Po
+include test/$(DEPDIR)/test_test_safecoin-uint256_tests.Po
+include test/$(DEPDIR)/test_test_safecoin-univalue_tests.Po
+include test/$(DEPDIR)/test_test_safecoin-util_tests.Po
+include test/$(DEPDIR)/test_test_safecoin-wallet_tests.Po
 include univalue/$(DEPDIR)/univalue.Po
 include univalue/$(DEPDIR)/univalue_read.Po
 include univalue/$(DEPDIR)/univalue_write.Po
@@ -5344,691 +5344,691 @@ compat/libbitcoinconsensus_la-glibcxx_compat.lo: compat/glibcxx_compat.cpp
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
 #	$(AM_V_CXX_no)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libbitcoinconsensus_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o compat/libbitcoinconsensus_la-glibcxx_compat.lo `test -f 'compat/glibcxx_compat.cpp' || echo '$(srcdir)/'`compat/glibcxx_compat.cpp
 
-litecoin_cli-bitcoin-cli.o: bitcoin-cli.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(litecoin_cli_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT litecoin_cli-bitcoin-cli.o -MD -MP -MF $(DEPDIR)/litecoin_cli-bitcoin-cli.Tpo -c -o litecoin_cli-bitcoin-cli.o `test -f 'bitcoin-cli.cpp' || echo '$(srcdir)/'`bitcoin-cli.cpp
-	$(AM_V_at)$(am__mv) $(DEPDIR)/litecoin_cli-bitcoin-cli.Tpo $(DEPDIR)/litecoin_cli-bitcoin-cli.Po
-#	$(AM_V_CXX)source='bitcoin-cli.cpp' object='litecoin_cli-bitcoin-cli.o' libtool=no \
+qt/qt_safecoin_qt-bitcoin.o: qt/bitcoin.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(qt_safecoin_qt_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT qt/qt_safecoin_qt-bitcoin.o -MD -MP -MF qt/$(DEPDIR)/qt_safecoin_qt-bitcoin.Tpo -c -o qt/qt_safecoin_qt-bitcoin.o `test -f 'qt/bitcoin.cpp' || echo '$(srcdir)/'`qt/bitcoin.cpp
+	$(AM_V_at)$(am__mv) qt/$(DEPDIR)/qt_safecoin_qt-bitcoin.Tpo qt/$(DEPDIR)/qt_safecoin_qt-bitcoin.Po
+#	$(AM_V_CXX)source='qt/bitcoin.cpp' object='qt/qt_safecoin_qt-bitcoin.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(litecoin_cli_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o litecoin_cli-bitcoin-cli.o `test -f 'bitcoin-cli.cpp' || echo '$(srcdir)/'`bitcoin-cli.cpp
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(qt_safecoin_qt_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o qt/qt_safecoin_qt-bitcoin.o `test -f 'qt/bitcoin.cpp' || echo '$(srcdir)/'`qt/bitcoin.cpp
 
-litecoin_cli-bitcoin-cli.obj: bitcoin-cli.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(litecoin_cli_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT litecoin_cli-bitcoin-cli.obj -MD -MP -MF $(DEPDIR)/litecoin_cli-bitcoin-cli.Tpo -c -o litecoin_cli-bitcoin-cli.obj `if test -f 'bitcoin-cli.cpp'; then $(CYGPATH_W) 'bitcoin-cli.cpp'; else $(CYGPATH_W) '$(srcdir)/bitcoin-cli.cpp'; fi`
-	$(AM_V_at)$(am__mv) $(DEPDIR)/litecoin_cli-bitcoin-cli.Tpo $(DEPDIR)/litecoin_cli-bitcoin-cli.Po
-#	$(AM_V_CXX)source='bitcoin-cli.cpp' object='litecoin_cli-bitcoin-cli.obj' libtool=no \
+qt/qt_safecoin_qt-bitcoin.obj: qt/bitcoin.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(qt_safecoin_qt_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT qt/qt_safecoin_qt-bitcoin.obj -MD -MP -MF qt/$(DEPDIR)/qt_safecoin_qt-bitcoin.Tpo -c -o qt/qt_safecoin_qt-bitcoin.obj `if test -f 'qt/bitcoin.cpp'; then $(CYGPATH_W) 'qt/bitcoin.cpp'; else $(CYGPATH_W) '$(srcdir)/qt/bitcoin.cpp'; fi`
+	$(AM_V_at)$(am__mv) qt/$(DEPDIR)/qt_safecoin_qt-bitcoin.Tpo qt/$(DEPDIR)/qt_safecoin_qt-bitcoin.Po
+#	$(AM_V_CXX)source='qt/bitcoin.cpp' object='qt/qt_safecoin_qt-bitcoin.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(litecoin_cli_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o litecoin_cli-bitcoin-cli.obj `if test -f 'bitcoin-cli.cpp'; then $(CYGPATH_W) 'bitcoin-cli.cpp'; else $(CYGPATH_W) '$(srcdir)/bitcoin-cli.cpp'; fi`
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(qt_safecoin_qt_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o qt/qt_safecoin_qt-bitcoin.obj `if test -f 'qt/bitcoin.cpp'; then $(CYGPATH_W) 'qt/bitcoin.cpp'; else $(CYGPATH_W) '$(srcdir)/qt/bitcoin.cpp'; fi`
 
-litecoin_tx-bitcoin-tx.o: bitcoin-tx.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(litecoin_tx_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT litecoin_tx-bitcoin-tx.o -MD -MP -MF $(DEPDIR)/litecoin_tx-bitcoin-tx.Tpo -c -o litecoin_tx-bitcoin-tx.o `test -f 'bitcoin-tx.cpp' || echo '$(srcdir)/'`bitcoin-tx.cpp
-	$(AM_V_at)$(am__mv) $(DEPDIR)/litecoin_tx-bitcoin-tx.Tpo $(DEPDIR)/litecoin_tx-bitcoin-tx.Po
-#	$(AM_V_CXX)source='bitcoin-tx.cpp' object='litecoin_tx-bitcoin-tx.o' libtool=no \
+qt/test/qt_test_test_safecoin_qt-test_main.o: qt/test/test_main.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(qt_test_test_safecoin_qt_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT qt/test/qt_test_test_safecoin_qt-test_main.o -MD -MP -MF qt/test/$(DEPDIR)/qt_test_test_safecoin_qt-test_main.Tpo -c -o qt/test/qt_test_test_safecoin_qt-test_main.o `test -f 'qt/test/test_main.cpp' || echo '$(srcdir)/'`qt/test/test_main.cpp
+	$(AM_V_at)$(am__mv) qt/test/$(DEPDIR)/qt_test_test_safecoin_qt-test_main.Tpo qt/test/$(DEPDIR)/qt_test_test_safecoin_qt-test_main.Po
+#	$(AM_V_CXX)source='qt/test/test_main.cpp' object='qt/test/qt_test_test_safecoin_qt-test_main.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(litecoin_tx_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o litecoin_tx-bitcoin-tx.o `test -f 'bitcoin-tx.cpp' || echo '$(srcdir)/'`bitcoin-tx.cpp
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(qt_test_test_safecoin_qt_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o qt/test/qt_test_test_safecoin_qt-test_main.o `test -f 'qt/test/test_main.cpp' || echo '$(srcdir)/'`qt/test/test_main.cpp
 
-litecoin_tx-bitcoin-tx.obj: bitcoin-tx.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(litecoin_tx_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT litecoin_tx-bitcoin-tx.obj -MD -MP -MF $(DEPDIR)/litecoin_tx-bitcoin-tx.Tpo -c -o litecoin_tx-bitcoin-tx.obj `if test -f 'bitcoin-tx.cpp'; then $(CYGPATH_W) 'bitcoin-tx.cpp'; else $(CYGPATH_W) '$(srcdir)/bitcoin-tx.cpp'; fi`
-	$(AM_V_at)$(am__mv) $(DEPDIR)/litecoin_tx-bitcoin-tx.Tpo $(DEPDIR)/litecoin_tx-bitcoin-tx.Po
-#	$(AM_V_CXX)source='bitcoin-tx.cpp' object='litecoin_tx-bitcoin-tx.obj' libtool=no \
+qt/test/qt_test_test_safecoin_qt-test_main.obj: qt/test/test_main.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(qt_test_test_safecoin_qt_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT qt/test/qt_test_test_safecoin_qt-test_main.obj -MD -MP -MF qt/test/$(DEPDIR)/qt_test_test_safecoin_qt-test_main.Tpo -c -o qt/test/qt_test_test_safecoin_qt-test_main.obj `if test -f 'qt/test/test_main.cpp'; then $(CYGPATH_W) 'qt/test/test_main.cpp'; else $(CYGPATH_W) '$(srcdir)/qt/test/test_main.cpp'; fi`
+	$(AM_V_at)$(am__mv) qt/test/$(DEPDIR)/qt_test_test_safecoin_qt-test_main.Tpo qt/test/$(DEPDIR)/qt_test_test_safecoin_qt-test_main.Po
+#	$(AM_V_CXX)source='qt/test/test_main.cpp' object='qt/test/qt_test_test_safecoin_qt-test_main.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(litecoin_tx_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o litecoin_tx-bitcoin-tx.obj `if test -f 'bitcoin-tx.cpp'; then $(CYGPATH_W) 'bitcoin-tx.cpp'; else $(CYGPATH_W) '$(srcdir)/bitcoin-tx.cpp'; fi`
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(qt_test_test_safecoin_qt_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o qt/test/qt_test_test_safecoin_qt-test_main.obj `if test -f 'qt/test/test_main.cpp'; then $(CYGPATH_W) 'qt/test/test_main.cpp'; else $(CYGPATH_W) '$(srcdir)/qt/test/test_main.cpp'; fi`
 
-litecoind-bitcoind.o: bitcoind.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(litecoind_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT litecoind-bitcoind.o -MD -MP -MF $(DEPDIR)/litecoind-bitcoind.Tpo -c -o litecoind-bitcoind.o `test -f 'bitcoind.cpp' || echo '$(srcdir)/'`bitcoind.cpp
-	$(AM_V_at)$(am__mv) $(DEPDIR)/litecoind-bitcoind.Tpo $(DEPDIR)/litecoind-bitcoind.Po
-#	$(AM_V_CXX)source='bitcoind.cpp' object='litecoind-bitcoind.o' libtool=no \
+qt/test/qt_test_test_safecoin_qt-uritests.o: qt/test/uritests.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(qt_test_test_safecoin_qt_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT qt/test/qt_test_test_safecoin_qt-uritests.o -MD -MP -MF qt/test/$(DEPDIR)/qt_test_test_safecoin_qt-uritests.Tpo -c -o qt/test/qt_test_test_safecoin_qt-uritests.o `test -f 'qt/test/uritests.cpp' || echo '$(srcdir)/'`qt/test/uritests.cpp
+	$(AM_V_at)$(am__mv) qt/test/$(DEPDIR)/qt_test_test_safecoin_qt-uritests.Tpo qt/test/$(DEPDIR)/qt_test_test_safecoin_qt-uritests.Po
+#	$(AM_V_CXX)source='qt/test/uritests.cpp' object='qt/test/qt_test_test_safecoin_qt-uritests.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(litecoind_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o litecoind-bitcoind.o `test -f 'bitcoind.cpp' || echo '$(srcdir)/'`bitcoind.cpp
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(qt_test_test_safecoin_qt_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o qt/test/qt_test_test_safecoin_qt-uritests.o `test -f 'qt/test/uritests.cpp' || echo '$(srcdir)/'`qt/test/uritests.cpp
 
-litecoind-bitcoind.obj: bitcoind.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(litecoind_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT litecoind-bitcoind.obj -MD -MP -MF $(DEPDIR)/litecoind-bitcoind.Tpo -c -o litecoind-bitcoind.obj `if test -f 'bitcoind.cpp'; then $(CYGPATH_W) 'bitcoind.cpp'; else $(CYGPATH_W) '$(srcdir)/bitcoind.cpp'; fi`
-	$(AM_V_at)$(am__mv) $(DEPDIR)/litecoind-bitcoind.Tpo $(DEPDIR)/litecoind-bitcoind.Po
-#	$(AM_V_CXX)source='bitcoind.cpp' object='litecoind-bitcoind.obj' libtool=no \
+qt/test/qt_test_test_safecoin_qt-uritests.obj: qt/test/uritests.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(qt_test_test_safecoin_qt_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT qt/test/qt_test_test_safecoin_qt-uritests.obj -MD -MP -MF qt/test/$(DEPDIR)/qt_test_test_safecoin_qt-uritests.Tpo -c -o qt/test/qt_test_test_safecoin_qt-uritests.obj `if test -f 'qt/test/uritests.cpp'; then $(CYGPATH_W) 'qt/test/uritests.cpp'; else $(CYGPATH_W) '$(srcdir)/qt/test/uritests.cpp'; fi`
+	$(AM_V_at)$(am__mv) qt/test/$(DEPDIR)/qt_test_test_safecoin_qt-uritests.Tpo qt/test/$(DEPDIR)/qt_test_test_safecoin_qt-uritests.Po
+#	$(AM_V_CXX)source='qt/test/uritests.cpp' object='qt/test/qt_test_test_safecoin_qt-uritests.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(litecoind_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o litecoind-bitcoind.obj `if test -f 'bitcoind.cpp'; then $(CYGPATH_W) 'bitcoind.cpp'; else $(CYGPATH_W) '$(srcdir)/bitcoind.cpp'; fi`
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(qt_test_test_safecoin_qt_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o qt/test/qt_test_test_safecoin_qt-uritests.obj `if test -f 'qt/test/uritests.cpp'; then $(CYGPATH_W) 'qt/test/uritests.cpp'; else $(CYGPATH_W) '$(srcdir)/qt/test/uritests.cpp'; fi`
 
-qt/qt_litecoin_qt-bitcoin.o: qt/bitcoin.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(qt_litecoin_qt_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT qt/qt_litecoin_qt-bitcoin.o -MD -MP -MF qt/$(DEPDIR)/qt_litecoin_qt-bitcoin.Tpo -c -o qt/qt_litecoin_qt-bitcoin.o `test -f 'qt/bitcoin.cpp' || echo '$(srcdir)/'`qt/bitcoin.cpp
-	$(AM_V_at)$(am__mv) qt/$(DEPDIR)/qt_litecoin_qt-bitcoin.Tpo qt/$(DEPDIR)/qt_litecoin_qt-bitcoin.Po
-#	$(AM_V_CXX)source='qt/bitcoin.cpp' object='qt/qt_litecoin_qt-bitcoin.o' libtool=no \
+qt/test/qt_test_test_safecoin_qt-paymentservertests.o: qt/test/paymentservertests.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(qt_test_test_safecoin_qt_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT qt/test/qt_test_test_safecoin_qt-paymentservertests.o -MD -MP -MF qt/test/$(DEPDIR)/qt_test_test_safecoin_qt-paymentservertests.Tpo -c -o qt/test/qt_test_test_safecoin_qt-paymentservertests.o `test -f 'qt/test/paymentservertests.cpp' || echo '$(srcdir)/'`qt/test/paymentservertests.cpp
+	$(AM_V_at)$(am__mv) qt/test/$(DEPDIR)/qt_test_test_safecoin_qt-paymentservertests.Tpo qt/test/$(DEPDIR)/qt_test_test_safecoin_qt-paymentservertests.Po
+#	$(AM_V_CXX)source='qt/test/paymentservertests.cpp' object='qt/test/qt_test_test_safecoin_qt-paymentservertests.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(qt_litecoin_qt_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o qt/qt_litecoin_qt-bitcoin.o `test -f 'qt/bitcoin.cpp' || echo '$(srcdir)/'`qt/bitcoin.cpp
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(qt_test_test_safecoin_qt_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o qt/test/qt_test_test_safecoin_qt-paymentservertests.o `test -f 'qt/test/paymentservertests.cpp' || echo '$(srcdir)/'`qt/test/paymentservertests.cpp
 
-qt/qt_litecoin_qt-bitcoin.obj: qt/bitcoin.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(qt_litecoin_qt_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT qt/qt_litecoin_qt-bitcoin.obj -MD -MP -MF qt/$(DEPDIR)/qt_litecoin_qt-bitcoin.Tpo -c -o qt/qt_litecoin_qt-bitcoin.obj `if test -f 'qt/bitcoin.cpp'; then $(CYGPATH_W) 'qt/bitcoin.cpp'; else $(CYGPATH_W) '$(srcdir)/qt/bitcoin.cpp'; fi`
-	$(AM_V_at)$(am__mv) qt/$(DEPDIR)/qt_litecoin_qt-bitcoin.Tpo qt/$(DEPDIR)/qt_litecoin_qt-bitcoin.Po
-#	$(AM_V_CXX)source='qt/bitcoin.cpp' object='qt/qt_litecoin_qt-bitcoin.obj' libtool=no \
+qt/test/qt_test_test_safecoin_qt-paymentservertests.obj: qt/test/paymentservertests.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(qt_test_test_safecoin_qt_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT qt/test/qt_test_test_safecoin_qt-paymentservertests.obj -MD -MP -MF qt/test/$(DEPDIR)/qt_test_test_safecoin_qt-paymentservertests.Tpo -c -o qt/test/qt_test_test_safecoin_qt-paymentservertests.obj `if test -f 'qt/test/paymentservertests.cpp'; then $(CYGPATH_W) 'qt/test/paymentservertests.cpp'; else $(CYGPATH_W) '$(srcdir)/qt/test/paymentservertests.cpp'; fi`
+	$(AM_V_at)$(am__mv) qt/test/$(DEPDIR)/qt_test_test_safecoin_qt-paymentservertests.Tpo qt/test/$(DEPDIR)/qt_test_test_safecoin_qt-paymentservertests.Po
+#	$(AM_V_CXX)source='qt/test/paymentservertests.cpp' object='qt/test/qt_test_test_safecoin_qt-paymentservertests.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(qt_litecoin_qt_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o qt/qt_litecoin_qt-bitcoin.obj `if test -f 'qt/bitcoin.cpp'; then $(CYGPATH_W) 'qt/bitcoin.cpp'; else $(CYGPATH_W) '$(srcdir)/qt/bitcoin.cpp'; fi`
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(qt_test_test_safecoin_qt_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o qt/test/qt_test_test_safecoin_qt-paymentservertests.obj `if test -f 'qt/test/paymentservertests.cpp'; then $(CYGPATH_W) 'qt/test/paymentservertests.cpp'; else $(CYGPATH_W) '$(srcdir)/qt/test/paymentservertests.cpp'; fi`
 
-qt/test/qt_test_test_litecoin_qt-test_main.o: qt/test/test_main.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(qt_test_test_litecoin_qt_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT qt/test/qt_test_test_litecoin_qt-test_main.o -MD -MP -MF qt/test/$(DEPDIR)/qt_test_test_litecoin_qt-test_main.Tpo -c -o qt/test/qt_test_test_litecoin_qt-test_main.o `test -f 'qt/test/test_main.cpp' || echo '$(srcdir)/'`qt/test/test_main.cpp
-	$(AM_V_at)$(am__mv) qt/test/$(DEPDIR)/qt_test_test_litecoin_qt-test_main.Tpo qt/test/$(DEPDIR)/qt_test_test_litecoin_qt-test_main.Po
-#	$(AM_V_CXX)source='qt/test/test_main.cpp' object='qt/test/qt_test_test_litecoin_qt-test_main.o' libtool=no \
+qt/test/qt_test_test_safecoin_qt-moc_uritests.o: qt/test/moc_uritests.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(qt_test_test_safecoin_qt_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT qt/test/qt_test_test_safecoin_qt-moc_uritests.o -MD -MP -MF qt/test/$(DEPDIR)/qt_test_test_safecoin_qt-moc_uritests.Tpo -c -o qt/test/qt_test_test_safecoin_qt-moc_uritests.o `test -f 'qt/test/moc_uritests.cpp' || echo '$(srcdir)/'`qt/test/moc_uritests.cpp
+	$(AM_V_at)$(am__mv) qt/test/$(DEPDIR)/qt_test_test_safecoin_qt-moc_uritests.Tpo qt/test/$(DEPDIR)/qt_test_test_safecoin_qt-moc_uritests.Po
+#	$(AM_V_CXX)source='qt/test/moc_uritests.cpp' object='qt/test/qt_test_test_safecoin_qt-moc_uritests.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(qt_test_test_litecoin_qt_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o qt/test/qt_test_test_litecoin_qt-test_main.o `test -f 'qt/test/test_main.cpp' || echo '$(srcdir)/'`qt/test/test_main.cpp
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(qt_test_test_safecoin_qt_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o qt/test/qt_test_test_safecoin_qt-moc_uritests.o `test -f 'qt/test/moc_uritests.cpp' || echo '$(srcdir)/'`qt/test/moc_uritests.cpp
 
-qt/test/qt_test_test_litecoin_qt-test_main.obj: qt/test/test_main.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(qt_test_test_litecoin_qt_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT qt/test/qt_test_test_litecoin_qt-test_main.obj -MD -MP -MF qt/test/$(DEPDIR)/qt_test_test_litecoin_qt-test_main.Tpo -c -o qt/test/qt_test_test_litecoin_qt-test_main.obj `if test -f 'qt/test/test_main.cpp'; then $(CYGPATH_W) 'qt/test/test_main.cpp'; else $(CYGPATH_W) '$(srcdir)/qt/test/test_main.cpp'; fi`
-	$(AM_V_at)$(am__mv) qt/test/$(DEPDIR)/qt_test_test_litecoin_qt-test_main.Tpo qt/test/$(DEPDIR)/qt_test_test_litecoin_qt-test_main.Po
-#	$(AM_V_CXX)source='qt/test/test_main.cpp' object='qt/test/qt_test_test_litecoin_qt-test_main.obj' libtool=no \
+qt/test/qt_test_test_safecoin_qt-moc_uritests.obj: qt/test/moc_uritests.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(qt_test_test_safecoin_qt_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT qt/test/qt_test_test_safecoin_qt-moc_uritests.obj -MD -MP -MF qt/test/$(DEPDIR)/qt_test_test_safecoin_qt-moc_uritests.Tpo -c -o qt/test/qt_test_test_safecoin_qt-moc_uritests.obj `if test -f 'qt/test/moc_uritests.cpp'; then $(CYGPATH_W) 'qt/test/moc_uritests.cpp'; else $(CYGPATH_W) '$(srcdir)/qt/test/moc_uritests.cpp'; fi`
+	$(AM_V_at)$(am__mv) qt/test/$(DEPDIR)/qt_test_test_safecoin_qt-moc_uritests.Tpo qt/test/$(DEPDIR)/qt_test_test_safecoin_qt-moc_uritests.Po
+#	$(AM_V_CXX)source='qt/test/moc_uritests.cpp' object='qt/test/qt_test_test_safecoin_qt-moc_uritests.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(qt_test_test_litecoin_qt_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o qt/test/qt_test_test_litecoin_qt-test_main.obj `if test -f 'qt/test/test_main.cpp'; then $(CYGPATH_W) 'qt/test/test_main.cpp'; else $(CYGPATH_W) '$(srcdir)/qt/test/test_main.cpp'; fi`
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(qt_test_test_safecoin_qt_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o qt/test/qt_test_test_safecoin_qt-moc_uritests.obj `if test -f 'qt/test/moc_uritests.cpp'; then $(CYGPATH_W) 'qt/test/moc_uritests.cpp'; else $(CYGPATH_W) '$(srcdir)/qt/test/moc_uritests.cpp'; fi`
 
-qt/test/qt_test_test_litecoin_qt-uritests.o: qt/test/uritests.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(qt_test_test_litecoin_qt_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT qt/test/qt_test_test_litecoin_qt-uritests.o -MD -MP -MF qt/test/$(DEPDIR)/qt_test_test_litecoin_qt-uritests.Tpo -c -o qt/test/qt_test_test_litecoin_qt-uritests.o `test -f 'qt/test/uritests.cpp' || echo '$(srcdir)/'`qt/test/uritests.cpp
-	$(AM_V_at)$(am__mv) qt/test/$(DEPDIR)/qt_test_test_litecoin_qt-uritests.Tpo qt/test/$(DEPDIR)/qt_test_test_litecoin_qt-uritests.Po
-#	$(AM_V_CXX)source='qt/test/uritests.cpp' object='qt/test/qt_test_test_litecoin_qt-uritests.o' libtool=no \
+qt/test/qt_test_test_safecoin_qt-moc_paymentservertests.o: qt/test/moc_paymentservertests.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(qt_test_test_safecoin_qt_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT qt/test/qt_test_test_safecoin_qt-moc_paymentservertests.o -MD -MP -MF qt/test/$(DEPDIR)/qt_test_test_safecoin_qt-moc_paymentservertests.Tpo -c -o qt/test/qt_test_test_safecoin_qt-moc_paymentservertests.o `test -f 'qt/test/moc_paymentservertests.cpp' || echo '$(srcdir)/'`qt/test/moc_paymentservertests.cpp
+	$(AM_V_at)$(am__mv) qt/test/$(DEPDIR)/qt_test_test_safecoin_qt-moc_paymentservertests.Tpo qt/test/$(DEPDIR)/qt_test_test_safecoin_qt-moc_paymentservertests.Po
+#	$(AM_V_CXX)source='qt/test/moc_paymentservertests.cpp' object='qt/test/qt_test_test_safecoin_qt-moc_paymentservertests.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(qt_test_test_litecoin_qt_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o qt/test/qt_test_test_litecoin_qt-uritests.o `test -f 'qt/test/uritests.cpp' || echo '$(srcdir)/'`qt/test/uritests.cpp
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(qt_test_test_safecoin_qt_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o qt/test/qt_test_test_safecoin_qt-moc_paymentservertests.o `test -f 'qt/test/moc_paymentservertests.cpp' || echo '$(srcdir)/'`qt/test/moc_paymentservertests.cpp
 
-qt/test/qt_test_test_litecoin_qt-uritests.obj: qt/test/uritests.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(qt_test_test_litecoin_qt_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT qt/test/qt_test_test_litecoin_qt-uritests.obj -MD -MP -MF qt/test/$(DEPDIR)/qt_test_test_litecoin_qt-uritests.Tpo -c -o qt/test/qt_test_test_litecoin_qt-uritests.obj `if test -f 'qt/test/uritests.cpp'; then $(CYGPATH_W) 'qt/test/uritests.cpp'; else $(CYGPATH_W) '$(srcdir)/qt/test/uritests.cpp'; fi`
-	$(AM_V_at)$(am__mv) qt/test/$(DEPDIR)/qt_test_test_litecoin_qt-uritests.Tpo qt/test/$(DEPDIR)/qt_test_test_litecoin_qt-uritests.Po
-#	$(AM_V_CXX)source='qt/test/uritests.cpp' object='qt/test/qt_test_test_litecoin_qt-uritests.obj' libtool=no \
+qt/test/qt_test_test_safecoin_qt-moc_paymentservertests.obj: qt/test/moc_paymentservertests.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(qt_test_test_safecoin_qt_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT qt/test/qt_test_test_safecoin_qt-moc_paymentservertests.obj -MD -MP -MF qt/test/$(DEPDIR)/qt_test_test_safecoin_qt-moc_paymentservertests.Tpo -c -o qt/test/qt_test_test_safecoin_qt-moc_paymentservertests.obj `if test -f 'qt/test/moc_paymentservertests.cpp'; then $(CYGPATH_W) 'qt/test/moc_paymentservertests.cpp'; else $(CYGPATH_W) '$(srcdir)/qt/test/moc_paymentservertests.cpp'; fi`
+	$(AM_V_at)$(am__mv) qt/test/$(DEPDIR)/qt_test_test_safecoin_qt-moc_paymentservertests.Tpo qt/test/$(DEPDIR)/qt_test_test_safecoin_qt-moc_paymentservertests.Po
+#	$(AM_V_CXX)source='qt/test/moc_paymentservertests.cpp' object='qt/test/qt_test_test_safecoin_qt-moc_paymentservertests.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(qt_test_test_litecoin_qt_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o qt/test/qt_test_test_litecoin_qt-uritests.obj `if test -f 'qt/test/uritests.cpp'; then $(CYGPATH_W) 'qt/test/uritests.cpp'; else $(CYGPATH_W) '$(srcdir)/qt/test/uritests.cpp'; fi`
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(qt_test_test_safecoin_qt_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o qt/test/qt_test_test_safecoin_qt-moc_paymentservertests.obj `if test -f 'qt/test/moc_paymentservertests.cpp'; then $(CYGPATH_W) 'qt/test/moc_paymentservertests.cpp'; else $(CYGPATH_W) '$(srcdir)/qt/test/moc_paymentservertests.cpp'; fi`
 
-qt/test/qt_test_test_litecoin_qt-paymentservertests.o: qt/test/paymentservertests.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(qt_test_test_litecoin_qt_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT qt/test/qt_test_test_litecoin_qt-paymentservertests.o -MD -MP -MF qt/test/$(DEPDIR)/qt_test_test_litecoin_qt-paymentservertests.Tpo -c -o qt/test/qt_test_test_litecoin_qt-paymentservertests.o `test -f 'qt/test/paymentservertests.cpp' || echo '$(srcdir)/'`qt/test/paymentservertests.cpp
-	$(AM_V_at)$(am__mv) qt/test/$(DEPDIR)/qt_test_test_litecoin_qt-paymentservertests.Tpo qt/test/$(DEPDIR)/qt_test_test_litecoin_qt-paymentservertests.Po
-#	$(AM_V_CXX)source='qt/test/paymentservertests.cpp' object='qt/test/qt_test_test_litecoin_qt-paymentservertests.o' libtool=no \
+safecoin_cli-bitcoin-cli.o: bitcoin-cli.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(safecoin_cli_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT safecoin_cli-bitcoin-cli.o -MD -MP -MF $(DEPDIR)/safecoin_cli-bitcoin-cli.Tpo -c -o safecoin_cli-bitcoin-cli.o `test -f 'bitcoin-cli.cpp' || echo '$(srcdir)/'`bitcoin-cli.cpp
+	$(AM_V_at)$(am__mv) $(DEPDIR)/safecoin_cli-bitcoin-cli.Tpo $(DEPDIR)/safecoin_cli-bitcoin-cli.Po
+#	$(AM_V_CXX)source='bitcoin-cli.cpp' object='safecoin_cli-bitcoin-cli.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(qt_test_test_litecoin_qt_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o qt/test/qt_test_test_litecoin_qt-paymentservertests.o `test -f 'qt/test/paymentservertests.cpp' || echo '$(srcdir)/'`qt/test/paymentservertests.cpp
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(safecoin_cli_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o safecoin_cli-bitcoin-cli.o `test -f 'bitcoin-cli.cpp' || echo '$(srcdir)/'`bitcoin-cli.cpp
 
-qt/test/qt_test_test_litecoin_qt-paymentservertests.obj: qt/test/paymentservertests.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(qt_test_test_litecoin_qt_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT qt/test/qt_test_test_litecoin_qt-paymentservertests.obj -MD -MP -MF qt/test/$(DEPDIR)/qt_test_test_litecoin_qt-paymentservertests.Tpo -c -o qt/test/qt_test_test_litecoin_qt-paymentservertests.obj `if test -f 'qt/test/paymentservertests.cpp'; then $(CYGPATH_W) 'qt/test/paymentservertests.cpp'; else $(CYGPATH_W) '$(srcdir)/qt/test/paymentservertests.cpp'; fi`
-	$(AM_V_at)$(am__mv) qt/test/$(DEPDIR)/qt_test_test_litecoin_qt-paymentservertests.Tpo qt/test/$(DEPDIR)/qt_test_test_litecoin_qt-paymentservertests.Po
-#	$(AM_V_CXX)source='qt/test/paymentservertests.cpp' object='qt/test/qt_test_test_litecoin_qt-paymentservertests.obj' libtool=no \
+safecoin_cli-bitcoin-cli.obj: bitcoin-cli.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(safecoin_cli_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT safecoin_cli-bitcoin-cli.obj -MD -MP -MF $(DEPDIR)/safecoin_cli-bitcoin-cli.Tpo -c -o safecoin_cli-bitcoin-cli.obj `if test -f 'bitcoin-cli.cpp'; then $(CYGPATH_W) 'bitcoin-cli.cpp'; else $(CYGPATH_W) '$(srcdir)/bitcoin-cli.cpp'; fi`
+	$(AM_V_at)$(am__mv) $(DEPDIR)/safecoin_cli-bitcoin-cli.Tpo $(DEPDIR)/safecoin_cli-bitcoin-cli.Po
+#	$(AM_V_CXX)source='bitcoin-cli.cpp' object='safecoin_cli-bitcoin-cli.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(qt_test_test_litecoin_qt_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o qt/test/qt_test_test_litecoin_qt-paymentservertests.obj `if test -f 'qt/test/paymentservertests.cpp'; then $(CYGPATH_W) 'qt/test/paymentservertests.cpp'; else $(CYGPATH_W) '$(srcdir)/qt/test/paymentservertests.cpp'; fi`
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(safecoin_cli_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o safecoin_cli-bitcoin-cli.obj `if test -f 'bitcoin-cli.cpp'; then $(CYGPATH_W) 'bitcoin-cli.cpp'; else $(CYGPATH_W) '$(srcdir)/bitcoin-cli.cpp'; fi`
 
-qt/test/qt_test_test_litecoin_qt-moc_uritests.o: qt/test/moc_uritests.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(qt_test_test_litecoin_qt_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT qt/test/qt_test_test_litecoin_qt-moc_uritests.o -MD -MP -MF qt/test/$(DEPDIR)/qt_test_test_litecoin_qt-moc_uritests.Tpo -c -o qt/test/qt_test_test_litecoin_qt-moc_uritests.o `test -f 'qt/test/moc_uritests.cpp' || echo '$(srcdir)/'`qt/test/moc_uritests.cpp
-	$(AM_V_at)$(am__mv) qt/test/$(DEPDIR)/qt_test_test_litecoin_qt-moc_uritests.Tpo qt/test/$(DEPDIR)/qt_test_test_litecoin_qt-moc_uritests.Po
-#	$(AM_V_CXX)source='qt/test/moc_uritests.cpp' object='qt/test/qt_test_test_litecoin_qt-moc_uritests.o' libtool=no \
+safecoin_tx-bitcoin-tx.o: bitcoin-tx.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(safecoin_tx_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT safecoin_tx-bitcoin-tx.o -MD -MP -MF $(DEPDIR)/safecoin_tx-bitcoin-tx.Tpo -c -o safecoin_tx-bitcoin-tx.o `test -f 'bitcoin-tx.cpp' || echo '$(srcdir)/'`bitcoin-tx.cpp
+	$(AM_V_at)$(am__mv) $(DEPDIR)/safecoin_tx-bitcoin-tx.Tpo $(DEPDIR)/safecoin_tx-bitcoin-tx.Po
+#	$(AM_V_CXX)source='bitcoin-tx.cpp' object='safecoin_tx-bitcoin-tx.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(qt_test_test_litecoin_qt_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o qt/test/qt_test_test_litecoin_qt-moc_uritests.o `test -f 'qt/test/moc_uritests.cpp' || echo '$(srcdir)/'`qt/test/moc_uritests.cpp
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(safecoin_tx_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o safecoin_tx-bitcoin-tx.o `test -f 'bitcoin-tx.cpp' || echo '$(srcdir)/'`bitcoin-tx.cpp
 
-qt/test/qt_test_test_litecoin_qt-moc_uritests.obj: qt/test/moc_uritests.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(qt_test_test_litecoin_qt_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT qt/test/qt_test_test_litecoin_qt-moc_uritests.obj -MD -MP -MF qt/test/$(DEPDIR)/qt_test_test_litecoin_qt-moc_uritests.Tpo -c -o qt/test/qt_test_test_litecoin_qt-moc_uritests.obj `if test -f 'qt/test/moc_uritests.cpp'; then $(CYGPATH_W) 'qt/test/moc_uritests.cpp'; else $(CYGPATH_W) '$(srcdir)/qt/test/moc_uritests.cpp'; fi`
-	$(AM_V_at)$(am__mv) qt/test/$(DEPDIR)/qt_test_test_litecoin_qt-moc_uritests.Tpo qt/test/$(DEPDIR)/qt_test_test_litecoin_qt-moc_uritests.Po
-#	$(AM_V_CXX)source='qt/test/moc_uritests.cpp' object='qt/test/qt_test_test_litecoin_qt-moc_uritests.obj' libtool=no \
+safecoin_tx-bitcoin-tx.obj: bitcoin-tx.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(safecoin_tx_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT safecoin_tx-bitcoin-tx.obj -MD -MP -MF $(DEPDIR)/safecoin_tx-bitcoin-tx.Tpo -c -o safecoin_tx-bitcoin-tx.obj `if test -f 'bitcoin-tx.cpp'; then $(CYGPATH_W) 'bitcoin-tx.cpp'; else $(CYGPATH_W) '$(srcdir)/bitcoin-tx.cpp'; fi`
+	$(AM_V_at)$(am__mv) $(DEPDIR)/safecoin_tx-bitcoin-tx.Tpo $(DEPDIR)/safecoin_tx-bitcoin-tx.Po
+#	$(AM_V_CXX)source='bitcoin-tx.cpp' object='safecoin_tx-bitcoin-tx.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(qt_test_test_litecoin_qt_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o qt/test/qt_test_test_litecoin_qt-moc_uritests.obj `if test -f 'qt/test/moc_uritests.cpp'; then $(CYGPATH_W) 'qt/test/moc_uritests.cpp'; else $(CYGPATH_W) '$(srcdir)/qt/test/moc_uritests.cpp'; fi`
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(safecoin_tx_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o safecoin_tx-bitcoin-tx.obj `if test -f 'bitcoin-tx.cpp'; then $(CYGPATH_W) 'bitcoin-tx.cpp'; else $(CYGPATH_W) '$(srcdir)/bitcoin-tx.cpp'; fi`
 
-qt/test/qt_test_test_litecoin_qt-moc_paymentservertests.o: qt/test/moc_paymentservertests.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(qt_test_test_litecoin_qt_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT qt/test/qt_test_test_litecoin_qt-moc_paymentservertests.o -MD -MP -MF qt/test/$(DEPDIR)/qt_test_test_litecoin_qt-moc_paymentservertests.Tpo -c -o qt/test/qt_test_test_litecoin_qt-moc_paymentservertests.o `test -f 'qt/test/moc_paymentservertests.cpp' || echo '$(srcdir)/'`qt/test/moc_paymentservertests.cpp
-	$(AM_V_at)$(am__mv) qt/test/$(DEPDIR)/qt_test_test_litecoin_qt-moc_paymentservertests.Tpo qt/test/$(DEPDIR)/qt_test_test_litecoin_qt-moc_paymentservertests.Po
-#	$(AM_V_CXX)source='qt/test/moc_paymentservertests.cpp' object='qt/test/qt_test_test_litecoin_qt-moc_paymentservertests.o' libtool=no \
+safecoind-bitcoind.o: bitcoind.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(safecoind_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT safecoind-bitcoind.o -MD -MP -MF $(DEPDIR)/safecoind-bitcoind.Tpo -c -o safecoind-bitcoind.o `test -f 'bitcoind.cpp' || echo '$(srcdir)/'`bitcoind.cpp
+	$(AM_V_at)$(am__mv) $(DEPDIR)/safecoind-bitcoind.Tpo $(DEPDIR)/safecoind-bitcoind.Po
+#	$(AM_V_CXX)source='bitcoind.cpp' object='safecoind-bitcoind.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(qt_test_test_litecoin_qt_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o qt/test/qt_test_test_litecoin_qt-moc_paymentservertests.o `test -f 'qt/test/moc_paymentservertests.cpp' || echo '$(srcdir)/'`qt/test/moc_paymentservertests.cpp
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(safecoind_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o safecoind-bitcoind.o `test -f 'bitcoind.cpp' || echo '$(srcdir)/'`bitcoind.cpp
 
-qt/test/qt_test_test_litecoin_qt-moc_paymentservertests.obj: qt/test/moc_paymentservertests.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(qt_test_test_litecoin_qt_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT qt/test/qt_test_test_litecoin_qt-moc_paymentservertests.obj -MD -MP -MF qt/test/$(DEPDIR)/qt_test_test_litecoin_qt-moc_paymentservertests.Tpo -c -o qt/test/qt_test_test_litecoin_qt-moc_paymentservertests.obj `if test -f 'qt/test/moc_paymentservertests.cpp'; then $(CYGPATH_W) 'qt/test/moc_paymentservertests.cpp'; else $(CYGPATH_W) '$(srcdir)/qt/test/moc_paymentservertests.cpp'; fi`
-	$(AM_V_at)$(am__mv) qt/test/$(DEPDIR)/qt_test_test_litecoin_qt-moc_paymentservertests.Tpo qt/test/$(DEPDIR)/qt_test_test_litecoin_qt-moc_paymentservertests.Po
-#	$(AM_V_CXX)source='qt/test/moc_paymentservertests.cpp' object='qt/test/qt_test_test_litecoin_qt-moc_paymentservertests.obj' libtool=no \
+safecoind-bitcoind.obj: bitcoind.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(safecoind_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT safecoind-bitcoind.obj -MD -MP -MF $(DEPDIR)/safecoind-bitcoind.Tpo -c -o safecoind-bitcoind.obj `if test -f 'bitcoind.cpp'; then $(CYGPATH_W) 'bitcoind.cpp'; else $(CYGPATH_W) '$(srcdir)/bitcoind.cpp'; fi`
+	$(AM_V_at)$(am__mv) $(DEPDIR)/safecoind-bitcoind.Tpo $(DEPDIR)/safecoind-bitcoind.Po
+#	$(AM_V_CXX)source='bitcoind.cpp' object='safecoind-bitcoind.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(qt_test_test_litecoin_qt_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o qt/test/qt_test_test_litecoin_qt-moc_paymentservertests.obj `if test -f 'qt/test/moc_paymentservertests.cpp'; then $(CYGPATH_W) 'qt/test/moc_paymentservertests.cpp'; else $(CYGPATH_W) '$(srcdir)/qt/test/moc_paymentservertests.cpp'; fi`
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(safecoind_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o safecoind-bitcoind.obj `if test -f 'bitcoind.cpp'; then $(CYGPATH_W) 'bitcoind.cpp'; else $(CYGPATH_W) '$(srcdir)/bitcoind.cpp'; fi`
 
-test/test_test_litecoin-alert_tests.o: test/alert_tests.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_litecoin-alert_tests.o -MD -MP -MF test/$(DEPDIR)/test_test_litecoin-alert_tests.Tpo -c -o test/test_test_litecoin-alert_tests.o `test -f 'test/alert_tests.cpp' || echo '$(srcdir)/'`test/alert_tests.cpp
-	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_litecoin-alert_tests.Tpo test/$(DEPDIR)/test_test_litecoin-alert_tests.Po
-#	$(AM_V_CXX)source='test/alert_tests.cpp' object='test/test_test_litecoin-alert_tests.o' libtool=no \
+test/test_test_safecoin-alert_tests.o: test/alert_tests.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_safecoin-alert_tests.o -MD -MP -MF test/$(DEPDIR)/test_test_safecoin-alert_tests.Tpo -c -o test/test_test_safecoin-alert_tests.o `test -f 'test/alert_tests.cpp' || echo '$(srcdir)/'`test/alert_tests.cpp
+	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_safecoin-alert_tests.Tpo test/$(DEPDIR)/test_test_safecoin-alert_tests.Po
+#	$(AM_V_CXX)source='test/alert_tests.cpp' object='test/test_test_safecoin-alert_tests.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_litecoin-alert_tests.o `test -f 'test/alert_tests.cpp' || echo '$(srcdir)/'`test/alert_tests.cpp
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_safecoin-alert_tests.o `test -f 'test/alert_tests.cpp' || echo '$(srcdir)/'`test/alert_tests.cpp
 
-test/test_test_litecoin-alert_tests.obj: test/alert_tests.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_litecoin-alert_tests.obj -MD -MP -MF test/$(DEPDIR)/test_test_litecoin-alert_tests.Tpo -c -o test/test_test_litecoin-alert_tests.obj `if test -f 'test/alert_tests.cpp'; then $(CYGPATH_W) 'test/alert_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/alert_tests.cpp'; fi`
-	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_litecoin-alert_tests.Tpo test/$(DEPDIR)/test_test_litecoin-alert_tests.Po
-#	$(AM_V_CXX)source='test/alert_tests.cpp' object='test/test_test_litecoin-alert_tests.obj' libtool=no \
+test/test_test_safecoin-alert_tests.obj: test/alert_tests.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_safecoin-alert_tests.obj -MD -MP -MF test/$(DEPDIR)/test_test_safecoin-alert_tests.Tpo -c -o test/test_test_safecoin-alert_tests.obj `if test -f 'test/alert_tests.cpp'; then $(CYGPATH_W) 'test/alert_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/alert_tests.cpp'; fi`
+	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_safecoin-alert_tests.Tpo test/$(DEPDIR)/test_test_safecoin-alert_tests.Po
+#	$(AM_V_CXX)source='test/alert_tests.cpp' object='test/test_test_safecoin-alert_tests.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_litecoin-alert_tests.obj `if test -f 'test/alert_tests.cpp'; then $(CYGPATH_W) 'test/alert_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/alert_tests.cpp'; fi`
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_safecoin-alert_tests.obj `if test -f 'test/alert_tests.cpp'; then $(CYGPATH_W) 'test/alert_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/alert_tests.cpp'; fi`
 
-test/test_test_litecoin-allocator_tests.o: test/allocator_tests.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_litecoin-allocator_tests.o -MD -MP -MF test/$(DEPDIR)/test_test_litecoin-allocator_tests.Tpo -c -o test/test_test_litecoin-allocator_tests.o `test -f 'test/allocator_tests.cpp' || echo '$(srcdir)/'`test/allocator_tests.cpp
-	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_litecoin-allocator_tests.Tpo test/$(DEPDIR)/test_test_litecoin-allocator_tests.Po
-#	$(AM_V_CXX)source='test/allocator_tests.cpp' object='test/test_test_litecoin-allocator_tests.o' libtool=no \
+test/test_test_safecoin-allocator_tests.o: test/allocator_tests.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_safecoin-allocator_tests.o -MD -MP -MF test/$(DEPDIR)/test_test_safecoin-allocator_tests.Tpo -c -o test/test_test_safecoin-allocator_tests.o `test -f 'test/allocator_tests.cpp' || echo '$(srcdir)/'`test/allocator_tests.cpp
+	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_safecoin-allocator_tests.Tpo test/$(DEPDIR)/test_test_safecoin-allocator_tests.Po
+#	$(AM_V_CXX)source='test/allocator_tests.cpp' object='test/test_test_safecoin-allocator_tests.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_litecoin-allocator_tests.o `test -f 'test/allocator_tests.cpp' || echo '$(srcdir)/'`test/allocator_tests.cpp
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_safecoin-allocator_tests.o `test -f 'test/allocator_tests.cpp' || echo '$(srcdir)/'`test/allocator_tests.cpp
 
-test/test_test_litecoin-allocator_tests.obj: test/allocator_tests.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_litecoin-allocator_tests.obj -MD -MP -MF test/$(DEPDIR)/test_test_litecoin-allocator_tests.Tpo -c -o test/test_test_litecoin-allocator_tests.obj `if test -f 'test/allocator_tests.cpp'; then $(CYGPATH_W) 'test/allocator_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/allocator_tests.cpp'; fi`
-	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_litecoin-allocator_tests.Tpo test/$(DEPDIR)/test_test_litecoin-allocator_tests.Po
-#	$(AM_V_CXX)source='test/allocator_tests.cpp' object='test/test_test_litecoin-allocator_tests.obj' libtool=no \
+test/test_test_safecoin-allocator_tests.obj: test/allocator_tests.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_safecoin-allocator_tests.obj -MD -MP -MF test/$(DEPDIR)/test_test_safecoin-allocator_tests.Tpo -c -o test/test_test_safecoin-allocator_tests.obj `if test -f 'test/allocator_tests.cpp'; then $(CYGPATH_W) 'test/allocator_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/allocator_tests.cpp'; fi`
+	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_safecoin-allocator_tests.Tpo test/$(DEPDIR)/test_test_safecoin-allocator_tests.Po
+#	$(AM_V_CXX)source='test/allocator_tests.cpp' object='test/test_test_safecoin-allocator_tests.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_litecoin-allocator_tests.obj `if test -f 'test/allocator_tests.cpp'; then $(CYGPATH_W) 'test/allocator_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/allocator_tests.cpp'; fi`
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_safecoin-allocator_tests.obj `if test -f 'test/allocator_tests.cpp'; then $(CYGPATH_W) 'test/allocator_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/allocator_tests.cpp'; fi`
 
-test/test_test_litecoin-base32_tests.o: test/base32_tests.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_litecoin-base32_tests.o -MD -MP -MF test/$(DEPDIR)/test_test_litecoin-base32_tests.Tpo -c -o test/test_test_litecoin-base32_tests.o `test -f 'test/base32_tests.cpp' || echo '$(srcdir)/'`test/base32_tests.cpp
-	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_litecoin-base32_tests.Tpo test/$(DEPDIR)/test_test_litecoin-base32_tests.Po
-#	$(AM_V_CXX)source='test/base32_tests.cpp' object='test/test_test_litecoin-base32_tests.o' libtool=no \
+test/test_test_safecoin-base32_tests.o: test/base32_tests.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_safecoin-base32_tests.o -MD -MP -MF test/$(DEPDIR)/test_test_safecoin-base32_tests.Tpo -c -o test/test_test_safecoin-base32_tests.o `test -f 'test/base32_tests.cpp' || echo '$(srcdir)/'`test/base32_tests.cpp
+	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_safecoin-base32_tests.Tpo test/$(DEPDIR)/test_test_safecoin-base32_tests.Po
+#	$(AM_V_CXX)source='test/base32_tests.cpp' object='test/test_test_safecoin-base32_tests.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_litecoin-base32_tests.o `test -f 'test/base32_tests.cpp' || echo '$(srcdir)/'`test/base32_tests.cpp
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_safecoin-base32_tests.o `test -f 'test/base32_tests.cpp' || echo '$(srcdir)/'`test/base32_tests.cpp
 
-test/test_test_litecoin-base32_tests.obj: test/base32_tests.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_litecoin-base32_tests.obj -MD -MP -MF test/$(DEPDIR)/test_test_litecoin-base32_tests.Tpo -c -o test/test_test_litecoin-base32_tests.obj `if test -f 'test/base32_tests.cpp'; then $(CYGPATH_W) 'test/base32_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/base32_tests.cpp'; fi`
-	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_litecoin-base32_tests.Tpo test/$(DEPDIR)/test_test_litecoin-base32_tests.Po
-#	$(AM_V_CXX)source='test/base32_tests.cpp' object='test/test_test_litecoin-base32_tests.obj' libtool=no \
+test/test_test_safecoin-base32_tests.obj: test/base32_tests.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_safecoin-base32_tests.obj -MD -MP -MF test/$(DEPDIR)/test_test_safecoin-base32_tests.Tpo -c -o test/test_test_safecoin-base32_tests.obj `if test -f 'test/base32_tests.cpp'; then $(CYGPATH_W) 'test/base32_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/base32_tests.cpp'; fi`
+	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_safecoin-base32_tests.Tpo test/$(DEPDIR)/test_test_safecoin-base32_tests.Po
+#	$(AM_V_CXX)source='test/base32_tests.cpp' object='test/test_test_safecoin-base32_tests.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_litecoin-base32_tests.obj `if test -f 'test/base32_tests.cpp'; then $(CYGPATH_W) 'test/base32_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/base32_tests.cpp'; fi`
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_safecoin-base32_tests.obj `if test -f 'test/base32_tests.cpp'; then $(CYGPATH_W) 'test/base32_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/base32_tests.cpp'; fi`
 
-test/test_test_litecoin-base58_tests.o: test/base58_tests.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_litecoin-base58_tests.o -MD -MP -MF test/$(DEPDIR)/test_test_litecoin-base58_tests.Tpo -c -o test/test_test_litecoin-base58_tests.o `test -f 'test/base58_tests.cpp' || echo '$(srcdir)/'`test/base58_tests.cpp
-	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_litecoin-base58_tests.Tpo test/$(DEPDIR)/test_test_litecoin-base58_tests.Po
-#	$(AM_V_CXX)source='test/base58_tests.cpp' object='test/test_test_litecoin-base58_tests.o' libtool=no \
+test/test_test_safecoin-base58_tests.o: test/base58_tests.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_safecoin-base58_tests.o -MD -MP -MF test/$(DEPDIR)/test_test_safecoin-base58_tests.Tpo -c -o test/test_test_safecoin-base58_tests.o `test -f 'test/base58_tests.cpp' || echo '$(srcdir)/'`test/base58_tests.cpp
+	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_safecoin-base58_tests.Tpo test/$(DEPDIR)/test_test_safecoin-base58_tests.Po
+#	$(AM_V_CXX)source='test/base58_tests.cpp' object='test/test_test_safecoin-base58_tests.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_litecoin-base58_tests.o `test -f 'test/base58_tests.cpp' || echo '$(srcdir)/'`test/base58_tests.cpp
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_safecoin-base58_tests.o `test -f 'test/base58_tests.cpp' || echo '$(srcdir)/'`test/base58_tests.cpp
 
-test/test_test_litecoin-base58_tests.obj: test/base58_tests.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_litecoin-base58_tests.obj -MD -MP -MF test/$(DEPDIR)/test_test_litecoin-base58_tests.Tpo -c -o test/test_test_litecoin-base58_tests.obj `if test -f 'test/base58_tests.cpp'; then $(CYGPATH_W) 'test/base58_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/base58_tests.cpp'; fi`
-	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_litecoin-base58_tests.Tpo test/$(DEPDIR)/test_test_litecoin-base58_tests.Po
-#	$(AM_V_CXX)source='test/base58_tests.cpp' object='test/test_test_litecoin-base58_tests.obj' libtool=no \
+test/test_test_safecoin-base58_tests.obj: test/base58_tests.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_safecoin-base58_tests.obj -MD -MP -MF test/$(DEPDIR)/test_test_safecoin-base58_tests.Tpo -c -o test/test_test_safecoin-base58_tests.obj `if test -f 'test/base58_tests.cpp'; then $(CYGPATH_W) 'test/base58_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/base58_tests.cpp'; fi`
+	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_safecoin-base58_tests.Tpo test/$(DEPDIR)/test_test_safecoin-base58_tests.Po
+#	$(AM_V_CXX)source='test/base58_tests.cpp' object='test/test_test_safecoin-base58_tests.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_litecoin-base58_tests.obj `if test -f 'test/base58_tests.cpp'; then $(CYGPATH_W) 'test/base58_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/base58_tests.cpp'; fi`
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_safecoin-base58_tests.obj `if test -f 'test/base58_tests.cpp'; then $(CYGPATH_W) 'test/base58_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/base58_tests.cpp'; fi`
 
-test/test_test_litecoin-base64_tests.o: test/base64_tests.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_litecoin-base64_tests.o -MD -MP -MF test/$(DEPDIR)/test_test_litecoin-base64_tests.Tpo -c -o test/test_test_litecoin-base64_tests.o `test -f 'test/base64_tests.cpp' || echo '$(srcdir)/'`test/base64_tests.cpp
-	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_litecoin-base64_tests.Tpo test/$(DEPDIR)/test_test_litecoin-base64_tests.Po
-#	$(AM_V_CXX)source='test/base64_tests.cpp' object='test/test_test_litecoin-base64_tests.o' libtool=no \
+test/test_test_safecoin-base64_tests.o: test/base64_tests.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_safecoin-base64_tests.o -MD -MP -MF test/$(DEPDIR)/test_test_safecoin-base64_tests.Tpo -c -o test/test_test_safecoin-base64_tests.o `test -f 'test/base64_tests.cpp' || echo '$(srcdir)/'`test/base64_tests.cpp
+	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_safecoin-base64_tests.Tpo test/$(DEPDIR)/test_test_safecoin-base64_tests.Po
+#	$(AM_V_CXX)source='test/base64_tests.cpp' object='test/test_test_safecoin-base64_tests.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_litecoin-base64_tests.o `test -f 'test/base64_tests.cpp' || echo '$(srcdir)/'`test/base64_tests.cpp
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_safecoin-base64_tests.o `test -f 'test/base64_tests.cpp' || echo '$(srcdir)/'`test/base64_tests.cpp
 
-test/test_test_litecoin-base64_tests.obj: test/base64_tests.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_litecoin-base64_tests.obj -MD -MP -MF test/$(DEPDIR)/test_test_litecoin-base64_tests.Tpo -c -o test/test_test_litecoin-base64_tests.obj `if test -f 'test/base64_tests.cpp'; then $(CYGPATH_W) 'test/base64_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/base64_tests.cpp'; fi`
-	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_litecoin-base64_tests.Tpo test/$(DEPDIR)/test_test_litecoin-base64_tests.Po
-#	$(AM_V_CXX)source='test/base64_tests.cpp' object='test/test_test_litecoin-base64_tests.obj' libtool=no \
+test/test_test_safecoin-base64_tests.obj: test/base64_tests.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_safecoin-base64_tests.obj -MD -MP -MF test/$(DEPDIR)/test_test_safecoin-base64_tests.Tpo -c -o test/test_test_safecoin-base64_tests.obj `if test -f 'test/base64_tests.cpp'; then $(CYGPATH_W) 'test/base64_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/base64_tests.cpp'; fi`
+	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_safecoin-base64_tests.Tpo test/$(DEPDIR)/test_test_safecoin-base64_tests.Po
+#	$(AM_V_CXX)source='test/base64_tests.cpp' object='test/test_test_safecoin-base64_tests.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_litecoin-base64_tests.obj `if test -f 'test/base64_tests.cpp'; then $(CYGPATH_W) 'test/base64_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/base64_tests.cpp'; fi`
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_safecoin-base64_tests.obj `if test -f 'test/base64_tests.cpp'; then $(CYGPATH_W) 'test/base64_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/base64_tests.cpp'; fi`
 
-test/test_test_litecoin-bloom_tests.o: test/bloom_tests.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_litecoin-bloom_tests.o -MD -MP -MF test/$(DEPDIR)/test_test_litecoin-bloom_tests.Tpo -c -o test/test_test_litecoin-bloom_tests.o `test -f 'test/bloom_tests.cpp' || echo '$(srcdir)/'`test/bloom_tests.cpp
-	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_litecoin-bloom_tests.Tpo test/$(DEPDIR)/test_test_litecoin-bloom_tests.Po
-#	$(AM_V_CXX)source='test/bloom_tests.cpp' object='test/test_test_litecoin-bloom_tests.o' libtool=no \
+test/test_test_safecoin-bloom_tests.o: test/bloom_tests.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_safecoin-bloom_tests.o -MD -MP -MF test/$(DEPDIR)/test_test_safecoin-bloom_tests.Tpo -c -o test/test_test_safecoin-bloom_tests.o `test -f 'test/bloom_tests.cpp' || echo '$(srcdir)/'`test/bloom_tests.cpp
+	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_safecoin-bloom_tests.Tpo test/$(DEPDIR)/test_test_safecoin-bloom_tests.Po
+#	$(AM_V_CXX)source='test/bloom_tests.cpp' object='test/test_test_safecoin-bloom_tests.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_litecoin-bloom_tests.o `test -f 'test/bloom_tests.cpp' || echo '$(srcdir)/'`test/bloom_tests.cpp
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_safecoin-bloom_tests.o `test -f 'test/bloom_tests.cpp' || echo '$(srcdir)/'`test/bloom_tests.cpp
 
-test/test_test_litecoin-bloom_tests.obj: test/bloom_tests.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_litecoin-bloom_tests.obj -MD -MP -MF test/$(DEPDIR)/test_test_litecoin-bloom_tests.Tpo -c -o test/test_test_litecoin-bloom_tests.obj `if test -f 'test/bloom_tests.cpp'; then $(CYGPATH_W) 'test/bloom_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/bloom_tests.cpp'; fi`
-	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_litecoin-bloom_tests.Tpo test/$(DEPDIR)/test_test_litecoin-bloom_tests.Po
-#	$(AM_V_CXX)source='test/bloom_tests.cpp' object='test/test_test_litecoin-bloom_tests.obj' libtool=no \
+test/test_test_safecoin-bloom_tests.obj: test/bloom_tests.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_safecoin-bloom_tests.obj -MD -MP -MF test/$(DEPDIR)/test_test_safecoin-bloom_tests.Tpo -c -o test/test_test_safecoin-bloom_tests.obj `if test -f 'test/bloom_tests.cpp'; then $(CYGPATH_W) 'test/bloom_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/bloom_tests.cpp'; fi`
+	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_safecoin-bloom_tests.Tpo test/$(DEPDIR)/test_test_safecoin-bloom_tests.Po
+#	$(AM_V_CXX)source='test/bloom_tests.cpp' object='test/test_test_safecoin-bloom_tests.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_litecoin-bloom_tests.obj `if test -f 'test/bloom_tests.cpp'; then $(CYGPATH_W) 'test/bloom_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/bloom_tests.cpp'; fi`
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_safecoin-bloom_tests.obj `if test -f 'test/bloom_tests.cpp'; then $(CYGPATH_W) 'test/bloom_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/bloom_tests.cpp'; fi`
 
-test/test_test_litecoin-checkblock_tests.o: test/checkblock_tests.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_litecoin-checkblock_tests.o -MD -MP -MF test/$(DEPDIR)/test_test_litecoin-checkblock_tests.Tpo -c -o test/test_test_litecoin-checkblock_tests.o `test -f 'test/checkblock_tests.cpp' || echo '$(srcdir)/'`test/checkblock_tests.cpp
-	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_litecoin-checkblock_tests.Tpo test/$(DEPDIR)/test_test_litecoin-checkblock_tests.Po
-#	$(AM_V_CXX)source='test/checkblock_tests.cpp' object='test/test_test_litecoin-checkblock_tests.o' libtool=no \
+test/test_test_safecoin-checkblock_tests.o: test/checkblock_tests.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_safecoin-checkblock_tests.o -MD -MP -MF test/$(DEPDIR)/test_test_safecoin-checkblock_tests.Tpo -c -o test/test_test_safecoin-checkblock_tests.o `test -f 'test/checkblock_tests.cpp' || echo '$(srcdir)/'`test/checkblock_tests.cpp
+	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_safecoin-checkblock_tests.Tpo test/$(DEPDIR)/test_test_safecoin-checkblock_tests.Po
+#	$(AM_V_CXX)source='test/checkblock_tests.cpp' object='test/test_test_safecoin-checkblock_tests.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_litecoin-checkblock_tests.o `test -f 'test/checkblock_tests.cpp' || echo '$(srcdir)/'`test/checkblock_tests.cpp
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_safecoin-checkblock_tests.o `test -f 'test/checkblock_tests.cpp' || echo '$(srcdir)/'`test/checkblock_tests.cpp
 
-test/test_test_litecoin-checkblock_tests.obj: test/checkblock_tests.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_litecoin-checkblock_tests.obj -MD -MP -MF test/$(DEPDIR)/test_test_litecoin-checkblock_tests.Tpo -c -o test/test_test_litecoin-checkblock_tests.obj `if test -f 'test/checkblock_tests.cpp'; then $(CYGPATH_W) 'test/checkblock_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/checkblock_tests.cpp'; fi`
-	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_litecoin-checkblock_tests.Tpo test/$(DEPDIR)/test_test_litecoin-checkblock_tests.Po
-#	$(AM_V_CXX)source='test/checkblock_tests.cpp' object='test/test_test_litecoin-checkblock_tests.obj' libtool=no \
+test/test_test_safecoin-checkblock_tests.obj: test/checkblock_tests.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_safecoin-checkblock_tests.obj -MD -MP -MF test/$(DEPDIR)/test_test_safecoin-checkblock_tests.Tpo -c -o test/test_test_safecoin-checkblock_tests.obj `if test -f 'test/checkblock_tests.cpp'; then $(CYGPATH_W) 'test/checkblock_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/checkblock_tests.cpp'; fi`
+	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_safecoin-checkblock_tests.Tpo test/$(DEPDIR)/test_test_safecoin-checkblock_tests.Po
+#	$(AM_V_CXX)source='test/checkblock_tests.cpp' object='test/test_test_safecoin-checkblock_tests.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_litecoin-checkblock_tests.obj `if test -f 'test/checkblock_tests.cpp'; then $(CYGPATH_W) 'test/checkblock_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/checkblock_tests.cpp'; fi`
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_safecoin-checkblock_tests.obj `if test -f 'test/checkblock_tests.cpp'; then $(CYGPATH_W) 'test/checkblock_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/checkblock_tests.cpp'; fi`
 
-test/test_test_litecoin-Checkpoints_tests.o: test/Checkpoints_tests.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_litecoin-Checkpoints_tests.o -MD -MP -MF test/$(DEPDIR)/test_test_litecoin-Checkpoints_tests.Tpo -c -o test/test_test_litecoin-Checkpoints_tests.o `test -f 'test/Checkpoints_tests.cpp' || echo '$(srcdir)/'`test/Checkpoints_tests.cpp
-	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_litecoin-Checkpoints_tests.Tpo test/$(DEPDIR)/test_test_litecoin-Checkpoints_tests.Po
-#	$(AM_V_CXX)source='test/Checkpoints_tests.cpp' object='test/test_test_litecoin-Checkpoints_tests.o' libtool=no \
+test/test_test_safecoin-Checkpoints_tests.o: test/Checkpoints_tests.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_safecoin-Checkpoints_tests.o -MD -MP -MF test/$(DEPDIR)/test_test_safecoin-Checkpoints_tests.Tpo -c -o test/test_test_safecoin-Checkpoints_tests.o `test -f 'test/Checkpoints_tests.cpp' || echo '$(srcdir)/'`test/Checkpoints_tests.cpp
+	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_safecoin-Checkpoints_tests.Tpo test/$(DEPDIR)/test_test_safecoin-Checkpoints_tests.Po
+#	$(AM_V_CXX)source='test/Checkpoints_tests.cpp' object='test/test_test_safecoin-Checkpoints_tests.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_litecoin-Checkpoints_tests.o `test -f 'test/Checkpoints_tests.cpp' || echo '$(srcdir)/'`test/Checkpoints_tests.cpp
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_safecoin-Checkpoints_tests.o `test -f 'test/Checkpoints_tests.cpp' || echo '$(srcdir)/'`test/Checkpoints_tests.cpp
 
-test/test_test_litecoin-Checkpoints_tests.obj: test/Checkpoints_tests.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_litecoin-Checkpoints_tests.obj -MD -MP -MF test/$(DEPDIR)/test_test_litecoin-Checkpoints_tests.Tpo -c -o test/test_test_litecoin-Checkpoints_tests.obj `if test -f 'test/Checkpoints_tests.cpp'; then $(CYGPATH_W) 'test/Checkpoints_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/Checkpoints_tests.cpp'; fi`
-	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_litecoin-Checkpoints_tests.Tpo test/$(DEPDIR)/test_test_litecoin-Checkpoints_tests.Po
-#	$(AM_V_CXX)source='test/Checkpoints_tests.cpp' object='test/test_test_litecoin-Checkpoints_tests.obj' libtool=no \
+test/test_test_safecoin-Checkpoints_tests.obj: test/Checkpoints_tests.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_safecoin-Checkpoints_tests.obj -MD -MP -MF test/$(DEPDIR)/test_test_safecoin-Checkpoints_tests.Tpo -c -o test/test_test_safecoin-Checkpoints_tests.obj `if test -f 'test/Checkpoints_tests.cpp'; then $(CYGPATH_W) 'test/Checkpoints_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/Checkpoints_tests.cpp'; fi`
+	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_safecoin-Checkpoints_tests.Tpo test/$(DEPDIR)/test_test_safecoin-Checkpoints_tests.Po
+#	$(AM_V_CXX)source='test/Checkpoints_tests.cpp' object='test/test_test_safecoin-Checkpoints_tests.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_litecoin-Checkpoints_tests.obj `if test -f 'test/Checkpoints_tests.cpp'; then $(CYGPATH_W) 'test/Checkpoints_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/Checkpoints_tests.cpp'; fi`
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_safecoin-Checkpoints_tests.obj `if test -f 'test/Checkpoints_tests.cpp'; then $(CYGPATH_W) 'test/Checkpoints_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/Checkpoints_tests.cpp'; fi`
 
-test/test_test_litecoin-coins_tests.o: test/coins_tests.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_litecoin-coins_tests.o -MD -MP -MF test/$(DEPDIR)/test_test_litecoin-coins_tests.Tpo -c -o test/test_test_litecoin-coins_tests.o `test -f 'test/coins_tests.cpp' || echo '$(srcdir)/'`test/coins_tests.cpp
-	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_litecoin-coins_tests.Tpo test/$(DEPDIR)/test_test_litecoin-coins_tests.Po
-#	$(AM_V_CXX)source='test/coins_tests.cpp' object='test/test_test_litecoin-coins_tests.o' libtool=no \
+test/test_test_safecoin-coins_tests.o: test/coins_tests.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_safecoin-coins_tests.o -MD -MP -MF test/$(DEPDIR)/test_test_safecoin-coins_tests.Tpo -c -o test/test_test_safecoin-coins_tests.o `test -f 'test/coins_tests.cpp' || echo '$(srcdir)/'`test/coins_tests.cpp
+	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_safecoin-coins_tests.Tpo test/$(DEPDIR)/test_test_safecoin-coins_tests.Po
+#	$(AM_V_CXX)source='test/coins_tests.cpp' object='test/test_test_safecoin-coins_tests.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_litecoin-coins_tests.o `test -f 'test/coins_tests.cpp' || echo '$(srcdir)/'`test/coins_tests.cpp
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_safecoin-coins_tests.o `test -f 'test/coins_tests.cpp' || echo '$(srcdir)/'`test/coins_tests.cpp
 
-test/test_test_litecoin-coins_tests.obj: test/coins_tests.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_litecoin-coins_tests.obj -MD -MP -MF test/$(DEPDIR)/test_test_litecoin-coins_tests.Tpo -c -o test/test_test_litecoin-coins_tests.obj `if test -f 'test/coins_tests.cpp'; then $(CYGPATH_W) 'test/coins_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/coins_tests.cpp'; fi`
-	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_litecoin-coins_tests.Tpo test/$(DEPDIR)/test_test_litecoin-coins_tests.Po
-#	$(AM_V_CXX)source='test/coins_tests.cpp' object='test/test_test_litecoin-coins_tests.obj' libtool=no \
+test/test_test_safecoin-coins_tests.obj: test/coins_tests.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_safecoin-coins_tests.obj -MD -MP -MF test/$(DEPDIR)/test_test_safecoin-coins_tests.Tpo -c -o test/test_test_safecoin-coins_tests.obj `if test -f 'test/coins_tests.cpp'; then $(CYGPATH_W) 'test/coins_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/coins_tests.cpp'; fi`
+	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_safecoin-coins_tests.Tpo test/$(DEPDIR)/test_test_safecoin-coins_tests.Po
+#	$(AM_V_CXX)source='test/coins_tests.cpp' object='test/test_test_safecoin-coins_tests.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_litecoin-coins_tests.obj `if test -f 'test/coins_tests.cpp'; then $(CYGPATH_W) 'test/coins_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/coins_tests.cpp'; fi`
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_safecoin-coins_tests.obj `if test -f 'test/coins_tests.cpp'; then $(CYGPATH_W) 'test/coins_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/coins_tests.cpp'; fi`
 
-test/test_test_litecoin-compress_tests.o: test/compress_tests.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_litecoin-compress_tests.o -MD -MP -MF test/$(DEPDIR)/test_test_litecoin-compress_tests.Tpo -c -o test/test_test_litecoin-compress_tests.o `test -f 'test/compress_tests.cpp' || echo '$(srcdir)/'`test/compress_tests.cpp
-	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_litecoin-compress_tests.Tpo test/$(DEPDIR)/test_test_litecoin-compress_tests.Po
-#	$(AM_V_CXX)source='test/compress_tests.cpp' object='test/test_test_litecoin-compress_tests.o' libtool=no \
+test/test_test_safecoin-compress_tests.o: test/compress_tests.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_safecoin-compress_tests.o -MD -MP -MF test/$(DEPDIR)/test_test_safecoin-compress_tests.Tpo -c -o test/test_test_safecoin-compress_tests.o `test -f 'test/compress_tests.cpp' || echo '$(srcdir)/'`test/compress_tests.cpp
+	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_safecoin-compress_tests.Tpo test/$(DEPDIR)/test_test_safecoin-compress_tests.Po
+#	$(AM_V_CXX)source='test/compress_tests.cpp' object='test/test_test_safecoin-compress_tests.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_litecoin-compress_tests.o `test -f 'test/compress_tests.cpp' || echo '$(srcdir)/'`test/compress_tests.cpp
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_safecoin-compress_tests.o `test -f 'test/compress_tests.cpp' || echo '$(srcdir)/'`test/compress_tests.cpp
 
-test/test_test_litecoin-compress_tests.obj: test/compress_tests.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_litecoin-compress_tests.obj -MD -MP -MF test/$(DEPDIR)/test_test_litecoin-compress_tests.Tpo -c -o test/test_test_litecoin-compress_tests.obj `if test -f 'test/compress_tests.cpp'; then $(CYGPATH_W) 'test/compress_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/compress_tests.cpp'; fi`
-	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_litecoin-compress_tests.Tpo test/$(DEPDIR)/test_test_litecoin-compress_tests.Po
-#	$(AM_V_CXX)source='test/compress_tests.cpp' object='test/test_test_litecoin-compress_tests.obj' libtool=no \
+test/test_test_safecoin-compress_tests.obj: test/compress_tests.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_safecoin-compress_tests.obj -MD -MP -MF test/$(DEPDIR)/test_test_safecoin-compress_tests.Tpo -c -o test/test_test_safecoin-compress_tests.obj `if test -f 'test/compress_tests.cpp'; then $(CYGPATH_W) 'test/compress_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/compress_tests.cpp'; fi`
+	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_safecoin-compress_tests.Tpo test/$(DEPDIR)/test_test_safecoin-compress_tests.Po
+#	$(AM_V_CXX)source='test/compress_tests.cpp' object='test/test_test_safecoin-compress_tests.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_litecoin-compress_tests.obj `if test -f 'test/compress_tests.cpp'; then $(CYGPATH_W) 'test/compress_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/compress_tests.cpp'; fi`
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_safecoin-compress_tests.obj `if test -f 'test/compress_tests.cpp'; then $(CYGPATH_W) 'test/compress_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/compress_tests.cpp'; fi`
 
-test/test_test_litecoin-crypto_tests.o: test/crypto_tests.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_litecoin-crypto_tests.o -MD -MP -MF test/$(DEPDIR)/test_test_litecoin-crypto_tests.Tpo -c -o test/test_test_litecoin-crypto_tests.o `test -f 'test/crypto_tests.cpp' || echo '$(srcdir)/'`test/crypto_tests.cpp
-	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_litecoin-crypto_tests.Tpo test/$(DEPDIR)/test_test_litecoin-crypto_tests.Po
-#	$(AM_V_CXX)source='test/crypto_tests.cpp' object='test/test_test_litecoin-crypto_tests.o' libtool=no \
+test/test_test_safecoin-crypto_tests.o: test/crypto_tests.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_safecoin-crypto_tests.o -MD -MP -MF test/$(DEPDIR)/test_test_safecoin-crypto_tests.Tpo -c -o test/test_test_safecoin-crypto_tests.o `test -f 'test/crypto_tests.cpp' || echo '$(srcdir)/'`test/crypto_tests.cpp
+	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_safecoin-crypto_tests.Tpo test/$(DEPDIR)/test_test_safecoin-crypto_tests.Po
+#	$(AM_V_CXX)source='test/crypto_tests.cpp' object='test/test_test_safecoin-crypto_tests.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_litecoin-crypto_tests.o `test -f 'test/crypto_tests.cpp' || echo '$(srcdir)/'`test/crypto_tests.cpp
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_safecoin-crypto_tests.o `test -f 'test/crypto_tests.cpp' || echo '$(srcdir)/'`test/crypto_tests.cpp
 
-test/test_test_litecoin-crypto_tests.obj: test/crypto_tests.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_litecoin-crypto_tests.obj -MD -MP -MF test/$(DEPDIR)/test_test_litecoin-crypto_tests.Tpo -c -o test/test_test_litecoin-crypto_tests.obj `if test -f 'test/crypto_tests.cpp'; then $(CYGPATH_W) 'test/crypto_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/crypto_tests.cpp'; fi`
-	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_litecoin-crypto_tests.Tpo test/$(DEPDIR)/test_test_litecoin-crypto_tests.Po
-#	$(AM_V_CXX)source='test/crypto_tests.cpp' object='test/test_test_litecoin-crypto_tests.obj' libtool=no \
+test/test_test_safecoin-crypto_tests.obj: test/crypto_tests.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_safecoin-crypto_tests.obj -MD -MP -MF test/$(DEPDIR)/test_test_safecoin-crypto_tests.Tpo -c -o test/test_test_safecoin-crypto_tests.obj `if test -f 'test/crypto_tests.cpp'; then $(CYGPATH_W) 'test/crypto_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/crypto_tests.cpp'; fi`
+	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_safecoin-crypto_tests.Tpo test/$(DEPDIR)/test_test_safecoin-crypto_tests.Po
+#	$(AM_V_CXX)source='test/crypto_tests.cpp' object='test/test_test_safecoin-crypto_tests.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_litecoin-crypto_tests.obj `if test -f 'test/crypto_tests.cpp'; then $(CYGPATH_W) 'test/crypto_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/crypto_tests.cpp'; fi`
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_safecoin-crypto_tests.obj `if test -f 'test/crypto_tests.cpp'; then $(CYGPATH_W) 'test/crypto_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/crypto_tests.cpp'; fi`
 
-test/test_test_litecoin-DoS_tests.o: test/DoS_tests.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_litecoin-DoS_tests.o -MD -MP -MF test/$(DEPDIR)/test_test_litecoin-DoS_tests.Tpo -c -o test/test_test_litecoin-DoS_tests.o `test -f 'test/DoS_tests.cpp' || echo '$(srcdir)/'`test/DoS_tests.cpp
-	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_litecoin-DoS_tests.Tpo test/$(DEPDIR)/test_test_litecoin-DoS_tests.Po
-#	$(AM_V_CXX)source='test/DoS_tests.cpp' object='test/test_test_litecoin-DoS_tests.o' libtool=no \
+test/test_test_safecoin-DoS_tests.o: test/DoS_tests.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_safecoin-DoS_tests.o -MD -MP -MF test/$(DEPDIR)/test_test_safecoin-DoS_tests.Tpo -c -o test/test_test_safecoin-DoS_tests.o `test -f 'test/DoS_tests.cpp' || echo '$(srcdir)/'`test/DoS_tests.cpp
+	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_safecoin-DoS_tests.Tpo test/$(DEPDIR)/test_test_safecoin-DoS_tests.Po
+#	$(AM_V_CXX)source='test/DoS_tests.cpp' object='test/test_test_safecoin-DoS_tests.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_litecoin-DoS_tests.o `test -f 'test/DoS_tests.cpp' || echo '$(srcdir)/'`test/DoS_tests.cpp
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_safecoin-DoS_tests.o `test -f 'test/DoS_tests.cpp' || echo '$(srcdir)/'`test/DoS_tests.cpp
 
-test/test_test_litecoin-DoS_tests.obj: test/DoS_tests.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_litecoin-DoS_tests.obj -MD -MP -MF test/$(DEPDIR)/test_test_litecoin-DoS_tests.Tpo -c -o test/test_test_litecoin-DoS_tests.obj `if test -f 'test/DoS_tests.cpp'; then $(CYGPATH_W) 'test/DoS_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/DoS_tests.cpp'; fi`
-	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_litecoin-DoS_tests.Tpo test/$(DEPDIR)/test_test_litecoin-DoS_tests.Po
-#	$(AM_V_CXX)source='test/DoS_tests.cpp' object='test/test_test_litecoin-DoS_tests.obj' libtool=no \
+test/test_test_safecoin-DoS_tests.obj: test/DoS_tests.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_safecoin-DoS_tests.obj -MD -MP -MF test/$(DEPDIR)/test_test_safecoin-DoS_tests.Tpo -c -o test/test_test_safecoin-DoS_tests.obj `if test -f 'test/DoS_tests.cpp'; then $(CYGPATH_W) 'test/DoS_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/DoS_tests.cpp'; fi`
+	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_safecoin-DoS_tests.Tpo test/$(DEPDIR)/test_test_safecoin-DoS_tests.Po
+#	$(AM_V_CXX)source='test/DoS_tests.cpp' object='test/test_test_safecoin-DoS_tests.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_litecoin-DoS_tests.obj `if test -f 'test/DoS_tests.cpp'; then $(CYGPATH_W) 'test/DoS_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/DoS_tests.cpp'; fi`
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_safecoin-DoS_tests.obj `if test -f 'test/DoS_tests.cpp'; then $(CYGPATH_W) 'test/DoS_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/DoS_tests.cpp'; fi`
 
-test/test_test_litecoin-getarg_tests.o: test/getarg_tests.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_litecoin-getarg_tests.o -MD -MP -MF test/$(DEPDIR)/test_test_litecoin-getarg_tests.Tpo -c -o test/test_test_litecoin-getarg_tests.o `test -f 'test/getarg_tests.cpp' || echo '$(srcdir)/'`test/getarg_tests.cpp
-	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_litecoin-getarg_tests.Tpo test/$(DEPDIR)/test_test_litecoin-getarg_tests.Po
-#	$(AM_V_CXX)source='test/getarg_tests.cpp' object='test/test_test_litecoin-getarg_tests.o' libtool=no \
+test/test_test_safecoin-getarg_tests.o: test/getarg_tests.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_safecoin-getarg_tests.o -MD -MP -MF test/$(DEPDIR)/test_test_safecoin-getarg_tests.Tpo -c -o test/test_test_safecoin-getarg_tests.o `test -f 'test/getarg_tests.cpp' || echo '$(srcdir)/'`test/getarg_tests.cpp
+	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_safecoin-getarg_tests.Tpo test/$(DEPDIR)/test_test_safecoin-getarg_tests.Po
+#	$(AM_V_CXX)source='test/getarg_tests.cpp' object='test/test_test_safecoin-getarg_tests.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_litecoin-getarg_tests.o `test -f 'test/getarg_tests.cpp' || echo '$(srcdir)/'`test/getarg_tests.cpp
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_safecoin-getarg_tests.o `test -f 'test/getarg_tests.cpp' || echo '$(srcdir)/'`test/getarg_tests.cpp
 
-test/test_test_litecoin-getarg_tests.obj: test/getarg_tests.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_litecoin-getarg_tests.obj -MD -MP -MF test/$(DEPDIR)/test_test_litecoin-getarg_tests.Tpo -c -o test/test_test_litecoin-getarg_tests.obj `if test -f 'test/getarg_tests.cpp'; then $(CYGPATH_W) 'test/getarg_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/getarg_tests.cpp'; fi`
-	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_litecoin-getarg_tests.Tpo test/$(DEPDIR)/test_test_litecoin-getarg_tests.Po
-#	$(AM_V_CXX)source='test/getarg_tests.cpp' object='test/test_test_litecoin-getarg_tests.obj' libtool=no \
+test/test_test_safecoin-getarg_tests.obj: test/getarg_tests.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_safecoin-getarg_tests.obj -MD -MP -MF test/$(DEPDIR)/test_test_safecoin-getarg_tests.Tpo -c -o test/test_test_safecoin-getarg_tests.obj `if test -f 'test/getarg_tests.cpp'; then $(CYGPATH_W) 'test/getarg_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/getarg_tests.cpp'; fi`
+	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_safecoin-getarg_tests.Tpo test/$(DEPDIR)/test_test_safecoin-getarg_tests.Po
+#	$(AM_V_CXX)source='test/getarg_tests.cpp' object='test/test_test_safecoin-getarg_tests.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_litecoin-getarg_tests.obj `if test -f 'test/getarg_tests.cpp'; then $(CYGPATH_W) 'test/getarg_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/getarg_tests.cpp'; fi`
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_safecoin-getarg_tests.obj `if test -f 'test/getarg_tests.cpp'; then $(CYGPATH_W) 'test/getarg_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/getarg_tests.cpp'; fi`
 
-test/test_test_litecoin-hash_tests.o: test/hash_tests.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_litecoin-hash_tests.o -MD -MP -MF test/$(DEPDIR)/test_test_litecoin-hash_tests.Tpo -c -o test/test_test_litecoin-hash_tests.o `test -f 'test/hash_tests.cpp' || echo '$(srcdir)/'`test/hash_tests.cpp
-	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_litecoin-hash_tests.Tpo test/$(DEPDIR)/test_test_litecoin-hash_tests.Po
-#	$(AM_V_CXX)source='test/hash_tests.cpp' object='test/test_test_litecoin-hash_tests.o' libtool=no \
+test/test_test_safecoin-hash_tests.o: test/hash_tests.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_safecoin-hash_tests.o -MD -MP -MF test/$(DEPDIR)/test_test_safecoin-hash_tests.Tpo -c -o test/test_test_safecoin-hash_tests.o `test -f 'test/hash_tests.cpp' || echo '$(srcdir)/'`test/hash_tests.cpp
+	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_safecoin-hash_tests.Tpo test/$(DEPDIR)/test_test_safecoin-hash_tests.Po
+#	$(AM_V_CXX)source='test/hash_tests.cpp' object='test/test_test_safecoin-hash_tests.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_litecoin-hash_tests.o `test -f 'test/hash_tests.cpp' || echo '$(srcdir)/'`test/hash_tests.cpp
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_safecoin-hash_tests.o `test -f 'test/hash_tests.cpp' || echo '$(srcdir)/'`test/hash_tests.cpp
 
-test/test_test_litecoin-hash_tests.obj: test/hash_tests.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_litecoin-hash_tests.obj -MD -MP -MF test/$(DEPDIR)/test_test_litecoin-hash_tests.Tpo -c -o test/test_test_litecoin-hash_tests.obj `if test -f 'test/hash_tests.cpp'; then $(CYGPATH_W) 'test/hash_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/hash_tests.cpp'; fi`
-	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_litecoin-hash_tests.Tpo test/$(DEPDIR)/test_test_litecoin-hash_tests.Po
-#	$(AM_V_CXX)source='test/hash_tests.cpp' object='test/test_test_litecoin-hash_tests.obj' libtool=no \
+test/test_test_safecoin-hash_tests.obj: test/hash_tests.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_safecoin-hash_tests.obj -MD -MP -MF test/$(DEPDIR)/test_test_safecoin-hash_tests.Tpo -c -o test/test_test_safecoin-hash_tests.obj `if test -f 'test/hash_tests.cpp'; then $(CYGPATH_W) 'test/hash_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/hash_tests.cpp'; fi`
+	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_safecoin-hash_tests.Tpo test/$(DEPDIR)/test_test_safecoin-hash_tests.Po
+#	$(AM_V_CXX)source='test/hash_tests.cpp' object='test/test_test_safecoin-hash_tests.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_litecoin-hash_tests.obj `if test -f 'test/hash_tests.cpp'; then $(CYGPATH_W) 'test/hash_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/hash_tests.cpp'; fi`
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_safecoin-hash_tests.obj `if test -f 'test/hash_tests.cpp'; then $(CYGPATH_W) 'test/hash_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/hash_tests.cpp'; fi`
 
-test/test_test_litecoin-key_tests.o: test/key_tests.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_litecoin-key_tests.o -MD -MP -MF test/$(DEPDIR)/test_test_litecoin-key_tests.Tpo -c -o test/test_test_litecoin-key_tests.o `test -f 'test/key_tests.cpp' || echo '$(srcdir)/'`test/key_tests.cpp
-	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_litecoin-key_tests.Tpo test/$(DEPDIR)/test_test_litecoin-key_tests.Po
-#	$(AM_V_CXX)source='test/key_tests.cpp' object='test/test_test_litecoin-key_tests.o' libtool=no \
+test/test_test_safecoin-key_tests.o: test/key_tests.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_safecoin-key_tests.o -MD -MP -MF test/$(DEPDIR)/test_test_safecoin-key_tests.Tpo -c -o test/test_test_safecoin-key_tests.o `test -f 'test/key_tests.cpp' || echo '$(srcdir)/'`test/key_tests.cpp
+	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_safecoin-key_tests.Tpo test/$(DEPDIR)/test_test_safecoin-key_tests.Po
+#	$(AM_V_CXX)source='test/key_tests.cpp' object='test/test_test_safecoin-key_tests.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_litecoin-key_tests.o `test -f 'test/key_tests.cpp' || echo '$(srcdir)/'`test/key_tests.cpp
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_safecoin-key_tests.o `test -f 'test/key_tests.cpp' || echo '$(srcdir)/'`test/key_tests.cpp
 
-test/test_test_litecoin-key_tests.obj: test/key_tests.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_litecoin-key_tests.obj -MD -MP -MF test/$(DEPDIR)/test_test_litecoin-key_tests.Tpo -c -o test/test_test_litecoin-key_tests.obj `if test -f 'test/key_tests.cpp'; then $(CYGPATH_W) 'test/key_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/key_tests.cpp'; fi`
-	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_litecoin-key_tests.Tpo test/$(DEPDIR)/test_test_litecoin-key_tests.Po
-#	$(AM_V_CXX)source='test/key_tests.cpp' object='test/test_test_litecoin-key_tests.obj' libtool=no \
+test/test_test_safecoin-key_tests.obj: test/key_tests.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_safecoin-key_tests.obj -MD -MP -MF test/$(DEPDIR)/test_test_safecoin-key_tests.Tpo -c -o test/test_test_safecoin-key_tests.obj `if test -f 'test/key_tests.cpp'; then $(CYGPATH_W) 'test/key_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/key_tests.cpp'; fi`
+	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_safecoin-key_tests.Tpo test/$(DEPDIR)/test_test_safecoin-key_tests.Po
+#	$(AM_V_CXX)source='test/key_tests.cpp' object='test/test_test_safecoin-key_tests.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_litecoin-key_tests.obj `if test -f 'test/key_tests.cpp'; then $(CYGPATH_W) 'test/key_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/key_tests.cpp'; fi`
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_safecoin-key_tests.obj `if test -f 'test/key_tests.cpp'; then $(CYGPATH_W) 'test/key_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/key_tests.cpp'; fi`
 
-test/test_test_litecoin-main_tests.o: test/main_tests.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_litecoin-main_tests.o -MD -MP -MF test/$(DEPDIR)/test_test_litecoin-main_tests.Tpo -c -o test/test_test_litecoin-main_tests.o `test -f 'test/main_tests.cpp' || echo '$(srcdir)/'`test/main_tests.cpp
-	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_litecoin-main_tests.Tpo test/$(DEPDIR)/test_test_litecoin-main_tests.Po
-#	$(AM_V_CXX)source='test/main_tests.cpp' object='test/test_test_litecoin-main_tests.o' libtool=no \
+test/test_test_safecoin-main_tests.o: test/main_tests.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_safecoin-main_tests.o -MD -MP -MF test/$(DEPDIR)/test_test_safecoin-main_tests.Tpo -c -o test/test_test_safecoin-main_tests.o `test -f 'test/main_tests.cpp' || echo '$(srcdir)/'`test/main_tests.cpp
+	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_safecoin-main_tests.Tpo test/$(DEPDIR)/test_test_safecoin-main_tests.Po
+#	$(AM_V_CXX)source='test/main_tests.cpp' object='test/test_test_safecoin-main_tests.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_litecoin-main_tests.o `test -f 'test/main_tests.cpp' || echo '$(srcdir)/'`test/main_tests.cpp
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_safecoin-main_tests.o `test -f 'test/main_tests.cpp' || echo '$(srcdir)/'`test/main_tests.cpp
 
-test/test_test_litecoin-main_tests.obj: test/main_tests.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_litecoin-main_tests.obj -MD -MP -MF test/$(DEPDIR)/test_test_litecoin-main_tests.Tpo -c -o test/test_test_litecoin-main_tests.obj `if test -f 'test/main_tests.cpp'; then $(CYGPATH_W) 'test/main_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/main_tests.cpp'; fi`
-	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_litecoin-main_tests.Tpo test/$(DEPDIR)/test_test_litecoin-main_tests.Po
-#	$(AM_V_CXX)source='test/main_tests.cpp' object='test/test_test_litecoin-main_tests.obj' libtool=no \
+test/test_test_safecoin-main_tests.obj: test/main_tests.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_safecoin-main_tests.obj -MD -MP -MF test/$(DEPDIR)/test_test_safecoin-main_tests.Tpo -c -o test/test_test_safecoin-main_tests.obj `if test -f 'test/main_tests.cpp'; then $(CYGPATH_W) 'test/main_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/main_tests.cpp'; fi`
+	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_safecoin-main_tests.Tpo test/$(DEPDIR)/test_test_safecoin-main_tests.Po
+#	$(AM_V_CXX)source='test/main_tests.cpp' object='test/test_test_safecoin-main_tests.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_litecoin-main_tests.obj `if test -f 'test/main_tests.cpp'; then $(CYGPATH_W) 'test/main_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/main_tests.cpp'; fi`
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_safecoin-main_tests.obj `if test -f 'test/main_tests.cpp'; then $(CYGPATH_W) 'test/main_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/main_tests.cpp'; fi`
 
-test/test_test_litecoin-mempool_tests.o: test/mempool_tests.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_litecoin-mempool_tests.o -MD -MP -MF test/$(DEPDIR)/test_test_litecoin-mempool_tests.Tpo -c -o test/test_test_litecoin-mempool_tests.o `test -f 'test/mempool_tests.cpp' || echo '$(srcdir)/'`test/mempool_tests.cpp
-	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_litecoin-mempool_tests.Tpo test/$(DEPDIR)/test_test_litecoin-mempool_tests.Po
-#	$(AM_V_CXX)source='test/mempool_tests.cpp' object='test/test_test_litecoin-mempool_tests.o' libtool=no \
+test/test_test_safecoin-mempool_tests.o: test/mempool_tests.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_safecoin-mempool_tests.o -MD -MP -MF test/$(DEPDIR)/test_test_safecoin-mempool_tests.Tpo -c -o test/test_test_safecoin-mempool_tests.o `test -f 'test/mempool_tests.cpp' || echo '$(srcdir)/'`test/mempool_tests.cpp
+	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_safecoin-mempool_tests.Tpo test/$(DEPDIR)/test_test_safecoin-mempool_tests.Po
+#	$(AM_V_CXX)source='test/mempool_tests.cpp' object='test/test_test_safecoin-mempool_tests.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_litecoin-mempool_tests.o `test -f 'test/mempool_tests.cpp' || echo '$(srcdir)/'`test/mempool_tests.cpp
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_safecoin-mempool_tests.o `test -f 'test/mempool_tests.cpp' || echo '$(srcdir)/'`test/mempool_tests.cpp
 
-test/test_test_litecoin-mempool_tests.obj: test/mempool_tests.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_litecoin-mempool_tests.obj -MD -MP -MF test/$(DEPDIR)/test_test_litecoin-mempool_tests.Tpo -c -o test/test_test_litecoin-mempool_tests.obj `if test -f 'test/mempool_tests.cpp'; then $(CYGPATH_W) 'test/mempool_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/mempool_tests.cpp'; fi`
-	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_litecoin-mempool_tests.Tpo test/$(DEPDIR)/test_test_litecoin-mempool_tests.Po
-#	$(AM_V_CXX)source='test/mempool_tests.cpp' object='test/test_test_litecoin-mempool_tests.obj' libtool=no \
+test/test_test_safecoin-mempool_tests.obj: test/mempool_tests.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_safecoin-mempool_tests.obj -MD -MP -MF test/$(DEPDIR)/test_test_safecoin-mempool_tests.Tpo -c -o test/test_test_safecoin-mempool_tests.obj `if test -f 'test/mempool_tests.cpp'; then $(CYGPATH_W) 'test/mempool_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/mempool_tests.cpp'; fi`
+	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_safecoin-mempool_tests.Tpo test/$(DEPDIR)/test_test_safecoin-mempool_tests.Po
+#	$(AM_V_CXX)source='test/mempool_tests.cpp' object='test/test_test_safecoin-mempool_tests.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_litecoin-mempool_tests.obj `if test -f 'test/mempool_tests.cpp'; then $(CYGPATH_W) 'test/mempool_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/mempool_tests.cpp'; fi`
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_safecoin-mempool_tests.obj `if test -f 'test/mempool_tests.cpp'; then $(CYGPATH_W) 'test/mempool_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/mempool_tests.cpp'; fi`
 
-test/test_test_litecoin-miner_tests.o: test/miner_tests.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_litecoin-miner_tests.o -MD -MP -MF test/$(DEPDIR)/test_test_litecoin-miner_tests.Tpo -c -o test/test_test_litecoin-miner_tests.o `test -f 'test/miner_tests.cpp' || echo '$(srcdir)/'`test/miner_tests.cpp
-	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_litecoin-miner_tests.Tpo test/$(DEPDIR)/test_test_litecoin-miner_tests.Po
-#	$(AM_V_CXX)source='test/miner_tests.cpp' object='test/test_test_litecoin-miner_tests.o' libtool=no \
+test/test_test_safecoin-miner_tests.o: test/miner_tests.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_safecoin-miner_tests.o -MD -MP -MF test/$(DEPDIR)/test_test_safecoin-miner_tests.Tpo -c -o test/test_test_safecoin-miner_tests.o `test -f 'test/miner_tests.cpp' || echo '$(srcdir)/'`test/miner_tests.cpp
+	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_safecoin-miner_tests.Tpo test/$(DEPDIR)/test_test_safecoin-miner_tests.Po
+#	$(AM_V_CXX)source='test/miner_tests.cpp' object='test/test_test_safecoin-miner_tests.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_litecoin-miner_tests.o `test -f 'test/miner_tests.cpp' || echo '$(srcdir)/'`test/miner_tests.cpp
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_safecoin-miner_tests.o `test -f 'test/miner_tests.cpp' || echo '$(srcdir)/'`test/miner_tests.cpp
 
-test/test_test_litecoin-miner_tests.obj: test/miner_tests.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_litecoin-miner_tests.obj -MD -MP -MF test/$(DEPDIR)/test_test_litecoin-miner_tests.Tpo -c -o test/test_test_litecoin-miner_tests.obj `if test -f 'test/miner_tests.cpp'; then $(CYGPATH_W) 'test/miner_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/miner_tests.cpp'; fi`
-	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_litecoin-miner_tests.Tpo test/$(DEPDIR)/test_test_litecoin-miner_tests.Po
-#	$(AM_V_CXX)source='test/miner_tests.cpp' object='test/test_test_litecoin-miner_tests.obj' libtool=no \
+test/test_test_safecoin-miner_tests.obj: test/miner_tests.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_safecoin-miner_tests.obj -MD -MP -MF test/$(DEPDIR)/test_test_safecoin-miner_tests.Tpo -c -o test/test_test_safecoin-miner_tests.obj `if test -f 'test/miner_tests.cpp'; then $(CYGPATH_W) 'test/miner_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/miner_tests.cpp'; fi`
+	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_safecoin-miner_tests.Tpo test/$(DEPDIR)/test_test_safecoin-miner_tests.Po
+#	$(AM_V_CXX)source='test/miner_tests.cpp' object='test/test_test_safecoin-miner_tests.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_litecoin-miner_tests.obj `if test -f 'test/miner_tests.cpp'; then $(CYGPATH_W) 'test/miner_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/miner_tests.cpp'; fi`
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_safecoin-miner_tests.obj `if test -f 'test/miner_tests.cpp'; then $(CYGPATH_W) 'test/miner_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/miner_tests.cpp'; fi`
 
-test/test_test_litecoin-mruset_tests.o: test/mruset_tests.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_litecoin-mruset_tests.o -MD -MP -MF test/$(DEPDIR)/test_test_litecoin-mruset_tests.Tpo -c -o test/test_test_litecoin-mruset_tests.o `test -f 'test/mruset_tests.cpp' || echo '$(srcdir)/'`test/mruset_tests.cpp
-	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_litecoin-mruset_tests.Tpo test/$(DEPDIR)/test_test_litecoin-mruset_tests.Po
-#	$(AM_V_CXX)source='test/mruset_tests.cpp' object='test/test_test_litecoin-mruset_tests.o' libtool=no \
+test/test_test_safecoin-mruset_tests.o: test/mruset_tests.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_safecoin-mruset_tests.o -MD -MP -MF test/$(DEPDIR)/test_test_safecoin-mruset_tests.Tpo -c -o test/test_test_safecoin-mruset_tests.o `test -f 'test/mruset_tests.cpp' || echo '$(srcdir)/'`test/mruset_tests.cpp
+	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_safecoin-mruset_tests.Tpo test/$(DEPDIR)/test_test_safecoin-mruset_tests.Po
+#	$(AM_V_CXX)source='test/mruset_tests.cpp' object='test/test_test_safecoin-mruset_tests.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_litecoin-mruset_tests.o `test -f 'test/mruset_tests.cpp' || echo '$(srcdir)/'`test/mruset_tests.cpp
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_safecoin-mruset_tests.o `test -f 'test/mruset_tests.cpp' || echo '$(srcdir)/'`test/mruset_tests.cpp
 
-test/test_test_litecoin-mruset_tests.obj: test/mruset_tests.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_litecoin-mruset_tests.obj -MD -MP -MF test/$(DEPDIR)/test_test_litecoin-mruset_tests.Tpo -c -o test/test_test_litecoin-mruset_tests.obj `if test -f 'test/mruset_tests.cpp'; then $(CYGPATH_W) 'test/mruset_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/mruset_tests.cpp'; fi`
-	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_litecoin-mruset_tests.Tpo test/$(DEPDIR)/test_test_litecoin-mruset_tests.Po
-#	$(AM_V_CXX)source='test/mruset_tests.cpp' object='test/test_test_litecoin-mruset_tests.obj' libtool=no \
+test/test_test_safecoin-mruset_tests.obj: test/mruset_tests.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_safecoin-mruset_tests.obj -MD -MP -MF test/$(DEPDIR)/test_test_safecoin-mruset_tests.Tpo -c -o test/test_test_safecoin-mruset_tests.obj `if test -f 'test/mruset_tests.cpp'; then $(CYGPATH_W) 'test/mruset_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/mruset_tests.cpp'; fi`
+	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_safecoin-mruset_tests.Tpo test/$(DEPDIR)/test_test_safecoin-mruset_tests.Po
+#	$(AM_V_CXX)source='test/mruset_tests.cpp' object='test/test_test_safecoin-mruset_tests.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_litecoin-mruset_tests.obj `if test -f 'test/mruset_tests.cpp'; then $(CYGPATH_W) 'test/mruset_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/mruset_tests.cpp'; fi`
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_safecoin-mruset_tests.obj `if test -f 'test/mruset_tests.cpp'; then $(CYGPATH_W) 'test/mruset_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/mruset_tests.cpp'; fi`
 
-test/test_test_litecoin-multisig_tests.o: test/multisig_tests.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_litecoin-multisig_tests.o -MD -MP -MF test/$(DEPDIR)/test_test_litecoin-multisig_tests.Tpo -c -o test/test_test_litecoin-multisig_tests.o `test -f 'test/multisig_tests.cpp' || echo '$(srcdir)/'`test/multisig_tests.cpp
-	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_litecoin-multisig_tests.Tpo test/$(DEPDIR)/test_test_litecoin-multisig_tests.Po
-#	$(AM_V_CXX)source='test/multisig_tests.cpp' object='test/test_test_litecoin-multisig_tests.o' libtool=no \
+test/test_test_safecoin-multisig_tests.o: test/multisig_tests.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_safecoin-multisig_tests.o -MD -MP -MF test/$(DEPDIR)/test_test_safecoin-multisig_tests.Tpo -c -o test/test_test_safecoin-multisig_tests.o `test -f 'test/multisig_tests.cpp' || echo '$(srcdir)/'`test/multisig_tests.cpp
+	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_safecoin-multisig_tests.Tpo test/$(DEPDIR)/test_test_safecoin-multisig_tests.Po
+#	$(AM_V_CXX)source='test/multisig_tests.cpp' object='test/test_test_safecoin-multisig_tests.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_litecoin-multisig_tests.o `test -f 'test/multisig_tests.cpp' || echo '$(srcdir)/'`test/multisig_tests.cpp
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_safecoin-multisig_tests.o `test -f 'test/multisig_tests.cpp' || echo '$(srcdir)/'`test/multisig_tests.cpp
 
-test/test_test_litecoin-multisig_tests.obj: test/multisig_tests.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_litecoin-multisig_tests.obj -MD -MP -MF test/$(DEPDIR)/test_test_litecoin-multisig_tests.Tpo -c -o test/test_test_litecoin-multisig_tests.obj `if test -f 'test/multisig_tests.cpp'; then $(CYGPATH_W) 'test/multisig_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/multisig_tests.cpp'; fi`
-	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_litecoin-multisig_tests.Tpo test/$(DEPDIR)/test_test_litecoin-multisig_tests.Po
-#	$(AM_V_CXX)source='test/multisig_tests.cpp' object='test/test_test_litecoin-multisig_tests.obj' libtool=no \
+test/test_test_safecoin-multisig_tests.obj: test/multisig_tests.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_safecoin-multisig_tests.obj -MD -MP -MF test/$(DEPDIR)/test_test_safecoin-multisig_tests.Tpo -c -o test/test_test_safecoin-multisig_tests.obj `if test -f 'test/multisig_tests.cpp'; then $(CYGPATH_W) 'test/multisig_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/multisig_tests.cpp'; fi`
+	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_safecoin-multisig_tests.Tpo test/$(DEPDIR)/test_test_safecoin-multisig_tests.Po
+#	$(AM_V_CXX)source='test/multisig_tests.cpp' object='test/test_test_safecoin-multisig_tests.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_litecoin-multisig_tests.obj `if test -f 'test/multisig_tests.cpp'; then $(CYGPATH_W) 'test/multisig_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/multisig_tests.cpp'; fi`
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_safecoin-multisig_tests.obj `if test -f 'test/multisig_tests.cpp'; then $(CYGPATH_W) 'test/multisig_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/multisig_tests.cpp'; fi`
 
-test/test_test_litecoin-netbase_tests.o: test/netbase_tests.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_litecoin-netbase_tests.o -MD -MP -MF test/$(DEPDIR)/test_test_litecoin-netbase_tests.Tpo -c -o test/test_test_litecoin-netbase_tests.o `test -f 'test/netbase_tests.cpp' || echo '$(srcdir)/'`test/netbase_tests.cpp
-	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_litecoin-netbase_tests.Tpo test/$(DEPDIR)/test_test_litecoin-netbase_tests.Po
-#	$(AM_V_CXX)source='test/netbase_tests.cpp' object='test/test_test_litecoin-netbase_tests.o' libtool=no \
+test/test_test_safecoin-netbase_tests.o: test/netbase_tests.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_safecoin-netbase_tests.o -MD -MP -MF test/$(DEPDIR)/test_test_safecoin-netbase_tests.Tpo -c -o test/test_test_safecoin-netbase_tests.o `test -f 'test/netbase_tests.cpp' || echo '$(srcdir)/'`test/netbase_tests.cpp
+	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_safecoin-netbase_tests.Tpo test/$(DEPDIR)/test_test_safecoin-netbase_tests.Po
+#	$(AM_V_CXX)source='test/netbase_tests.cpp' object='test/test_test_safecoin-netbase_tests.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_litecoin-netbase_tests.o `test -f 'test/netbase_tests.cpp' || echo '$(srcdir)/'`test/netbase_tests.cpp
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_safecoin-netbase_tests.o `test -f 'test/netbase_tests.cpp' || echo '$(srcdir)/'`test/netbase_tests.cpp
 
-test/test_test_litecoin-netbase_tests.obj: test/netbase_tests.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_litecoin-netbase_tests.obj -MD -MP -MF test/$(DEPDIR)/test_test_litecoin-netbase_tests.Tpo -c -o test/test_test_litecoin-netbase_tests.obj `if test -f 'test/netbase_tests.cpp'; then $(CYGPATH_W) 'test/netbase_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/netbase_tests.cpp'; fi`
-	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_litecoin-netbase_tests.Tpo test/$(DEPDIR)/test_test_litecoin-netbase_tests.Po
-#	$(AM_V_CXX)source='test/netbase_tests.cpp' object='test/test_test_litecoin-netbase_tests.obj' libtool=no \
+test/test_test_safecoin-netbase_tests.obj: test/netbase_tests.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_safecoin-netbase_tests.obj -MD -MP -MF test/$(DEPDIR)/test_test_safecoin-netbase_tests.Tpo -c -o test/test_test_safecoin-netbase_tests.obj `if test -f 'test/netbase_tests.cpp'; then $(CYGPATH_W) 'test/netbase_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/netbase_tests.cpp'; fi`
+	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_safecoin-netbase_tests.Tpo test/$(DEPDIR)/test_test_safecoin-netbase_tests.Po
+#	$(AM_V_CXX)source='test/netbase_tests.cpp' object='test/test_test_safecoin-netbase_tests.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_litecoin-netbase_tests.obj `if test -f 'test/netbase_tests.cpp'; then $(CYGPATH_W) 'test/netbase_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/netbase_tests.cpp'; fi`
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_safecoin-netbase_tests.obj `if test -f 'test/netbase_tests.cpp'; then $(CYGPATH_W) 'test/netbase_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/netbase_tests.cpp'; fi`
 
-test/test_test_litecoin-pmt_tests.o: test/pmt_tests.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_litecoin-pmt_tests.o -MD -MP -MF test/$(DEPDIR)/test_test_litecoin-pmt_tests.Tpo -c -o test/test_test_litecoin-pmt_tests.o `test -f 'test/pmt_tests.cpp' || echo '$(srcdir)/'`test/pmt_tests.cpp
-	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_litecoin-pmt_tests.Tpo test/$(DEPDIR)/test_test_litecoin-pmt_tests.Po
-#	$(AM_V_CXX)source='test/pmt_tests.cpp' object='test/test_test_litecoin-pmt_tests.o' libtool=no \
+test/test_test_safecoin-pmt_tests.o: test/pmt_tests.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_safecoin-pmt_tests.o -MD -MP -MF test/$(DEPDIR)/test_test_safecoin-pmt_tests.Tpo -c -o test/test_test_safecoin-pmt_tests.o `test -f 'test/pmt_tests.cpp' || echo '$(srcdir)/'`test/pmt_tests.cpp
+	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_safecoin-pmt_tests.Tpo test/$(DEPDIR)/test_test_safecoin-pmt_tests.Po
+#	$(AM_V_CXX)source='test/pmt_tests.cpp' object='test/test_test_safecoin-pmt_tests.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_litecoin-pmt_tests.o `test -f 'test/pmt_tests.cpp' || echo '$(srcdir)/'`test/pmt_tests.cpp
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_safecoin-pmt_tests.o `test -f 'test/pmt_tests.cpp' || echo '$(srcdir)/'`test/pmt_tests.cpp
 
-test/test_test_litecoin-pmt_tests.obj: test/pmt_tests.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_litecoin-pmt_tests.obj -MD -MP -MF test/$(DEPDIR)/test_test_litecoin-pmt_tests.Tpo -c -o test/test_test_litecoin-pmt_tests.obj `if test -f 'test/pmt_tests.cpp'; then $(CYGPATH_W) 'test/pmt_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/pmt_tests.cpp'; fi`
-	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_litecoin-pmt_tests.Tpo test/$(DEPDIR)/test_test_litecoin-pmt_tests.Po
-#	$(AM_V_CXX)source='test/pmt_tests.cpp' object='test/test_test_litecoin-pmt_tests.obj' libtool=no \
+test/test_test_safecoin-pmt_tests.obj: test/pmt_tests.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_safecoin-pmt_tests.obj -MD -MP -MF test/$(DEPDIR)/test_test_safecoin-pmt_tests.Tpo -c -o test/test_test_safecoin-pmt_tests.obj `if test -f 'test/pmt_tests.cpp'; then $(CYGPATH_W) 'test/pmt_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/pmt_tests.cpp'; fi`
+	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_safecoin-pmt_tests.Tpo test/$(DEPDIR)/test_test_safecoin-pmt_tests.Po
+#	$(AM_V_CXX)source='test/pmt_tests.cpp' object='test/test_test_safecoin-pmt_tests.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_litecoin-pmt_tests.obj `if test -f 'test/pmt_tests.cpp'; then $(CYGPATH_W) 'test/pmt_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/pmt_tests.cpp'; fi`
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_safecoin-pmt_tests.obj `if test -f 'test/pmt_tests.cpp'; then $(CYGPATH_W) 'test/pmt_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/pmt_tests.cpp'; fi`
 
-test/test_test_litecoin-rpc_tests.o: test/rpc_tests.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_litecoin-rpc_tests.o -MD -MP -MF test/$(DEPDIR)/test_test_litecoin-rpc_tests.Tpo -c -o test/test_test_litecoin-rpc_tests.o `test -f 'test/rpc_tests.cpp' || echo '$(srcdir)/'`test/rpc_tests.cpp
-	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_litecoin-rpc_tests.Tpo test/$(DEPDIR)/test_test_litecoin-rpc_tests.Po
-#	$(AM_V_CXX)source='test/rpc_tests.cpp' object='test/test_test_litecoin-rpc_tests.o' libtool=no \
+test/test_test_safecoin-rpc_tests.o: test/rpc_tests.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_safecoin-rpc_tests.o -MD -MP -MF test/$(DEPDIR)/test_test_safecoin-rpc_tests.Tpo -c -o test/test_test_safecoin-rpc_tests.o `test -f 'test/rpc_tests.cpp' || echo '$(srcdir)/'`test/rpc_tests.cpp
+	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_safecoin-rpc_tests.Tpo test/$(DEPDIR)/test_test_safecoin-rpc_tests.Po
+#	$(AM_V_CXX)source='test/rpc_tests.cpp' object='test/test_test_safecoin-rpc_tests.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_litecoin-rpc_tests.o `test -f 'test/rpc_tests.cpp' || echo '$(srcdir)/'`test/rpc_tests.cpp
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_safecoin-rpc_tests.o `test -f 'test/rpc_tests.cpp' || echo '$(srcdir)/'`test/rpc_tests.cpp
 
-test/test_test_litecoin-rpc_tests.obj: test/rpc_tests.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_litecoin-rpc_tests.obj -MD -MP -MF test/$(DEPDIR)/test_test_litecoin-rpc_tests.Tpo -c -o test/test_test_litecoin-rpc_tests.obj `if test -f 'test/rpc_tests.cpp'; then $(CYGPATH_W) 'test/rpc_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/rpc_tests.cpp'; fi`
-	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_litecoin-rpc_tests.Tpo test/$(DEPDIR)/test_test_litecoin-rpc_tests.Po
-#	$(AM_V_CXX)source='test/rpc_tests.cpp' object='test/test_test_litecoin-rpc_tests.obj' libtool=no \
+test/test_test_safecoin-rpc_tests.obj: test/rpc_tests.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_safecoin-rpc_tests.obj -MD -MP -MF test/$(DEPDIR)/test_test_safecoin-rpc_tests.Tpo -c -o test/test_test_safecoin-rpc_tests.obj `if test -f 'test/rpc_tests.cpp'; then $(CYGPATH_W) 'test/rpc_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/rpc_tests.cpp'; fi`
+	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_safecoin-rpc_tests.Tpo test/$(DEPDIR)/test_test_safecoin-rpc_tests.Po
+#	$(AM_V_CXX)source='test/rpc_tests.cpp' object='test/test_test_safecoin-rpc_tests.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_litecoin-rpc_tests.obj `if test -f 'test/rpc_tests.cpp'; then $(CYGPATH_W) 'test/rpc_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/rpc_tests.cpp'; fi`
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_safecoin-rpc_tests.obj `if test -f 'test/rpc_tests.cpp'; then $(CYGPATH_W) 'test/rpc_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/rpc_tests.cpp'; fi`
 
-test/test_test_litecoin-sanity_tests.o: test/sanity_tests.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_litecoin-sanity_tests.o -MD -MP -MF test/$(DEPDIR)/test_test_litecoin-sanity_tests.Tpo -c -o test/test_test_litecoin-sanity_tests.o `test -f 'test/sanity_tests.cpp' || echo '$(srcdir)/'`test/sanity_tests.cpp
-	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_litecoin-sanity_tests.Tpo test/$(DEPDIR)/test_test_litecoin-sanity_tests.Po
-#	$(AM_V_CXX)source='test/sanity_tests.cpp' object='test/test_test_litecoin-sanity_tests.o' libtool=no \
+test/test_test_safecoin-sanity_tests.o: test/sanity_tests.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_safecoin-sanity_tests.o -MD -MP -MF test/$(DEPDIR)/test_test_safecoin-sanity_tests.Tpo -c -o test/test_test_safecoin-sanity_tests.o `test -f 'test/sanity_tests.cpp' || echo '$(srcdir)/'`test/sanity_tests.cpp
+	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_safecoin-sanity_tests.Tpo test/$(DEPDIR)/test_test_safecoin-sanity_tests.Po
+#	$(AM_V_CXX)source='test/sanity_tests.cpp' object='test/test_test_safecoin-sanity_tests.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_litecoin-sanity_tests.o `test -f 'test/sanity_tests.cpp' || echo '$(srcdir)/'`test/sanity_tests.cpp
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_safecoin-sanity_tests.o `test -f 'test/sanity_tests.cpp' || echo '$(srcdir)/'`test/sanity_tests.cpp
 
-test/test_test_litecoin-sanity_tests.obj: test/sanity_tests.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_litecoin-sanity_tests.obj -MD -MP -MF test/$(DEPDIR)/test_test_litecoin-sanity_tests.Tpo -c -o test/test_test_litecoin-sanity_tests.obj `if test -f 'test/sanity_tests.cpp'; then $(CYGPATH_W) 'test/sanity_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/sanity_tests.cpp'; fi`
-	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_litecoin-sanity_tests.Tpo test/$(DEPDIR)/test_test_litecoin-sanity_tests.Po
-#	$(AM_V_CXX)source='test/sanity_tests.cpp' object='test/test_test_litecoin-sanity_tests.obj' libtool=no \
+test/test_test_safecoin-sanity_tests.obj: test/sanity_tests.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_safecoin-sanity_tests.obj -MD -MP -MF test/$(DEPDIR)/test_test_safecoin-sanity_tests.Tpo -c -o test/test_test_safecoin-sanity_tests.obj `if test -f 'test/sanity_tests.cpp'; then $(CYGPATH_W) 'test/sanity_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/sanity_tests.cpp'; fi`
+	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_safecoin-sanity_tests.Tpo test/$(DEPDIR)/test_test_safecoin-sanity_tests.Po
+#	$(AM_V_CXX)source='test/sanity_tests.cpp' object='test/test_test_safecoin-sanity_tests.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_litecoin-sanity_tests.obj `if test -f 'test/sanity_tests.cpp'; then $(CYGPATH_W) 'test/sanity_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/sanity_tests.cpp'; fi`
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_safecoin-sanity_tests.obj `if test -f 'test/sanity_tests.cpp'; then $(CYGPATH_W) 'test/sanity_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/sanity_tests.cpp'; fi`
 
-test/test_test_litecoin-script_P2SH_tests.o: test/script_P2SH_tests.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_litecoin-script_P2SH_tests.o -MD -MP -MF test/$(DEPDIR)/test_test_litecoin-script_P2SH_tests.Tpo -c -o test/test_test_litecoin-script_P2SH_tests.o `test -f 'test/script_P2SH_tests.cpp' || echo '$(srcdir)/'`test/script_P2SH_tests.cpp
-	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_litecoin-script_P2SH_tests.Tpo test/$(DEPDIR)/test_test_litecoin-script_P2SH_tests.Po
-#	$(AM_V_CXX)source='test/script_P2SH_tests.cpp' object='test/test_test_litecoin-script_P2SH_tests.o' libtool=no \
+test/test_test_safecoin-script_P2SH_tests.o: test/script_P2SH_tests.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_safecoin-script_P2SH_tests.o -MD -MP -MF test/$(DEPDIR)/test_test_safecoin-script_P2SH_tests.Tpo -c -o test/test_test_safecoin-script_P2SH_tests.o `test -f 'test/script_P2SH_tests.cpp' || echo '$(srcdir)/'`test/script_P2SH_tests.cpp
+	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_safecoin-script_P2SH_tests.Tpo test/$(DEPDIR)/test_test_safecoin-script_P2SH_tests.Po
+#	$(AM_V_CXX)source='test/script_P2SH_tests.cpp' object='test/test_test_safecoin-script_P2SH_tests.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_litecoin-script_P2SH_tests.o `test -f 'test/script_P2SH_tests.cpp' || echo '$(srcdir)/'`test/script_P2SH_tests.cpp
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_safecoin-script_P2SH_tests.o `test -f 'test/script_P2SH_tests.cpp' || echo '$(srcdir)/'`test/script_P2SH_tests.cpp
 
-test/test_test_litecoin-script_P2SH_tests.obj: test/script_P2SH_tests.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_litecoin-script_P2SH_tests.obj -MD -MP -MF test/$(DEPDIR)/test_test_litecoin-script_P2SH_tests.Tpo -c -o test/test_test_litecoin-script_P2SH_tests.obj `if test -f 'test/script_P2SH_tests.cpp'; then $(CYGPATH_W) 'test/script_P2SH_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/script_P2SH_tests.cpp'; fi`
-	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_litecoin-script_P2SH_tests.Tpo test/$(DEPDIR)/test_test_litecoin-script_P2SH_tests.Po
-#	$(AM_V_CXX)source='test/script_P2SH_tests.cpp' object='test/test_test_litecoin-script_P2SH_tests.obj' libtool=no \
+test/test_test_safecoin-script_P2SH_tests.obj: test/script_P2SH_tests.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_safecoin-script_P2SH_tests.obj -MD -MP -MF test/$(DEPDIR)/test_test_safecoin-script_P2SH_tests.Tpo -c -o test/test_test_safecoin-script_P2SH_tests.obj `if test -f 'test/script_P2SH_tests.cpp'; then $(CYGPATH_W) 'test/script_P2SH_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/script_P2SH_tests.cpp'; fi`
+	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_safecoin-script_P2SH_tests.Tpo test/$(DEPDIR)/test_test_safecoin-script_P2SH_tests.Po
+#	$(AM_V_CXX)source='test/script_P2SH_tests.cpp' object='test/test_test_safecoin-script_P2SH_tests.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_litecoin-script_P2SH_tests.obj `if test -f 'test/script_P2SH_tests.cpp'; then $(CYGPATH_W) 'test/script_P2SH_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/script_P2SH_tests.cpp'; fi`
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_safecoin-script_P2SH_tests.obj `if test -f 'test/script_P2SH_tests.cpp'; then $(CYGPATH_W) 'test/script_P2SH_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/script_P2SH_tests.cpp'; fi`
 
-test/test_test_litecoin-script_tests.o: test/script_tests.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_litecoin-script_tests.o -MD -MP -MF test/$(DEPDIR)/test_test_litecoin-script_tests.Tpo -c -o test/test_test_litecoin-script_tests.o `test -f 'test/script_tests.cpp' || echo '$(srcdir)/'`test/script_tests.cpp
-	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_litecoin-script_tests.Tpo test/$(DEPDIR)/test_test_litecoin-script_tests.Po
-#	$(AM_V_CXX)source='test/script_tests.cpp' object='test/test_test_litecoin-script_tests.o' libtool=no \
+test/test_test_safecoin-script_tests.o: test/script_tests.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_safecoin-script_tests.o -MD -MP -MF test/$(DEPDIR)/test_test_safecoin-script_tests.Tpo -c -o test/test_test_safecoin-script_tests.o `test -f 'test/script_tests.cpp' || echo '$(srcdir)/'`test/script_tests.cpp
+	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_safecoin-script_tests.Tpo test/$(DEPDIR)/test_test_safecoin-script_tests.Po
+#	$(AM_V_CXX)source='test/script_tests.cpp' object='test/test_test_safecoin-script_tests.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_litecoin-script_tests.o `test -f 'test/script_tests.cpp' || echo '$(srcdir)/'`test/script_tests.cpp
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_safecoin-script_tests.o `test -f 'test/script_tests.cpp' || echo '$(srcdir)/'`test/script_tests.cpp
 
-test/test_test_litecoin-script_tests.obj: test/script_tests.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_litecoin-script_tests.obj -MD -MP -MF test/$(DEPDIR)/test_test_litecoin-script_tests.Tpo -c -o test/test_test_litecoin-script_tests.obj `if test -f 'test/script_tests.cpp'; then $(CYGPATH_W) 'test/script_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/script_tests.cpp'; fi`
-	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_litecoin-script_tests.Tpo test/$(DEPDIR)/test_test_litecoin-script_tests.Po
-#	$(AM_V_CXX)source='test/script_tests.cpp' object='test/test_test_litecoin-script_tests.obj' libtool=no \
+test/test_test_safecoin-script_tests.obj: test/script_tests.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_safecoin-script_tests.obj -MD -MP -MF test/$(DEPDIR)/test_test_safecoin-script_tests.Tpo -c -o test/test_test_safecoin-script_tests.obj `if test -f 'test/script_tests.cpp'; then $(CYGPATH_W) 'test/script_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/script_tests.cpp'; fi`
+	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_safecoin-script_tests.Tpo test/$(DEPDIR)/test_test_safecoin-script_tests.Po
+#	$(AM_V_CXX)source='test/script_tests.cpp' object='test/test_test_safecoin-script_tests.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_litecoin-script_tests.obj `if test -f 'test/script_tests.cpp'; then $(CYGPATH_W) 'test/script_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/script_tests.cpp'; fi`
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_safecoin-script_tests.obj `if test -f 'test/script_tests.cpp'; then $(CYGPATH_W) 'test/script_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/script_tests.cpp'; fi`
 
-test/test_test_litecoin-scriptnum_tests.o: test/scriptnum_tests.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_litecoin-scriptnum_tests.o -MD -MP -MF test/$(DEPDIR)/test_test_litecoin-scriptnum_tests.Tpo -c -o test/test_test_litecoin-scriptnum_tests.o `test -f 'test/scriptnum_tests.cpp' || echo '$(srcdir)/'`test/scriptnum_tests.cpp
-	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_litecoin-scriptnum_tests.Tpo test/$(DEPDIR)/test_test_litecoin-scriptnum_tests.Po
-#	$(AM_V_CXX)source='test/scriptnum_tests.cpp' object='test/test_test_litecoin-scriptnum_tests.o' libtool=no \
+test/test_test_safecoin-scriptnum_tests.o: test/scriptnum_tests.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_safecoin-scriptnum_tests.o -MD -MP -MF test/$(DEPDIR)/test_test_safecoin-scriptnum_tests.Tpo -c -o test/test_test_safecoin-scriptnum_tests.o `test -f 'test/scriptnum_tests.cpp' || echo '$(srcdir)/'`test/scriptnum_tests.cpp
+	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_safecoin-scriptnum_tests.Tpo test/$(DEPDIR)/test_test_safecoin-scriptnum_tests.Po
+#	$(AM_V_CXX)source='test/scriptnum_tests.cpp' object='test/test_test_safecoin-scriptnum_tests.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_litecoin-scriptnum_tests.o `test -f 'test/scriptnum_tests.cpp' || echo '$(srcdir)/'`test/scriptnum_tests.cpp
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_safecoin-scriptnum_tests.o `test -f 'test/scriptnum_tests.cpp' || echo '$(srcdir)/'`test/scriptnum_tests.cpp
 
-test/test_test_litecoin-scriptnum_tests.obj: test/scriptnum_tests.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_litecoin-scriptnum_tests.obj -MD -MP -MF test/$(DEPDIR)/test_test_litecoin-scriptnum_tests.Tpo -c -o test/test_test_litecoin-scriptnum_tests.obj `if test -f 'test/scriptnum_tests.cpp'; then $(CYGPATH_W) 'test/scriptnum_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/scriptnum_tests.cpp'; fi`
-	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_litecoin-scriptnum_tests.Tpo test/$(DEPDIR)/test_test_litecoin-scriptnum_tests.Po
-#	$(AM_V_CXX)source='test/scriptnum_tests.cpp' object='test/test_test_litecoin-scriptnum_tests.obj' libtool=no \
+test/test_test_safecoin-scriptnum_tests.obj: test/scriptnum_tests.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_safecoin-scriptnum_tests.obj -MD -MP -MF test/$(DEPDIR)/test_test_safecoin-scriptnum_tests.Tpo -c -o test/test_test_safecoin-scriptnum_tests.obj `if test -f 'test/scriptnum_tests.cpp'; then $(CYGPATH_W) 'test/scriptnum_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/scriptnum_tests.cpp'; fi`
+	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_safecoin-scriptnum_tests.Tpo test/$(DEPDIR)/test_test_safecoin-scriptnum_tests.Po
+#	$(AM_V_CXX)source='test/scriptnum_tests.cpp' object='test/test_test_safecoin-scriptnum_tests.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_litecoin-scriptnum_tests.obj `if test -f 'test/scriptnum_tests.cpp'; then $(CYGPATH_W) 'test/scriptnum_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/scriptnum_tests.cpp'; fi`
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_safecoin-scriptnum_tests.obj `if test -f 'test/scriptnum_tests.cpp'; then $(CYGPATH_W) 'test/scriptnum_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/scriptnum_tests.cpp'; fi`
 
-test/test_test_litecoin-serialize_tests.o: test/serialize_tests.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_litecoin-serialize_tests.o -MD -MP -MF test/$(DEPDIR)/test_test_litecoin-serialize_tests.Tpo -c -o test/test_test_litecoin-serialize_tests.o `test -f 'test/serialize_tests.cpp' || echo '$(srcdir)/'`test/serialize_tests.cpp
-	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_litecoin-serialize_tests.Tpo test/$(DEPDIR)/test_test_litecoin-serialize_tests.Po
-#	$(AM_V_CXX)source='test/serialize_tests.cpp' object='test/test_test_litecoin-serialize_tests.o' libtool=no \
+test/test_test_safecoin-serialize_tests.o: test/serialize_tests.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_safecoin-serialize_tests.o -MD -MP -MF test/$(DEPDIR)/test_test_safecoin-serialize_tests.Tpo -c -o test/test_test_safecoin-serialize_tests.o `test -f 'test/serialize_tests.cpp' || echo '$(srcdir)/'`test/serialize_tests.cpp
+	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_safecoin-serialize_tests.Tpo test/$(DEPDIR)/test_test_safecoin-serialize_tests.Po
+#	$(AM_V_CXX)source='test/serialize_tests.cpp' object='test/test_test_safecoin-serialize_tests.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_litecoin-serialize_tests.o `test -f 'test/serialize_tests.cpp' || echo '$(srcdir)/'`test/serialize_tests.cpp
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_safecoin-serialize_tests.o `test -f 'test/serialize_tests.cpp' || echo '$(srcdir)/'`test/serialize_tests.cpp
 
-test/test_test_litecoin-serialize_tests.obj: test/serialize_tests.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_litecoin-serialize_tests.obj -MD -MP -MF test/$(DEPDIR)/test_test_litecoin-serialize_tests.Tpo -c -o test/test_test_litecoin-serialize_tests.obj `if test -f 'test/serialize_tests.cpp'; then $(CYGPATH_W) 'test/serialize_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/serialize_tests.cpp'; fi`
-	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_litecoin-serialize_tests.Tpo test/$(DEPDIR)/test_test_litecoin-serialize_tests.Po
-#	$(AM_V_CXX)source='test/serialize_tests.cpp' object='test/test_test_litecoin-serialize_tests.obj' libtool=no \
+test/test_test_safecoin-serialize_tests.obj: test/serialize_tests.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_safecoin-serialize_tests.obj -MD -MP -MF test/$(DEPDIR)/test_test_safecoin-serialize_tests.Tpo -c -o test/test_test_safecoin-serialize_tests.obj `if test -f 'test/serialize_tests.cpp'; then $(CYGPATH_W) 'test/serialize_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/serialize_tests.cpp'; fi`
+	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_safecoin-serialize_tests.Tpo test/$(DEPDIR)/test_test_safecoin-serialize_tests.Po
+#	$(AM_V_CXX)source='test/serialize_tests.cpp' object='test/test_test_safecoin-serialize_tests.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_litecoin-serialize_tests.obj `if test -f 'test/serialize_tests.cpp'; then $(CYGPATH_W) 'test/serialize_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/serialize_tests.cpp'; fi`
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_safecoin-serialize_tests.obj `if test -f 'test/serialize_tests.cpp'; then $(CYGPATH_W) 'test/serialize_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/serialize_tests.cpp'; fi`
 
-test/test_test_litecoin-sighash_tests.o: test/sighash_tests.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_litecoin-sighash_tests.o -MD -MP -MF test/$(DEPDIR)/test_test_litecoin-sighash_tests.Tpo -c -o test/test_test_litecoin-sighash_tests.o `test -f 'test/sighash_tests.cpp' || echo '$(srcdir)/'`test/sighash_tests.cpp
-	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_litecoin-sighash_tests.Tpo test/$(DEPDIR)/test_test_litecoin-sighash_tests.Po
-#	$(AM_V_CXX)source='test/sighash_tests.cpp' object='test/test_test_litecoin-sighash_tests.o' libtool=no \
+test/test_test_safecoin-sighash_tests.o: test/sighash_tests.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_safecoin-sighash_tests.o -MD -MP -MF test/$(DEPDIR)/test_test_safecoin-sighash_tests.Tpo -c -o test/test_test_safecoin-sighash_tests.o `test -f 'test/sighash_tests.cpp' || echo '$(srcdir)/'`test/sighash_tests.cpp
+	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_safecoin-sighash_tests.Tpo test/$(DEPDIR)/test_test_safecoin-sighash_tests.Po
+#	$(AM_V_CXX)source='test/sighash_tests.cpp' object='test/test_test_safecoin-sighash_tests.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_litecoin-sighash_tests.o `test -f 'test/sighash_tests.cpp' || echo '$(srcdir)/'`test/sighash_tests.cpp
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_safecoin-sighash_tests.o `test -f 'test/sighash_tests.cpp' || echo '$(srcdir)/'`test/sighash_tests.cpp
 
-test/test_test_litecoin-sighash_tests.obj: test/sighash_tests.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_litecoin-sighash_tests.obj -MD -MP -MF test/$(DEPDIR)/test_test_litecoin-sighash_tests.Tpo -c -o test/test_test_litecoin-sighash_tests.obj `if test -f 'test/sighash_tests.cpp'; then $(CYGPATH_W) 'test/sighash_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/sighash_tests.cpp'; fi`
-	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_litecoin-sighash_tests.Tpo test/$(DEPDIR)/test_test_litecoin-sighash_tests.Po
-#	$(AM_V_CXX)source='test/sighash_tests.cpp' object='test/test_test_litecoin-sighash_tests.obj' libtool=no \
+test/test_test_safecoin-sighash_tests.obj: test/sighash_tests.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_safecoin-sighash_tests.obj -MD -MP -MF test/$(DEPDIR)/test_test_safecoin-sighash_tests.Tpo -c -o test/test_test_safecoin-sighash_tests.obj `if test -f 'test/sighash_tests.cpp'; then $(CYGPATH_W) 'test/sighash_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/sighash_tests.cpp'; fi`
+	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_safecoin-sighash_tests.Tpo test/$(DEPDIR)/test_test_safecoin-sighash_tests.Po
+#	$(AM_V_CXX)source='test/sighash_tests.cpp' object='test/test_test_safecoin-sighash_tests.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_litecoin-sighash_tests.obj `if test -f 'test/sighash_tests.cpp'; then $(CYGPATH_W) 'test/sighash_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/sighash_tests.cpp'; fi`
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_safecoin-sighash_tests.obj `if test -f 'test/sighash_tests.cpp'; then $(CYGPATH_W) 'test/sighash_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/sighash_tests.cpp'; fi`
 
-test/test_test_litecoin-sigopcount_tests.o: test/sigopcount_tests.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_litecoin-sigopcount_tests.o -MD -MP -MF test/$(DEPDIR)/test_test_litecoin-sigopcount_tests.Tpo -c -o test/test_test_litecoin-sigopcount_tests.o `test -f 'test/sigopcount_tests.cpp' || echo '$(srcdir)/'`test/sigopcount_tests.cpp
-	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_litecoin-sigopcount_tests.Tpo test/$(DEPDIR)/test_test_litecoin-sigopcount_tests.Po
-#	$(AM_V_CXX)source='test/sigopcount_tests.cpp' object='test/test_test_litecoin-sigopcount_tests.o' libtool=no \
+test/test_test_safecoin-sigopcount_tests.o: test/sigopcount_tests.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_safecoin-sigopcount_tests.o -MD -MP -MF test/$(DEPDIR)/test_test_safecoin-sigopcount_tests.Tpo -c -o test/test_test_safecoin-sigopcount_tests.o `test -f 'test/sigopcount_tests.cpp' || echo '$(srcdir)/'`test/sigopcount_tests.cpp
+	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_safecoin-sigopcount_tests.Tpo test/$(DEPDIR)/test_test_safecoin-sigopcount_tests.Po
+#	$(AM_V_CXX)source='test/sigopcount_tests.cpp' object='test/test_test_safecoin-sigopcount_tests.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_litecoin-sigopcount_tests.o `test -f 'test/sigopcount_tests.cpp' || echo '$(srcdir)/'`test/sigopcount_tests.cpp
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_safecoin-sigopcount_tests.o `test -f 'test/sigopcount_tests.cpp' || echo '$(srcdir)/'`test/sigopcount_tests.cpp
 
-test/test_test_litecoin-sigopcount_tests.obj: test/sigopcount_tests.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_litecoin-sigopcount_tests.obj -MD -MP -MF test/$(DEPDIR)/test_test_litecoin-sigopcount_tests.Tpo -c -o test/test_test_litecoin-sigopcount_tests.obj `if test -f 'test/sigopcount_tests.cpp'; then $(CYGPATH_W) 'test/sigopcount_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/sigopcount_tests.cpp'; fi`
-	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_litecoin-sigopcount_tests.Tpo test/$(DEPDIR)/test_test_litecoin-sigopcount_tests.Po
-#	$(AM_V_CXX)source='test/sigopcount_tests.cpp' object='test/test_test_litecoin-sigopcount_tests.obj' libtool=no \
+test/test_test_safecoin-sigopcount_tests.obj: test/sigopcount_tests.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_safecoin-sigopcount_tests.obj -MD -MP -MF test/$(DEPDIR)/test_test_safecoin-sigopcount_tests.Tpo -c -o test/test_test_safecoin-sigopcount_tests.obj `if test -f 'test/sigopcount_tests.cpp'; then $(CYGPATH_W) 'test/sigopcount_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/sigopcount_tests.cpp'; fi`
+	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_safecoin-sigopcount_tests.Tpo test/$(DEPDIR)/test_test_safecoin-sigopcount_tests.Po
+#	$(AM_V_CXX)source='test/sigopcount_tests.cpp' object='test/test_test_safecoin-sigopcount_tests.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_litecoin-sigopcount_tests.obj `if test -f 'test/sigopcount_tests.cpp'; then $(CYGPATH_W) 'test/sigopcount_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/sigopcount_tests.cpp'; fi`
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_safecoin-sigopcount_tests.obj `if test -f 'test/sigopcount_tests.cpp'; then $(CYGPATH_W) 'test/sigopcount_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/sigopcount_tests.cpp'; fi`
 
-test/test_test_litecoin-skiplist_tests.o: test/skiplist_tests.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_litecoin-skiplist_tests.o -MD -MP -MF test/$(DEPDIR)/test_test_litecoin-skiplist_tests.Tpo -c -o test/test_test_litecoin-skiplist_tests.o `test -f 'test/skiplist_tests.cpp' || echo '$(srcdir)/'`test/skiplist_tests.cpp
-	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_litecoin-skiplist_tests.Tpo test/$(DEPDIR)/test_test_litecoin-skiplist_tests.Po
-#	$(AM_V_CXX)source='test/skiplist_tests.cpp' object='test/test_test_litecoin-skiplist_tests.o' libtool=no \
+test/test_test_safecoin-skiplist_tests.o: test/skiplist_tests.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_safecoin-skiplist_tests.o -MD -MP -MF test/$(DEPDIR)/test_test_safecoin-skiplist_tests.Tpo -c -o test/test_test_safecoin-skiplist_tests.o `test -f 'test/skiplist_tests.cpp' || echo '$(srcdir)/'`test/skiplist_tests.cpp
+	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_safecoin-skiplist_tests.Tpo test/$(DEPDIR)/test_test_safecoin-skiplist_tests.Po
+#	$(AM_V_CXX)source='test/skiplist_tests.cpp' object='test/test_test_safecoin-skiplist_tests.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_litecoin-skiplist_tests.o `test -f 'test/skiplist_tests.cpp' || echo '$(srcdir)/'`test/skiplist_tests.cpp
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_safecoin-skiplist_tests.o `test -f 'test/skiplist_tests.cpp' || echo '$(srcdir)/'`test/skiplist_tests.cpp
 
-test/test_test_litecoin-skiplist_tests.obj: test/skiplist_tests.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_litecoin-skiplist_tests.obj -MD -MP -MF test/$(DEPDIR)/test_test_litecoin-skiplist_tests.Tpo -c -o test/test_test_litecoin-skiplist_tests.obj `if test -f 'test/skiplist_tests.cpp'; then $(CYGPATH_W) 'test/skiplist_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/skiplist_tests.cpp'; fi`
-	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_litecoin-skiplist_tests.Tpo test/$(DEPDIR)/test_test_litecoin-skiplist_tests.Po
-#	$(AM_V_CXX)source='test/skiplist_tests.cpp' object='test/test_test_litecoin-skiplist_tests.obj' libtool=no \
+test/test_test_safecoin-skiplist_tests.obj: test/skiplist_tests.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_safecoin-skiplist_tests.obj -MD -MP -MF test/$(DEPDIR)/test_test_safecoin-skiplist_tests.Tpo -c -o test/test_test_safecoin-skiplist_tests.obj `if test -f 'test/skiplist_tests.cpp'; then $(CYGPATH_W) 'test/skiplist_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/skiplist_tests.cpp'; fi`
+	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_safecoin-skiplist_tests.Tpo test/$(DEPDIR)/test_test_safecoin-skiplist_tests.Po
+#	$(AM_V_CXX)source='test/skiplist_tests.cpp' object='test/test_test_safecoin-skiplist_tests.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_litecoin-skiplist_tests.obj `if test -f 'test/skiplist_tests.cpp'; then $(CYGPATH_W) 'test/skiplist_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/skiplist_tests.cpp'; fi`
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_safecoin-skiplist_tests.obj `if test -f 'test/skiplist_tests.cpp'; then $(CYGPATH_W) 'test/skiplist_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/skiplist_tests.cpp'; fi`
 
-test/test_test_litecoin-test_bitcoin.o: test/test_bitcoin.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_litecoin-test_bitcoin.o -MD -MP -MF test/$(DEPDIR)/test_test_litecoin-test_bitcoin.Tpo -c -o test/test_test_litecoin-test_bitcoin.o `test -f 'test/test_bitcoin.cpp' || echo '$(srcdir)/'`test/test_bitcoin.cpp
-	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_litecoin-test_bitcoin.Tpo test/$(DEPDIR)/test_test_litecoin-test_bitcoin.Po
-#	$(AM_V_CXX)source='test/test_bitcoin.cpp' object='test/test_test_litecoin-test_bitcoin.o' libtool=no \
+test/test_test_safecoin-test_bitcoin.o: test/test_bitcoin.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_safecoin-test_bitcoin.o -MD -MP -MF test/$(DEPDIR)/test_test_safecoin-test_bitcoin.Tpo -c -o test/test_test_safecoin-test_bitcoin.o `test -f 'test/test_bitcoin.cpp' || echo '$(srcdir)/'`test/test_bitcoin.cpp
+	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_safecoin-test_bitcoin.Tpo test/$(DEPDIR)/test_test_safecoin-test_bitcoin.Po
+#	$(AM_V_CXX)source='test/test_bitcoin.cpp' object='test/test_test_safecoin-test_bitcoin.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_litecoin-test_bitcoin.o `test -f 'test/test_bitcoin.cpp' || echo '$(srcdir)/'`test/test_bitcoin.cpp
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_safecoin-test_bitcoin.o `test -f 'test/test_bitcoin.cpp' || echo '$(srcdir)/'`test/test_bitcoin.cpp
 
-test/test_test_litecoin-test_bitcoin.obj: test/test_bitcoin.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_litecoin-test_bitcoin.obj -MD -MP -MF test/$(DEPDIR)/test_test_litecoin-test_bitcoin.Tpo -c -o test/test_test_litecoin-test_bitcoin.obj `if test -f 'test/test_bitcoin.cpp'; then $(CYGPATH_W) 'test/test_bitcoin.cpp'; else $(CYGPATH_W) '$(srcdir)/test/test_bitcoin.cpp'; fi`
-	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_litecoin-test_bitcoin.Tpo test/$(DEPDIR)/test_test_litecoin-test_bitcoin.Po
-#	$(AM_V_CXX)source='test/test_bitcoin.cpp' object='test/test_test_litecoin-test_bitcoin.obj' libtool=no \
+test/test_test_safecoin-test_bitcoin.obj: test/test_bitcoin.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_safecoin-test_bitcoin.obj -MD -MP -MF test/$(DEPDIR)/test_test_safecoin-test_bitcoin.Tpo -c -o test/test_test_safecoin-test_bitcoin.obj `if test -f 'test/test_bitcoin.cpp'; then $(CYGPATH_W) 'test/test_bitcoin.cpp'; else $(CYGPATH_W) '$(srcdir)/test/test_bitcoin.cpp'; fi`
+	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_safecoin-test_bitcoin.Tpo test/$(DEPDIR)/test_test_safecoin-test_bitcoin.Po
+#	$(AM_V_CXX)source='test/test_bitcoin.cpp' object='test/test_test_safecoin-test_bitcoin.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_litecoin-test_bitcoin.obj `if test -f 'test/test_bitcoin.cpp'; then $(CYGPATH_W) 'test/test_bitcoin.cpp'; else $(CYGPATH_W) '$(srcdir)/test/test_bitcoin.cpp'; fi`
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_safecoin-test_bitcoin.obj `if test -f 'test/test_bitcoin.cpp'; then $(CYGPATH_W) 'test/test_bitcoin.cpp'; else $(CYGPATH_W) '$(srcdir)/test/test_bitcoin.cpp'; fi`
 
-test/test_test_litecoin-timedata_tests.o: test/timedata_tests.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_litecoin-timedata_tests.o -MD -MP -MF test/$(DEPDIR)/test_test_litecoin-timedata_tests.Tpo -c -o test/test_test_litecoin-timedata_tests.o `test -f 'test/timedata_tests.cpp' || echo '$(srcdir)/'`test/timedata_tests.cpp
-	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_litecoin-timedata_tests.Tpo test/$(DEPDIR)/test_test_litecoin-timedata_tests.Po
-#	$(AM_V_CXX)source='test/timedata_tests.cpp' object='test/test_test_litecoin-timedata_tests.o' libtool=no \
+test/test_test_safecoin-timedata_tests.o: test/timedata_tests.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_safecoin-timedata_tests.o -MD -MP -MF test/$(DEPDIR)/test_test_safecoin-timedata_tests.Tpo -c -o test/test_test_safecoin-timedata_tests.o `test -f 'test/timedata_tests.cpp' || echo '$(srcdir)/'`test/timedata_tests.cpp
+	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_safecoin-timedata_tests.Tpo test/$(DEPDIR)/test_test_safecoin-timedata_tests.Po
+#	$(AM_V_CXX)source='test/timedata_tests.cpp' object='test/test_test_safecoin-timedata_tests.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_litecoin-timedata_tests.o `test -f 'test/timedata_tests.cpp' || echo '$(srcdir)/'`test/timedata_tests.cpp
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_safecoin-timedata_tests.o `test -f 'test/timedata_tests.cpp' || echo '$(srcdir)/'`test/timedata_tests.cpp
 
-test/test_test_litecoin-timedata_tests.obj: test/timedata_tests.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_litecoin-timedata_tests.obj -MD -MP -MF test/$(DEPDIR)/test_test_litecoin-timedata_tests.Tpo -c -o test/test_test_litecoin-timedata_tests.obj `if test -f 'test/timedata_tests.cpp'; then $(CYGPATH_W) 'test/timedata_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/timedata_tests.cpp'; fi`
-	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_litecoin-timedata_tests.Tpo test/$(DEPDIR)/test_test_litecoin-timedata_tests.Po
-#	$(AM_V_CXX)source='test/timedata_tests.cpp' object='test/test_test_litecoin-timedata_tests.obj' libtool=no \
+test/test_test_safecoin-timedata_tests.obj: test/timedata_tests.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_safecoin-timedata_tests.obj -MD -MP -MF test/$(DEPDIR)/test_test_safecoin-timedata_tests.Tpo -c -o test/test_test_safecoin-timedata_tests.obj `if test -f 'test/timedata_tests.cpp'; then $(CYGPATH_W) 'test/timedata_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/timedata_tests.cpp'; fi`
+	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_safecoin-timedata_tests.Tpo test/$(DEPDIR)/test_test_safecoin-timedata_tests.Po
+#	$(AM_V_CXX)source='test/timedata_tests.cpp' object='test/test_test_safecoin-timedata_tests.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_litecoin-timedata_tests.obj `if test -f 'test/timedata_tests.cpp'; then $(CYGPATH_W) 'test/timedata_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/timedata_tests.cpp'; fi`
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_safecoin-timedata_tests.obj `if test -f 'test/timedata_tests.cpp'; then $(CYGPATH_W) 'test/timedata_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/timedata_tests.cpp'; fi`
 
-test/test_test_litecoin-transaction_tests.o: test/transaction_tests.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_litecoin-transaction_tests.o -MD -MP -MF test/$(DEPDIR)/test_test_litecoin-transaction_tests.Tpo -c -o test/test_test_litecoin-transaction_tests.o `test -f 'test/transaction_tests.cpp' || echo '$(srcdir)/'`test/transaction_tests.cpp
-	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_litecoin-transaction_tests.Tpo test/$(DEPDIR)/test_test_litecoin-transaction_tests.Po
-#	$(AM_V_CXX)source='test/transaction_tests.cpp' object='test/test_test_litecoin-transaction_tests.o' libtool=no \
+test/test_test_safecoin-transaction_tests.o: test/transaction_tests.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_safecoin-transaction_tests.o -MD -MP -MF test/$(DEPDIR)/test_test_safecoin-transaction_tests.Tpo -c -o test/test_test_safecoin-transaction_tests.o `test -f 'test/transaction_tests.cpp' || echo '$(srcdir)/'`test/transaction_tests.cpp
+	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_safecoin-transaction_tests.Tpo test/$(DEPDIR)/test_test_safecoin-transaction_tests.Po
+#	$(AM_V_CXX)source='test/transaction_tests.cpp' object='test/test_test_safecoin-transaction_tests.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_litecoin-transaction_tests.o `test -f 'test/transaction_tests.cpp' || echo '$(srcdir)/'`test/transaction_tests.cpp
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_safecoin-transaction_tests.o `test -f 'test/transaction_tests.cpp' || echo '$(srcdir)/'`test/transaction_tests.cpp
 
-test/test_test_litecoin-transaction_tests.obj: test/transaction_tests.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_litecoin-transaction_tests.obj -MD -MP -MF test/$(DEPDIR)/test_test_litecoin-transaction_tests.Tpo -c -o test/test_test_litecoin-transaction_tests.obj `if test -f 'test/transaction_tests.cpp'; then $(CYGPATH_W) 'test/transaction_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/transaction_tests.cpp'; fi`
-	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_litecoin-transaction_tests.Tpo test/$(DEPDIR)/test_test_litecoin-transaction_tests.Po
-#	$(AM_V_CXX)source='test/transaction_tests.cpp' object='test/test_test_litecoin-transaction_tests.obj' libtool=no \
+test/test_test_safecoin-transaction_tests.obj: test/transaction_tests.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_safecoin-transaction_tests.obj -MD -MP -MF test/$(DEPDIR)/test_test_safecoin-transaction_tests.Tpo -c -o test/test_test_safecoin-transaction_tests.obj `if test -f 'test/transaction_tests.cpp'; then $(CYGPATH_W) 'test/transaction_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/transaction_tests.cpp'; fi`
+	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_safecoin-transaction_tests.Tpo test/$(DEPDIR)/test_test_safecoin-transaction_tests.Po
+#	$(AM_V_CXX)source='test/transaction_tests.cpp' object='test/test_test_safecoin-transaction_tests.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_litecoin-transaction_tests.obj `if test -f 'test/transaction_tests.cpp'; then $(CYGPATH_W) 'test/transaction_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/transaction_tests.cpp'; fi`
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_safecoin-transaction_tests.obj `if test -f 'test/transaction_tests.cpp'; then $(CYGPATH_W) 'test/transaction_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/transaction_tests.cpp'; fi`
 
-test/test_test_litecoin-uint256_tests.o: test/uint256_tests.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_litecoin-uint256_tests.o -MD -MP -MF test/$(DEPDIR)/test_test_litecoin-uint256_tests.Tpo -c -o test/test_test_litecoin-uint256_tests.o `test -f 'test/uint256_tests.cpp' || echo '$(srcdir)/'`test/uint256_tests.cpp
-	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_litecoin-uint256_tests.Tpo test/$(DEPDIR)/test_test_litecoin-uint256_tests.Po
-#	$(AM_V_CXX)source='test/uint256_tests.cpp' object='test/test_test_litecoin-uint256_tests.o' libtool=no \
+test/test_test_safecoin-uint256_tests.o: test/uint256_tests.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_safecoin-uint256_tests.o -MD -MP -MF test/$(DEPDIR)/test_test_safecoin-uint256_tests.Tpo -c -o test/test_test_safecoin-uint256_tests.o `test -f 'test/uint256_tests.cpp' || echo '$(srcdir)/'`test/uint256_tests.cpp
+	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_safecoin-uint256_tests.Tpo test/$(DEPDIR)/test_test_safecoin-uint256_tests.Po
+#	$(AM_V_CXX)source='test/uint256_tests.cpp' object='test/test_test_safecoin-uint256_tests.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_litecoin-uint256_tests.o `test -f 'test/uint256_tests.cpp' || echo '$(srcdir)/'`test/uint256_tests.cpp
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_safecoin-uint256_tests.o `test -f 'test/uint256_tests.cpp' || echo '$(srcdir)/'`test/uint256_tests.cpp
 
-test/test_test_litecoin-uint256_tests.obj: test/uint256_tests.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_litecoin-uint256_tests.obj -MD -MP -MF test/$(DEPDIR)/test_test_litecoin-uint256_tests.Tpo -c -o test/test_test_litecoin-uint256_tests.obj `if test -f 'test/uint256_tests.cpp'; then $(CYGPATH_W) 'test/uint256_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/uint256_tests.cpp'; fi`
-	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_litecoin-uint256_tests.Tpo test/$(DEPDIR)/test_test_litecoin-uint256_tests.Po
-#	$(AM_V_CXX)source='test/uint256_tests.cpp' object='test/test_test_litecoin-uint256_tests.obj' libtool=no \
+test/test_test_safecoin-uint256_tests.obj: test/uint256_tests.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_safecoin-uint256_tests.obj -MD -MP -MF test/$(DEPDIR)/test_test_safecoin-uint256_tests.Tpo -c -o test/test_test_safecoin-uint256_tests.obj `if test -f 'test/uint256_tests.cpp'; then $(CYGPATH_W) 'test/uint256_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/uint256_tests.cpp'; fi`
+	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_safecoin-uint256_tests.Tpo test/$(DEPDIR)/test_test_safecoin-uint256_tests.Po
+#	$(AM_V_CXX)source='test/uint256_tests.cpp' object='test/test_test_safecoin-uint256_tests.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_litecoin-uint256_tests.obj `if test -f 'test/uint256_tests.cpp'; then $(CYGPATH_W) 'test/uint256_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/uint256_tests.cpp'; fi`
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_safecoin-uint256_tests.obj `if test -f 'test/uint256_tests.cpp'; then $(CYGPATH_W) 'test/uint256_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/uint256_tests.cpp'; fi`
 
-test/test_test_litecoin-univalue_tests.o: test/univalue_tests.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_litecoin-univalue_tests.o -MD -MP -MF test/$(DEPDIR)/test_test_litecoin-univalue_tests.Tpo -c -o test/test_test_litecoin-univalue_tests.o `test -f 'test/univalue_tests.cpp' || echo '$(srcdir)/'`test/univalue_tests.cpp
-	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_litecoin-univalue_tests.Tpo test/$(DEPDIR)/test_test_litecoin-univalue_tests.Po
-#	$(AM_V_CXX)source='test/univalue_tests.cpp' object='test/test_test_litecoin-univalue_tests.o' libtool=no \
+test/test_test_safecoin-univalue_tests.o: test/univalue_tests.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_safecoin-univalue_tests.o -MD -MP -MF test/$(DEPDIR)/test_test_safecoin-univalue_tests.Tpo -c -o test/test_test_safecoin-univalue_tests.o `test -f 'test/univalue_tests.cpp' || echo '$(srcdir)/'`test/univalue_tests.cpp
+	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_safecoin-univalue_tests.Tpo test/$(DEPDIR)/test_test_safecoin-univalue_tests.Po
+#	$(AM_V_CXX)source='test/univalue_tests.cpp' object='test/test_test_safecoin-univalue_tests.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_litecoin-univalue_tests.o `test -f 'test/univalue_tests.cpp' || echo '$(srcdir)/'`test/univalue_tests.cpp
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_safecoin-univalue_tests.o `test -f 'test/univalue_tests.cpp' || echo '$(srcdir)/'`test/univalue_tests.cpp
 
-test/test_test_litecoin-univalue_tests.obj: test/univalue_tests.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_litecoin-univalue_tests.obj -MD -MP -MF test/$(DEPDIR)/test_test_litecoin-univalue_tests.Tpo -c -o test/test_test_litecoin-univalue_tests.obj `if test -f 'test/univalue_tests.cpp'; then $(CYGPATH_W) 'test/univalue_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/univalue_tests.cpp'; fi`
-	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_litecoin-univalue_tests.Tpo test/$(DEPDIR)/test_test_litecoin-univalue_tests.Po
-#	$(AM_V_CXX)source='test/univalue_tests.cpp' object='test/test_test_litecoin-univalue_tests.obj' libtool=no \
+test/test_test_safecoin-univalue_tests.obj: test/univalue_tests.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_safecoin-univalue_tests.obj -MD -MP -MF test/$(DEPDIR)/test_test_safecoin-univalue_tests.Tpo -c -o test/test_test_safecoin-univalue_tests.obj `if test -f 'test/univalue_tests.cpp'; then $(CYGPATH_W) 'test/univalue_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/univalue_tests.cpp'; fi`
+	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_safecoin-univalue_tests.Tpo test/$(DEPDIR)/test_test_safecoin-univalue_tests.Po
+#	$(AM_V_CXX)source='test/univalue_tests.cpp' object='test/test_test_safecoin-univalue_tests.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_litecoin-univalue_tests.obj `if test -f 'test/univalue_tests.cpp'; then $(CYGPATH_W) 'test/univalue_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/univalue_tests.cpp'; fi`
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_safecoin-univalue_tests.obj `if test -f 'test/univalue_tests.cpp'; then $(CYGPATH_W) 'test/univalue_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/univalue_tests.cpp'; fi`
 
-test/test_test_litecoin-util_tests.o: test/util_tests.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_litecoin-util_tests.o -MD -MP -MF test/$(DEPDIR)/test_test_litecoin-util_tests.Tpo -c -o test/test_test_litecoin-util_tests.o `test -f 'test/util_tests.cpp' || echo '$(srcdir)/'`test/util_tests.cpp
-	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_litecoin-util_tests.Tpo test/$(DEPDIR)/test_test_litecoin-util_tests.Po
-#	$(AM_V_CXX)source='test/util_tests.cpp' object='test/test_test_litecoin-util_tests.o' libtool=no \
+test/test_test_safecoin-util_tests.o: test/util_tests.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_safecoin-util_tests.o -MD -MP -MF test/$(DEPDIR)/test_test_safecoin-util_tests.Tpo -c -o test/test_test_safecoin-util_tests.o `test -f 'test/util_tests.cpp' || echo '$(srcdir)/'`test/util_tests.cpp
+	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_safecoin-util_tests.Tpo test/$(DEPDIR)/test_test_safecoin-util_tests.Po
+#	$(AM_V_CXX)source='test/util_tests.cpp' object='test/test_test_safecoin-util_tests.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_litecoin-util_tests.o `test -f 'test/util_tests.cpp' || echo '$(srcdir)/'`test/util_tests.cpp
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_safecoin-util_tests.o `test -f 'test/util_tests.cpp' || echo '$(srcdir)/'`test/util_tests.cpp
 
-test/test_test_litecoin-util_tests.obj: test/util_tests.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_litecoin-util_tests.obj -MD -MP -MF test/$(DEPDIR)/test_test_litecoin-util_tests.Tpo -c -o test/test_test_litecoin-util_tests.obj `if test -f 'test/util_tests.cpp'; then $(CYGPATH_W) 'test/util_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/util_tests.cpp'; fi`
-	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_litecoin-util_tests.Tpo test/$(DEPDIR)/test_test_litecoin-util_tests.Po
-#	$(AM_V_CXX)source='test/util_tests.cpp' object='test/test_test_litecoin-util_tests.obj' libtool=no \
+test/test_test_safecoin-util_tests.obj: test/util_tests.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_safecoin-util_tests.obj -MD -MP -MF test/$(DEPDIR)/test_test_safecoin-util_tests.Tpo -c -o test/test_test_safecoin-util_tests.obj `if test -f 'test/util_tests.cpp'; then $(CYGPATH_W) 'test/util_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/util_tests.cpp'; fi`
+	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_safecoin-util_tests.Tpo test/$(DEPDIR)/test_test_safecoin-util_tests.Po
+#	$(AM_V_CXX)source='test/util_tests.cpp' object='test/test_test_safecoin-util_tests.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_litecoin-util_tests.obj `if test -f 'test/util_tests.cpp'; then $(CYGPATH_W) 'test/util_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/util_tests.cpp'; fi`
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_safecoin-util_tests.obj `if test -f 'test/util_tests.cpp'; then $(CYGPATH_W) 'test/util_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/util_tests.cpp'; fi`
 
-test/test_test_litecoin-accounting_tests.o: test/accounting_tests.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_litecoin-accounting_tests.o -MD -MP -MF test/$(DEPDIR)/test_test_litecoin-accounting_tests.Tpo -c -o test/test_test_litecoin-accounting_tests.o `test -f 'test/accounting_tests.cpp' || echo '$(srcdir)/'`test/accounting_tests.cpp
-	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_litecoin-accounting_tests.Tpo test/$(DEPDIR)/test_test_litecoin-accounting_tests.Po
-#	$(AM_V_CXX)source='test/accounting_tests.cpp' object='test/test_test_litecoin-accounting_tests.o' libtool=no \
+test/test_test_safecoin-accounting_tests.o: test/accounting_tests.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_safecoin-accounting_tests.o -MD -MP -MF test/$(DEPDIR)/test_test_safecoin-accounting_tests.Tpo -c -o test/test_test_safecoin-accounting_tests.o `test -f 'test/accounting_tests.cpp' || echo '$(srcdir)/'`test/accounting_tests.cpp
+	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_safecoin-accounting_tests.Tpo test/$(DEPDIR)/test_test_safecoin-accounting_tests.Po
+#	$(AM_V_CXX)source='test/accounting_tests.cpp' object='test/test_test_safecoin-accounting_tests.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_litecoin-accounting_tests.o `test -f 'test/accounting_tests.cpp' || echo '$(srcdir)/'`test/accounting_tests.cpp
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_safecoin-accounting_tests.o `test -f 'test/accounting_tests.cpp' || echo '$(srcdir)/'`test/accounting_tests.cpp
 
-test/test_test_litecoin-accounting_tests.obj: test/accounting_tests.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_litecoin-accounting_tests.obj -MD -MP -MF test/$(DEPDIR)/test_test_litecoin-accounting_tests.Tpo -c -o test/test_test_litecoin-accounting_tests.obj `if test -f 'test/accounting_tests.cpp'; then $(CYGPATH_W) 'test/accounting_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/accounting_tests.cpp'; fi`
-	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_litecoin-accounting_tests.Tpo test/$(DEPDIR)/test_test_litecoin-accounting_tests.Po
-#	$(AM_V_CXX)source='test/accounting_tests.cpp' object='test/test_test_litecoin-accounting_tests.obj' libtool=no \
+test/test_test_safecoin-accounting_tests.obj: test/accounting_tests.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_safecoin-accounting_tests.obj -MD -MP -MF test/$(DEPDIR)/test_test_safecoin-accounting_tests.Tpo -c -o test/test_test_safecoin-accounting_tests.obj `if test -f 'test/accounting_tests.cpp'; then $(CYGPATH_W) 'test/accounting_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/accounting_tests.cpp'; fi`
+	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_safecoin-accounting_tests.Tpo test/$(DEPDIR)/test_test_safecoin-accounting_tests.Po
+#	$(AM_V_CXX)source='test/accounting_tests.cpp' object='test/test_test_safecoin-accounting_tests.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_litecoin-accounting_tests.obj `if test -f 'test/accounting_tests.cpp'; then $(CYGPATH_W) 'test/accounting_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/accounting_tests.cpp'; fi`
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_safecoin-accounting_tests.obj `if test -f 'test/accounting_tests.cpp'; then $(CYGPATH_W) 'test/accounting_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/accounting_tests.cpp'; fi`
 
-test/test_test_litecoin-wallet_tests.o: test/wallet_tests.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_litecoin-wallet_tests.o -MD -MP -MF test/$(DEPDIR)/test_test_litecoin-wallet_tests.Tpo -c -o test/test_test_litecoin-wallet_tests.o `test -f 'test/wallet_tests.cpp' || echo '$(srcdir)/'`test/wallet_tests.cpp
-	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_litecoin-wallet_tests.Tpo test/$(DEPDIR)/test_test_litecoin-wallet_tests.Po
-#	$(AM_V_CXX)source='test/wallet_tests.cpp' object='test/test_test_litecoin-wallet_tests.o' libtool=no \
+test/test_test_safecoin-wallet_tests.o: test/wallet_tests.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_safecoin-wallet_tests.o -MD -MP -MF test/$(DEPDIR)/test_test_safecoin-wallet_tests.Tpo -c -o test/test_test_safecoin-wallet_tests.o `test -f 'test/wallet_tests.cpp' || echo '$(srcdir)/'`test/wallet_tests.cpp
+	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_safecoin-wallet_tests.Tpo test/$(DEPDIR)/test_test_safecoin-wallet_tests.Po
+#	$(AM_V_CXX)source='test/wallet_tests.cpp' object='test/test_test_safecoin-wallet_tests.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_litecoin-wallet_tests.o `test -f 'test/wallet_tests.cpp' || echo '$(srcdir)/'`test/wallet_tests.cpp
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_safecoin-wallet_tests.o `test -f 'test/wallet_tests.cpp' || echo '$(srcdir)/'`test/wallet_tests.cpp
 
-test/test_test_litecoin-wallet_tests.obj: test/wallet_tests.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_litecoin-wallet_tests.obj -MD -MP -MF test/$(DEPDIR)/test_test_litecoin-wallet_tests.Tpo -c -o test/test_test_litecoin-wallet_tests.obj `if test -f 'test/wallet_tests.cpp'; then $(CYGPATH_W) 'test/wallet_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/wallet_tests.cpp'; fi`
-	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_litecoin-wallet_tests.Tpo test/$(DEPDIR)/test_test_litecoin-wallet_tests.Po
-#	$(AM_V_CXX)source='test/wallet_tests.cpp' object='test/test_test_litecoin-wallet_tests.obj' libtool=no \
+test/test_test_safecoin-wallet_tests.obj: test/wallet_tests.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_safecoin-wallet_tests.obj -MD -MP -MF test/$(DEPDIR)/test_test_safecoin-wallet_tests.Tpo -c -o test/test_test_safecoin-wallet_tests.obj `if test -f 'test/wallet_tests.cpp'; then $(CYGPATH_W) 'test/wallet_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/wallet_tests.cpp'; fi`
+	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_safecoin-wallet_tests.Tpo test/$(DEPDIR)/test_test_safecoin-wallet_tests.Po
+#	$(AM_V_CXX)source='test/wallet_tests.cpp' object='test/test_test_safecoin-wallet_tests.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_litecoin-wallet_tests.obj `if test -f 'test/wallet_tests.cpp'; then $(CYGPATH_W) 'test/wallet_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/wallet_tests.cpp'; fi`
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_safecoin-wallet_tests.obj `if test -f 'test/wallet_tests.cpp'; then $(CYGPATH_W) 'test/wallet_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/wallet_tests.cpp'; fi`
 
-test/test_test_litecoin-rpc_wallet_tests.o: test/rpc_wallet_tests.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_litecoin-rpc_wallet_tests.o -MD -MP -MF test/$(DEPDIR)/test_test_litecoin-rpc_wallet_tests.Tpo -c -o test/test_test_litecoin-rpc_wallet_tests.o `test -f 'test/rpc_wallet_tests.cpp' || echo '$(srcdir)/'`test/rpc_wallet_tests.cpp
-	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_litecoin-rpc_wallet_tests.Tpo test/$(DEPDIR)/test_test_litecoin-rpc_wallet_tests.Po
-#	$(AM_V_CXX)source='test/rpc_wallet_tests.cpp' object='test/test_test_litecoin-rpc_wallet_tests.o' libtool=no \
+test/test_test_safecoin-rpc_wallet_tests.o: test/rpc_wallet_tests.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_safecoin-rpc_wallet_tests.o -MD -MP -MF test/$(DEPDIR)/test_test_safecoin-rpc_wallet_tests.Tpo -c -o test/test_test_safecoin-rpc_wallet_tests.o `test -f 'test/rpc_wallet_tests.cpp' || echo '$(srcdir)/'`test/rpc_wallet_tests.cpp
+	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_safecoin-rpc_wallet_tests.Tpo test/$(DEPDIR)/test_test_safecoin-rpc_wallet_tests.Po
+#	$(AM_V_CXX)source='test/rpc_wallet_tests.cpp' object='test/test_test_safecoin-rpc_wallet_tests.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_litecoin-rpc_wallet_tests.o `test -f 'test/rpc_wallet_tests.cpp' || echo '$(srcdir)/'`test/rpc_wallet_tests.cpp
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_safecoin-rpc_wallet_tests.o `test -f 'test/rpc_wallet_tests.cpp' || echo '$(srcdir)/'`test/rpc_wallet_tests.cpp
 
-test/test_test_litecoin-rpc_wallet_tests.obj: test/rpc_wallet_tests.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_litecoin-rpc_wallet_tests.obj -MD -MP -MF test/$(DEPDIR)/test_test_litecoin-rpc_wallet_tests.Tpo -c -o test/test_test_litecoin-rpc_wallet_tests.obj `if test -f 'test/rpc_wallet_tests.cpp'; then $(CYGPATH_W) 'test/rpc_wallet_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/rpc_wallet_tests.cpp'; fi`
-	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_litecoin-rpc_wallet_tests.Tpo test/$(DEPDIR)/test_test_litecoin-rpc_wallet_tests.Po
-#	$(AM_V_CXX)source='test/rpc_wallet_tests.cpp' object='test/test_test_litecoin-rpc_wallet_tests.obj' libtool=no \
+test/test_test_safecoin-rpc_wallet_tests.obj: test/rpc_wallet_tests.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test/test_test_safecoin-rpc_wallet_tests.obj -MD -MP -MF test/$(DEPDIR)/test_test_safecoin-rpc_wallet_tests.Tpo -c -o test/test_test_safecoin-rpc_wallet_tests.obj `if test -f 'test/rpc_wallet_tests.cpp'; then $(CYGPATH_W) 'test/rpc_wallet_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/rpc_wallet_tests.cpp'; fi`
+	$(AM_V_at)$(am__mv) test/$(DEPDIR)/test_test_safecoin-rpc_wallet_tests.Tpo test/$(DEPDIR)/test_test_safecoin-rpc_wallet_tests.Po
+#	$(AM_V_CXX)source='test/rpc_wallet_tests.cpp' object='test/test_test_safecoin-rpc_wallet_tests.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_litecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_litecoin-rpc_wallet_tests.obj `if test -f 'test/rpc_wallet_tests.cpp'; then $(CYGPATH_W) 'test/rpc_wallet_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/rpc_wallet_tests.cpp'; fi`
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_test_safecoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test/test_test_safecoin-rpc_wallet_tests.obj `if test -f 'test/rpc_wallet_tests.cpp'; then $(CYGPATH_W) 'test/rpc_wallet_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/test/rpc_wallet_tests.cpp'; fi`
 
 .cpp.o:
 	$(AM_V_CXX)depbase=`echo $@ | sed 's|[^/]*$$|$(DEPDIR)/&|;s|\.o$$||'`;\
@@ -6573,7 +6573,7 @@ bitcoin_test_check: $(TEST_BINARY) FORCE
 	$(MAKE) check-TESTS TESTS=$^
 
 bitcoin_test_clean : FORCE
-	rm -f $(CLEAN_BITCOIN_TEST) $(test_test_litecoin_OBJECTS) $(TEST_BINARY)
+	rm -f $(CLEAN_BITCOIN_TEST) $(test_test_safecoin_OBJECTS) $(TEST_BINARY)
 
 check-local:
 	$(AM_V_at)$(MAKE) $(AM_MAKEFLAGS) -C secp256k1 check
@@ -6597,7 +6597,7 @@ check-local:
 # Most files will depend on the forms and moc files as includes. Generate them
 # before anything else.
 $(QT_MOC): $(QT_FORMS_H)
-$(qt_libbitcoinqt_a_OBJECTS) $(qt_litecoin_qt_OBJECTS) : | $(QT_MOC)
+$(qt_libbitcoinqt_a_OBJECTS) $(qt_safecoin_qt_OBJECTS) : | $(QT_MOC)
 
 #Generating these with a half-written protobuf header leads to wacky results.
 #This makes sure it's done.
@@ -6626,9 +6626,9 @@ $(QT_QRC_CPP): $(QT_QRC) $(QT_FORMS_H) $(RES_ICONS) $(RES_IMAGES) $(RES_MOVIES) 
 	  $(SED) -e '/^\*\*.*Created:/d' -e '/^\*\*.*by:/d' > $@
 
 bitcoin_qt_clean: FORCE
-	rm -f $(CLEAN_QT) $(qt_libbitcoinqt_a_OBJECTS) $(qt_bitcoin_qt_OBJECTS) qt/litecoin-qt$(EXEEXT) $(LIBBITCOINQT)
+	rm -f $(CLEAN_QT) $(qt_libbitcoinqt_a_OBJECTS) $(qt_bitcoin_qt_OBJECTS) qt/safecoin-qt$(EXEEXT) $(LIBBITCOINQT)
 
-bitcoin_qt : qt/litecoin-qt$(EXEEXT)
+bitcoin_qt : qt/safecoin-qt$(EXEEXT)
 
 ui_%.h: %.ui
 	@test -f $(UIC)
@@ -6648,13 +6648,13 @@ moc_%.cpp: %.h
 	@$(MKDIR_P) $(@D)
 	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(LRELEASE) -silent $< -qm $@
 
-test_bitcoin_qt : qt/test/test_litecoin-qt$(EXEEXT)
+test_bitcoin_qt : qt/test/test_safecoin-qt$(EXEEXT)
 
-test_bitcoin_qt_check : qt/test/test_litecoin-qt$(EXEEXT) FORCE
+test_bitcoin_qt_check : qt/test/test_safecoin-qt$(EXEEXT) FORCE
 	$(MAKE) check-TESTS TESTS=$^
 
 test_bitcoin_qt_clean: FORCE
-	rm -f $(CLEAN_BITCOIN_QT_TEST) $(qt_test_test_litecoin_qt_OBJECTS)
+	rm -f $(CLEAN_BITCOIN_QT_TEST) $(qt_test_test_safecoin_qt_OBJECTS)
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

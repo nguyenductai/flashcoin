@@ -3,7 +3,7 @@
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-BUILDDIR="/home/ntrung/PROJ/GLB/BitcoreFullNode/litecoin-v0.10"
+BUILDDIR="/home/ntrung/PROJ/GLB/BitcoreFullNode/safecoin-0.10"
 EXEEXT=""
 
 # These will turn into comments if they were disabled when configuring.

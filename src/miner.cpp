@@ -411,7 +411,7 @@ void static BitcoinMiner(CWallet *pwallet)
 {
     LogPrintf("LitecoinMiner started\n");
     SetThreadPriority(THREAD_PRIORITY_LOWEST);
-    RenameThread("litecoin-miner");
+    RenameThread("safecoin-miner");
 
     // Each thread has its own key and counter
     CReserveKey reservekey(pwallet);

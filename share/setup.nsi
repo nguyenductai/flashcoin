@@ -1,4 +1,4 @@
-Name "Litecoin Core (-bit)"
+Name "Safecoin Core (-bit)"
 
 RequestExecutionLevel highest
 SetCompressor /SOLID lzma
@@ -10,19 +10,19 @@ SetCompressor /SOLID lzma
 !define URL http://www.litecoin.org/
 
 # MUI Symbol Definitions
-!define MUI_ICON "/home/ntrung/PROJ/GLB/BitcoreFullNode/litecoin-v0.10/share/pixmaps/bitcoin.ico"
-!define MUI_WELCOMEFINISHPAGE_BITMAP "/home/ntrung/PROJ/GLB/BitcoreFullNode/litecoin-v0.10/share/pixmaps/nsis-wizard.bmp"
+!define MUI_ICON "/home/ntrung/PROJ/GLB/BitcoreFullNode/safecoin-0.10/share/pixmaps/bitcoin.ico"
+!define MUI_WELCOMEFINISHPAGE_BITMAP "/home/ntrung/PROJ/GLB/BitcoreFullNode/safecoin-0.10/share/pixmaps/nsis-wizard.bmp"
 !define MUI_HEADERIMAGE
 !define MUI_HEADERIMAGE_RIGHT
-!define MUI_HEADERIMAGE_BITMAP "/home/ntrung/PROJ/GLB/BitcoreFullNode/litecoin-v0.10/share/pixmaps/nsis-header.bmp"
+!define MUI_HEADERIMAGE_BITMAP "/home/ntrung/PROJ/GLB/BitcoreFullNode/safecoin-0.10/share/pixmaps/nsis-header.bmp"
 !define MUI_FINISHPAGE_NOAUTOCLOSE
 !define MUI_STARTMENUPAGE_REGISTRY_ROOT HKLM
 !define MUI_STARTMENUPAGE_REGISTRY_KEY ${REGKEY}
 !define MUI_STARTMENUPAGE_REGISTRY_VALUENAME StartMenuGroup
-!define MUI_STARTMENUPAGE_DEFAULTFOLDER "Litecoin Core"
+!define MUI_STARTMENUPAGE_DEFAULTFOLDER "Safecoin Core"
 !define MUI_FINISHPAGE_RUN $INSTDIR\litecoin-qt.exe
 !define MUI_UNICON "${NSISDIR}\Contrib\Graphics\Icons\modern-uninstall.ico"
-!define MUI_UNWELCOMEFINISHPAGE_BITMAP "/home/ntrung/PROJ/GLB/BitcoreFullNode/litecoin-v0.10/share/pixmaps/nsis-wizard.bmp"
+!define MUI_UNWELCOMEFINISHPAGE_BITMAP "/home/ntrung/PROJ/GLB/BitcoreFullNode/safecoin-0.10/share/pixmaps/nsis-wizard.bmp"
 !define MUI_UNFINISHPAGE_NOAUTOCLOSE
 
 # Included files
@@ -48,7 +48,7 @@ Var StartMenuGroup
 !insertmacro MUI_LANGUAGE English
 
 # Installer attributes
-OutFile /home/ntrung/PROJ/GLB/BitcoreFullNode/litecoin-v0.10/litecoin-${VERSION}-win-setup.exe
+OutFile /home/ntrung/PROJ/GLB/BitcoreFullNode/safecoin-0.10/litecoin-${VERSION}-win-setup.exe
 !if "" == "64"
 InstallDir $PROGRAMFILES64\Litecoin
 !else
@@ -73,14 +73,14 @@ ShowUninstDetails show
 Section -Main SEC0000
     SetOutPath $INSTDIR
     SetOverwrite on
-    File /home/ntrung/PROJ/GLB/BitcoreFullNode/litecoin-v0.10/release/litecoin-qt.exe
-    File /oname=COPYING.txt /home/ntrung/PROJ/GLB/BitcoreFullNode/litecoin-v0.10/COPYING
-    File /oname=readme.txt /home/ntrung/PROJ/GLB/BitcoreFullNode/litecoin-v0.10/doc/README_windows.txt
+    File /home/ntrung/PROJ/GLB/BitcoreFullNode/safecoin-0.10/release/litecoin-qt.exe
+    File /oname=COPYING.txt /home/ntrung/PROJ/GLB/BitcoreFullNode/safecoin-0.10/COPYING
+    File /oname=readme.txt /home/ntrung/PROJ/GLB/BitcoreFullNode/safecoin-0.10/doc/README_windows.txt
     SetOutPath $INSTDIR\daemon
-    File /home/ntrung/PROJ/GLB/BitcoreFullNode/litecoin-v0.10/release/litecoind.exe
-    File /home/ntrung/PROJ/GLB/BitcoreFullNode/litecoin-v0.10/release/litecoin-cli.exe
+    File /home/ntrung/PROJ/GLB/BitcoreFullNode/safecoin-0.10/release/litecoind.exe
+    File /home/ntrung/PROJ/GLB/BitcoreFullNode/safecoin-0.10/release/litecoin-cli.exe
     SetOutPath $INSTDIR\doc
-    File /r /home/ntrung/PROJ/GLB/BitcoreFullNode/litecoin-v0.10/doc\*.*
+    File /r /home/ntrung/PROJ/GLB/BitcoreFullNode/safecoin-0.10/doc\*.*
     SetOutPath $INSTDIR
     WriteRegStr HKCU "${REGKEY}\Components" Main 1
 

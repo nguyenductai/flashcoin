@@ -52,13 +52,13 @@ struct CBlockTemplate;
 struct CNodeStateStats;
 
 
-/** Litecoin: Dust Threshold: outputs below this value in satoshis are assessed an additional 1000 bytes per txout */
-static const CAmount DUST_THRESHOLD = 100000; // 0.001 LTC
-/** Litecoin: Default TX Fee per 1000 bytes */
-static const CAmount DEFAULT_TX_FEE = 100000; // 0.001 LTC
+/** Safecoin: Dust Threshold: outputs below this value in satoshis are assessed an additional 1000 bytes per txout */
+static const CAmount DUST_THRESHOLD = 100000; // 0.001 SCC
+/** Safecoin: Default TX Fee per 1000 bytes */
+static const CAmount DEFAULT_TX_FEE = 100000; // 0.001 SCC
 
-/** Litecoin: default minimum input threshold, override with -mininput */
-static const CAmount DEFAULT_MINIMUM_INPUT_THRESHOLD = DUST_THRESHOLD / 100; // 0.00001 LTC
+/** Safecoin: default minimum input threshold, override with -mininput */
+static const CAmount DEFAULT_MINIMUM_INPUT_THRESHOLD = DUST_THRESHOLD / 100; // 0.00001 SCC
 
 /** "reject" message codes */
 static const unsigned char REJECT_MALFORMED = 0x01;
