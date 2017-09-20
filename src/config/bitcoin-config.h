@@ -144,9 +144,6 @@
 /* Define to 1 if you have the `iphlpapi' library (-liphlpapi). */
 /* #undef HAVE_LIBIPHLPAPI */
 
-/* Define to 1 if you have the `jpeg ' library (-ljpeg ). */
-/* #undef HAVE_LIBJPEG_ */
-
 /* Define to 1 if you have the `kernel32' library (-lkernel32). */
 /* #undef HAVE_LIBKERNEL32 */
 
@@ -161,12 +158,6 @@
 
 /* Define to 1 if you have the `oleaut32' library (-loleaut32). */
 /* #undef HAVE_LIBOLEAUT32 */
-
-/* Define to 1 if you have the `pcre16 ' library (-lpcre16 ). */
-/* #undef HAVE_LIBPCRE16_ */
-
-/* Define to 1 if you have the `png ' library (-lpng ). */
-/* #undef HAVE_LIBPNG_ */
 
 /* Define to 1 if you have the `rpcrt4' library (-lrpcrt4). */
 /* #undef HAVE_LIBRPCRT4 */
@@ -269,22 +260,22 @@
 #define LT_OBJDIR ".libs/"
 
 /* Define to the address where bug reports for this package should be sent. */
-#define PACKAGE_BUGREPORT "info@safe.cash"
+#define PACKAGE_BUGREPORT "info@bitcoin.org"
 
 /* Define to the full name of this package. */
-#define PACKAGE_NAME "Safecoin Core"
+#define PACKAGE_NAME "Flashcoin Core"
 
 /* Define to the full name and version of this package. */
-#define PACKAGE_STRING "Safecoin Core 0.10.3.0"
+#define PACKAGE_STRING "Flashcoin Core 0.10.3"
 
 /* Define to the one symbol short name of this package. */
-#define PACKAGE_TARNAME "safecoin"
+#define PACKAGE_TARNAME "bitcoin"
 
 /* Define to the home page for this package. */
 #define PACKAGE_URL ""
 
 /* Define to the version of this package. */
-#define PACKAGE_VERSION "0.10.3.0"
+#define PACKAGE_VERSION "0.10.3"
 
 /* Define to necessary symbol if this constant uses a non-standard name on
    your system. */
@@ -292,6 +283,9 @@
 
 /* Define this symbol if the qt platform is cocoa */
 /* #undef QT_QPA_PLATFORM_COCOA */
+
+/* Define this symbol if the minimal qt platform exists */
+/* #undef QT_QPA_PLATFORM_MINIMAL */
 
 /* Define this symbol if the qt platform is windows */
 /* #undef QT_QPA_PLATFORM_WINDOWS */
