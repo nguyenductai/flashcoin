@@ -738,7 +738,7 @@ void SendCoinsDialog::coinControlChangeEdited(const QString& text)
         }
         else if (!addr.IsValid()) // Invalid address
         {
-            ui->labelCoinControlChangeLabel->setText(tr("Warning: Invalid Safecoin address"));
+            ui->labelCoinControlChangeLabel->setText(tr("Warning: Invalid Flashcoin address"));
         }
         else // Valid address
         {
