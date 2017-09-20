@@ -39,6 +39,7 @@ double GuessVerificationProgress(CBlockIndex* pindex, bool fSigchecks = true);
 
 extern bool fEnabled;
 
+uint256 GetLatestHardenedCheckpoint();
 } //namespace Checkpoints
 
 #endif // BITCOIN_CHECKPOINTS_H

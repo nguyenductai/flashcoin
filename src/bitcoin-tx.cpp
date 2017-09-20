@@ -47,10 +47,10 @@ static bool AppInitRawTx(int argc, char* argv[])
     if (argc<2 || mapArgs.count("-?") || mapArgs.count("-help"))
     {
         // First part of help message is specific to this utility
-        std::string strUsage = _("Safecoin Core safecoin-tx utility version") + " " + FormatFullVersion() + "\n\n" +
+        std::string strUsage = _("Flashcoin Core flashcoin-tx utility version") + " " + FormatFullVersion() + "\n\n" +
             _("Usage:") + "\n" +
-              "  safecoin-tx [options] <hex-tx> [commands]  " + _("Update hex-encoded safecoin transaction") + "\n" +
-              "  safecoin-tx [options] -create [commands]   " + _("Create hex-encoded safecoin transaction") + "\n" +
+              "  flashcoin-tx [options] <hex-tx> [commands]  " + _("Update hex-encoded flashcoin transaction") + "\n" +
+              "  flashcoin-tx [options] -create [commands]   " + _("Create hex-encoded flashcoin transaction") + "\n" +
               "\n";
 
         fprintf(stdout, "%s", strUsage.c_str());

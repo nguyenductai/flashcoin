@@ -129,9 +129,16 @@ public:
     bool IsValid() const;
     bool SetString(const char* pszSecret);
     bool SetString(const std::string& strSecret);
+    void SetSecret(const CPrivKey& vchSecret, bool fCompressed);
+    CPrivKey GetSecret(bool &fCompressedOut);
 
     CBitcoinSecret(const CKey& vchSecret) { SetKey(vchSecret); }
     CBitcoinSecret() {}
+    CBitcoinSecret(const CPrivKey& vchSecret, bool fCompressed)
+    {
+        SetSecret(vchSecret, fCompressed);
+    }
+
 };
 
 template<typename K, int Size, CChainParams::Base58Type Type> class CBitcoinExtKeyBase : public CBase58Data

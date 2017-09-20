@@ -82,7 +82,7 @@ public:
     const std::vector<CAddress>& FixedSeeds() const { return vFixedSeeds; }
     virtual const Checkpoints::CCheckpointData& Checkpoints() const = 0;
 
-    // Safecoin: Height to enforce v2 block
+    // Flashcoin: Height to enforce v2 block
     int EnforceV2AfterHeight() const { return nEnforceV2AfterHeight; }
 protected:
     CChainParams() {}
@@ -115,7 +115,7 @@ protected:
     bool fSkipProofOfWorkCheck;
     bool fTestnetToBeDeprecatedFieldRPC;
 
-    // Safecoin: Height to enforce v2 blocks
+    // Flashcoin: Height to enforce v2 blocks
     int nEnforceV2AfterHeight;
 };
 

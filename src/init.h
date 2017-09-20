@@ -17,6 +17,11 @@ class thread_group;
 
 extern CWallet* pwalletMain;
 
+#if ENABLE_DAEMONLIB
+#include <boost/filesystem/path.hpp>
+#include <boost/thread/mutex.hpp>
+#endif
+
 void StartShutdown();
 bool ShutdownRequested();
 void Shutdown();

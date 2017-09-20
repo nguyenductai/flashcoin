@@ -52,14 +52,6 @@ struct CBlockTemplate;
 struct CNodeStateStats;
 
 
-/** Safecoin: Dust Threshold: outputs below this value in satoshis are assessed an additional 1000 bytes per txout */
-static const CAmount DUST_THRESHOLD = 100000; // 0.001 SCC
-/** Safecoin: Default TX Fee per 1000 bytes */
-static const CAmount DEFAULT_TX_FEE = 100000; // 0.001 SCC
-
-/** Safecoin: default minimum input threshold, override with -mininput */
-static const CAmount DEFAULT_MINIMUM_INPUT_THRESHOLD = DUST_THRESHOLD / 100; // 0.00001 SCC
-
 /** "reject" message codes */
 static const unsigned char REJECT_MALFORMED = 0x01;
 static const unsigned char REJECT_INVALID = 0x10;
@@ -161,6 +153,8 @@ bool IsInitialBlockDownload();
 std::string GetWarnings(std::string strFor);
 /** Retrieve a transaction (from memory pool, or from disk, if possible) */
 bool GetTransaction(const uint256 &hash, CTransaction &tx, uint256 &hashBlock, bool fAllowSlow = false);
+/** Connect/disconnect blocks until pindexNew is the new tip of the active block chain */
+bool SetBestChain(CValidationState &state, CBlockIndex* pindexNew);
 /** Find the best known block, and make it the tip of the block chain */
 bool ActivateBestChain(CValidationState &state, CBlock *pblock = NULL);
 CAmount GetBlockValue(int nHeight, const CAmount& nFees);

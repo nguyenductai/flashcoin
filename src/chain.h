@@ -104,6 +104,7 @@ public:
     //! pointer to the index of some further predecessor of this block
     CBlockIndex* pskip;
 
+    CBlockIndex* pnext;
     //! height of the entry in the chain. The genesis block has height 0
     int nHeight;
 
@@ -248,6 +249,8 @@ public:
      */
     static bool IsSuperMajority(int minVersion, const CBlockIndex* pstart,
                                 unsigned int nRequired);
+
+    bool IsInMainChain() const;
 
     std::string ToString() const
     {

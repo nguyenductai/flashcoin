@@ -362,7 +362,7 @@ static std::string FormatException(std::exception* pex, const char* pszThread)
     char pszModule[MAX_PATH] = "";
     GetModuleFileNameA(NULL, pszModule, sizeof(pszModule));
 #else
-    const char* pszModule = "safecoin";
+    const char* pszModule = "flashcoin";
 #endif
     if (pex)
         return strprintf(
@@ -383,10 +383,10 @@ void PrintExceptionContinue(std::exception* pex, const char* pszThread)
 boost::filesystem::path GetDefaultDataDir()
 {
     namespace fs = boost::filesystem;
-    // Windows < Vista: C:\Documents and Settings\Username\Application Data\Safecoin
-    // Windows >= Vista: C:\Users\Username\AppData\Roaming\Safecoin
-    // Mac: ~/Library/Application Support/Safecoin
-    // Unix: ~/.safecoin
+    // Windows < Vista: C:\Documents and Settings\Username\Application Data\Flashcoin
+    // Windows >= Vista: C:\Users\Username\AppData\Roaming\Flashcoin
+    // Mac: ~/Library/Application Support/Flashcoin
+    // Unix: ~/.flashcoin
 #ifdef WIN32
     // Windows
     return GetSpecialFolderPath(CSIDL_APPDATA) / CONF_DEFAULT_DATA_DIR_WINDOW;
@@ -463,14 +463,14 @@ void ReadConfigFile(map<string, string>& mapSettingsRet,
 {
     boost::filesystem::ifstream streamConfig(GetConfigFile());
     if (!streamConfig.good())
-        return; // No safecoin.conf file is OK
+        return; // No flashcoin.conf file is OK
 
     set<string> setOptions;
     setOptions.insert("*");
 
     for (boost::program_options::detail::config_file_iterator it(streamConfig, setOptions), end; it != end; ++it)
     {
-        // Don't overwrite existing settings so command line settings override safecoin.conf
+        // Don't overwrite existing settings so command line settings override flashcoin.conf
         string strKey = string("-") + it->string_key;
         if (mapSettingsRet.count(strKey) == 0)
         {

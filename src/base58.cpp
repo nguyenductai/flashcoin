@@ -309,3 +309,20 @@ bool CBitcoinSecret::SetString(const std::string& strSecret)
 {
     return SetString(strSecret.c_str());
 }
+
+void CBitcoinSecret::SetSecret(const CPrivKey& vchSecret, bool fCompressed)
+{
+    assert(vchSecret.size() == 32);
+    SetData(Params().Base58Prefix(CChainParams::SECRET_KEY), &vchSecret[0], vchSecret.size());
+    if (fCompressed)
+        vchData.push_back(1);
+}
+
+CPrivKey CBitcoinSecret::GetSecret(bool &fCompressedOut)
+{
+    CPrivKey vchSecret;
+    vchSecret.resize(32);
+    memcpy(&vchSecret[0], &vchData[0], 32);
+    fCompressedOut = vchData.size() == 33;
+    return vchSecret;
+}

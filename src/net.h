@@ -66,6 +66,8 @@ struct CNodeSignals
 {
     boost::signals2::signal<int ()> GetHeight;
     boost::signals2::signal<bool (CNode*)> ProcessMessages;
+    boost::signals2::signal<bool (const CTransaction&)> TxToMemPool;
+    boost::signals2::signal<bool (const CTransaction&)> TxLeaveMemPool;
     boost::signals2::signal<bool (CNode*, bool)> SendMessages;
     boost::signals2::signal<void (NodeId, const CNode*)> InitializeNode;
     boost::signals2::signal<void (NodeId)> FinalizeNode;
@@ -245,6 +247,9 @@ public:
     CBloomFilter* pfilter;
     int nRefCount;
     NodeId id;
+    uint256 hashCheckpointKnown;
+    CBlockIndex* pindexLastGetBlocksBegin;
+    uint256 hashLastGetBlocksEnd;
 protected:
 
     // Denial-of-service detection/prevention
@@ -393,7 +398,7 @@ public:
     void EndMessage() UNLOCK_FUNCTION(cs_vSend);
 
     void PushVersion();
-
+    void PushGetBlocks(CBlockIndex* pindexBegin, uint256 hashEnd);
 
     void PushMessage(const char* pszCommand)
     {

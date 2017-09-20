@@ -95,7 +95,7 @@ static inline int64_t roundint64(double d)
 CAmount AmountFromValue(const Value& value)
 {
     double dAmount = value.get_real();
-    if (dAmount <= 0.0 || dAmount > 84000000.0)
+    if (dAmount <= 0.0 || dAmount > 900000000000.0) // wlotus make change the limit per transactions from 84,000,000 to 900,000,000,000
         throw JSONRPCError(RPC_TYPE_ERROR, "Invalid amount");
     CAmount nAmount = roundint64(dAmount * COIN);
     if (!MoneyRange(nAmount))
@@ -228,10 +228,10 @@ Value stop(const Array& params, bool fHelp)
     if (fHelp || params.size() > 1)
         throw runtime_error(
             "stop\n"
-            "\nStop Safecoin server.");
+            "\nStop Flashcoin server.");
     // Shutdown will take long enough that the response should get back
     StartShutdown();
-    return "Safecoin server stopping";
+    return "Flashcoin server stopping";
 }
 
 
@@ -271,6 +271,12 @@ static const CRPCCommand vRPCCommands[] =
     { "blockchain",         "verifychain",            &verifychain,            true,      false,      false },
     { "blockchain",         "invalidateblock",        &invalidateblock,        true,      true,       false },
     { "blockchain",         "reconsiderblock",        &reconsiderblock,        true,      true,       false },
+
+    /* Checkpoint Control */
+    { "checkpoints",        "getcheckpoint",          &getcheckpoint,          true,      false,      false },
+    { "checkpoints",        "sendcheckpoint",         &sendcheckpoint,         true,      false,      false },
+    { "checkpoints",        "enforcecheckpoint",      &enforcecheckpoint,      true,      false,      false },
+    { "checkpoints",        "makekeypair",            &makekeypair,            true,      false,      false },
 
     /* Mining */
     { "mining",             "getblocktemplate",       &getblocktemplate,       true,      false,      false },
@@ -572,16 +578,16 @@ void StartRPCThreads()
         unsigned char rand_pwd[32];
         GetRandBytes(rand_pwd, 32);
         uiInterface.ThreadSafeMessageBox(strprintf(
-            _("To use litecoind, or the -server option to safecoin-qt, you must set an rpcpassword in the configuration file:\n"
+            _("To use flashcoind, or the -server option to flashcoin-qt, you must set an rpcpassword in the configuration file:\n"
               "%s\n"
               "It is recommended you use the following random password:\n"
-              "rpcuser=litecoinrpc\n"
+              "rpcuser=flashcoinrpc\n"
               "rpcpassword=%s\n"
               "(you do not need to remember this password)\n"
               "The username and password MUST NOT be the same.\n"
               "If the file does not exist, create it with owner-readable-only file permissions.\n"
               "It is also recommended to set alertnotify so you are notified of problems;\n"
-              "for example: alertnotify=echo %%s | mail -s \"Safecoin Alert\" admin@foo.com\n"),
+              "for example: alertnotify=echo %%s | mail -s \"Flashcoin Alert\" admin@foo.com\n"),
                 GetConfigFile().string(),
                 EncodeBase58(&rand_pwd[0],&rand_pwd[0]+32)),
                 "", CClientUIInterface::MSG_ERROR | CClientUIInterface::SECURE);
@@ -1022,7 +1028,7 @@ json_spirit::Value CRPCTable::execute(const std::string &strMethod, const json_s
 }
 
 std::string HelpExampleCli(string methodname, string args){
-    return "> safecoin-cli " + methodname + " " + args + "\n";
+    return "> flashcoin-cli " + methodname + " " + args + "\n";
 }
 
 std::string HelpExampleRpc(string methodname, string args){

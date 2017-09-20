@@ -54,19 +54,21 @@ static void convertSeed6(std::vector<CAddress> &vSeedsOut, const SeedSpec6 *data
  */
 static Checkpoints::MapCheckpoints mapCheckpoints =
         boost::assign::map_list_of
-        (0, uint256(CONF_GENESIS_BLOCK))
-        ;
+        ( 0, uint256(CONF_GENESIS_BLOCK))
+        ( 57742, uint256("0xfdc91783d135a0891c8c86a4ade070a5ddf3b39fec2ecfcfe520295f6c4f244f"));
+
 static const Checkpoints::CCheckpointData data = {
         &mapCheckpoints,
-        0, // * UNIX timestamp of last checkpoint block
-        0,   // * total number of transactions between genesis and last checkpoint
+        1493700742, // * UNIX timestamp of last checkpoint block
+        106377,   // * total number of transactions between genesis and last checkpoint
                     //   (the tx=... number in the SetBestChain debug.log lines)
-        0.0    // * estimated number of transactions per day after checkpoint
+        1000.0    // * estimated number of transactions per day after checkpoint
     };
 
 static Checkpoints::MapCheckpoints mapCheckpointsTestnet =
         boost::assign::map_list_of
-        (0, uint256(CONF_GENESIS_BLOCK_TESTNET));
+        ( 0, uint256(CONF_GENESIS_BLOCK_TESTNET));
+
 static const Checkpoints::CCheckpointData dataTestnet = {
         &mapCheckpointsTestnet,
         0,
@@ -76,7 +78,8 @@ static const Checkpoints::CCheckpointData dataTestnet = {
 
 static Checkpoints::MapCheckpoints mapCheckpointsRegtest =
         boost::assign::map_list_of
-        (0, uint256(CONF_GENESIS_BLOCK_TESTNET));
+        ( 0, uint256(CONF_GENESIS_BLOCK_TESTNET));
+
 static const Checkpoints::CCheckpointData dataRegtest = {
         &mapCheckpointsRegtest,
         0,
@@ -100,7 +103,7 @@ public:
         pchMessageStart[3] = 0xdb;
         vAlertPubKey = ParseHex(CONF_SCRIPT_PUBKEY);
         nDefaultPort = CONF_PORT;
-        bnProofOfWorkLimit = ~uint256(0) >> 20;
+        bnProofOfWorkLimit = ~uint256(0) >> 1; // default = 20; // whitelotus change min-difficulty of mining
         nSubsidyHalvingInterval = 840000;
         nEnforceBlockUpgradeMajority = 750;
         nRejectBlockOutdatedMajority = 950;
@@ -138,11 +141,12 @@ public:
         assert(hashGenesisBlock == uint256(CONF_GENESIS_BLOCK));
         assert(genesis.hashMerkleRoot == uint256(CONF_BLOCK_HASH_MERKLE_ROOT));
 
-        vSeeds.push_back(CDNSSeedData("litecointools.com", "dnsseed.litecointools.com"));
-        vSeeds.push_back(CDNSSeedData("litecoinpool.org", "dnsseed.litecoinpool.org"));
-        vSeeds.push_back(CDNSSeedData("xurious.com", "dnsseed.ltc.xurious.com"));
-        vSeeds.push_back(CDNSSeedData("koin-project.com", "dnsseed.koin-project.com"));
-        vSeeds.push_back(CDNSSeedData("weminemnc.com", "dnsseed.weminemnc.com"));
+        vSeeds.push_back(CDNSSeedData("Seed Node", "88.150.227.120"));
+        vSeeds.push_back(CDNSSeedData("Seed Node 2", "108.170.20.78"));
+        vSeeds.push_back(CDNSSeedData("Seed Node 3", "66.85.173.32"));
+        vSeeds.push_back(CDNSSeedData("flashcointools.com", "dnsseed.flashcointools.com"));
+        vSeeds.push_back(CDNSSeedData("flashcoinpool.org", "dnsseed.flashcoinpool.org"));
+
 
         base58Prefixes[PUBKEY_ADDRESS] = list_of(CONF_PUBKEY_ADDRESS);
         base58Prefixes[SCRIPT_ADDRESS] = list_of(CONF_SCRIPT_ADDRESS);
@@ -153,15 +157,15 @@ public:
         convertSeed6(vFixedSeeds, pnSeed6_main, ARRAYLEN(pnSeed6_main));
 
         fRequireRPCPassword = true;
-        fMiningRequiresPeers = true;
-        fAllowMinDifficultyBlocks = false;
+        fMiningRequiresPeers = false; //WL change true --> false
+        fAllowMinDifficultyBlocks = true; //WL change false --> true
         fDefaultConsistencyChecks = false;
         fRequireStandard = true;
         fMineBlocksOnDemand = false;
-        fSkipProofOfWorkCheck = false;
+        fSkipProofOfWorkCheck = true; //WL change false --> true
         fTestnetToBeDeprecatedFieldRPC = false;
 
-        // Safecoin: Mainnet v2 enforced as of block 710k
+        // Flashcoin: Mainnet v2 enforced as of block 710k
         nEnforceV2AfterHeight = -1;
     }
 
@@ -201,9 +205,11 @@ public:
 
         vFixedSeeds.clear();
         vSeeds.clear();
-        vSeeds.push_back(CDNSSeedData("litecointools.com", "testnet-seed.litecointools.com"));
-        vSeeds.push_back(CDNSSeedData("xurious.com", "testnet-seed.ltc.xurious.com"));
-        vSeeds.push_back(CDNSSeedData("wemine-testnet.com", "dnsseed.wemine-testnet.com"));
+        vSeeds.push_back(CDNSSeedData("Seed Node", "88.150.227.120"));
+        vSeeds.push_back(CDNSSeedData("Seed Node 2", "108.170.20.78"));
+        vSeeds.push_back(CDNSSeedData("Seed Node 3", "66.85.173.32"));
+        vSeeds.push_back(CDNSSeedData("flashcointools.com", "dnsseed.flashcointools.com"));
+        vSeeds.push_back(CDNSSeedData("flashcoinpool.org", "dnsseed.flashcoinpool.org"));
 
         base58Prefixes[PUBKEY_ADDRESS] = list_of(CONF_PUBKEY_ADDRESS_TEST);
         base58Prefixes[SCRIPT_ADDRESS] = list_of(CONF_SCRIPT_ADDRESS_TEST);
@@ -221,7 +227,7 @@ public:
         fMineBlocksOnDemand = false;
         fTestnetToBeDeprecatedFieldRPC = true;
 
-        // Safecoin: Testnet v2 enforced as of block 400k
+        // Flashcoin: Testnet v2 enforced as of block 400k
         nEnforceV2AfterHeight = -1;
     }
     const Checkpoints::CCheckpointData& Checkpoints() const 
@@ -268,7 +274,7 @@ public:
         fMineBlocksOnDemand = true;
         fTestnetToBeDeprecatedFieldRPC = false;
 
-        // Safecoin: v2 enforced using Bitcoin's supermajority rule
+        // Flashcoin: v2 enforced using Bitcoin's supermajority rule
         nEnforceV2AfterHeight = -1;
     }
     const Checkpoints::CCheckpointData& Checkpoints() const 
@@ -296,7 +302,7 @@ public:
         fAllowMinDifficultyBlocks = false;
         fMineBlocksOnDemand = true;
 
-        // Safecoin: v2 enforced using Bitcoin's supermajority rule
+        // Flashcoin: v2 enforced using Bitcoin's supermajority rule
         nEnforceV2AfterHeight = -1;
     }
 

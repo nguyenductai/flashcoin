@@ -9,6 +9,7 @@
 #include "alert.h"
 #include "chainparams.h"
 #include "checkpoints.h"
+#include "checkpointsync.h"
 #include "checkqueue.h"
 #include "init.h"
 #include "merkleblock.h"
@@ -31,7 +32,7 @@ using namespace boost;
 using namespace std;
 
 #if defined(NDEBUG)
-# error "Safecoin cannot be compiled without assertions."
+# error "Flashcoin cannot be compiled without assertions."
 #endif
 
 /**
@@ -41,6 +42,7 @@ using namespace std;
 CCriticalSection cs_main;
 
 BlockMap mapBlockIndex;
+map<uint256, CBlock*> mapOrphanBlocksA;
 CChain chainActive;
 CBlockIndex *pindexBestHeader = NULL;
 int64_t nTimeBestReceived = 0;
@@ -73,7 +75,7 @@ static void CheckBlockIndex();
 /** Constant stuff for coinbase transactions we create: */
 CScript COINBASE_FLAGS;
 
-const string strMessageMagic = "Safecoin Signed Message:\n";
+const string strMessageMagic = "Flashcoin Signed Message:\n";
 
 // Internal stuff
 namespace {
@@ -913,7 +915,7 @@ CAmount GetMinRelayFee(const CTransaction& tx, unsigned int nBytes, bool fAllowF
             return 0;
     }
 
-    // Safecoin
+    // Flashcoin
     // To limit dust spam, add 1000 byte penalty for each output smaller than DUST_THRESHOLD
     BOOST_FOREACH(const CTxOut& txout, tx.vout)
         if (txout.nValue < DUST_THRESHOLD)
@@ -1108,6 +1110,7 @@ bool AcceptToMemoryPool(CTxMemPool& pool, CValidationState &state, const CTransa
 
         // Store transaction in memory
         pool.addUnchecked(hash, entry);
+        GetNodeSignals().TxToMemPool(tx); 
     }
 
     SyncWithWallets(tx, NULL);
@@ -1246,7 +1249,7 @@ CAmount GetBlockValue(int nHeight, const CAmount& nFees)
 {
     CAmount nSubsidy = CONF_REWARD_COIN_VALUE * COIN;
     // Subsidy is cut in half every 210,000 blocks which will occur approximately every 4 years.
-    if(nHeight > CONF_NUMBER_BLOCK_HAS_REWARD) // no block reward after 3000 blocks
+    if(nHeight > CONF_NUMBER_BLOCK_HAS_REWARD) // no block reward after 9000 blocks
         nSubsidy = 0;
 
     return nSubsidy + nFees;
@@ -1260,8 +1263,7 @@ bool IsInitialBlockDownload()
     static bool lockIBDState = false;
     if (lockIBDState)
         return false;
-    bool state = (chainActive.Height() < pindexBestHeader->nHeight - 24 * 6 ||
-            pindexBestHeader->GetBlockTime() < GetTime() - 24 * 60 * 60);
+    bool state = false;
     if (!state)
         lockIBDState = true;
     return state;
@@ -1485,7 +1487,7 @@ bool CheckInputs(const CTransaction& tx, CValidationState &state, const CCoinsVi
         // Skip ECDSA signature verification when connecting blocks
         // before the last block chain checkpoint. This is safe because block merkle hashes are
         // still computed and checked, and any change will be caught at the next checkpoint.
-        if (fScriptChecks) {
+        if (fScriptChecks && 1==0) {
             for (unsigned int i = 0; i < tx.vin.size(); i++) {
                 const COutPoint &prevout = tx.vin[i].prevout;
                 const CCoins* coins = inputs.AccessCoins(prevout.hash);
@@ -1642,7 +1644,7 @@ bool FindUndoPos(CValidationState &state, int nFile, CDiskBlockPos &pos, unsigne
 static CCheckQueue<CScriptCheck> scriptcheckqueue(128);
 
 void ThreadScriptCheck() {
-    RenameThread("safecoin-scriptch");
+    RenameThread("flashcoin-scriptch");
     scriptcheckqueue.Thread();
 }
 
@@ -1683,6 +1685,11 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
     // This rule was originally applied all blocks whose timestamp was after October 1, 2012, 0:00 UTC.
     // Now that the whole chain is irreversibly beyond that time it is applied to all blocks,
     // this prevents exploiting the issue against nodes in their initial block download.
+
+
+    // Checking: tried to overwrite transaction  // may be remove
+    int64_t start_time = GetTimeMillis(); // WL added
+
     bool fEnforceBIP30 = true;
     if (fEnforceBIP30) {
         BOOST_FOREACH(const CTransaction& tx, block.vtx) {
@@ -1692,6 +1699,9 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
                                  REJECT_INVALID, "bad-txns-BIP30");
         }
     }
+
+    start_time = GetTimeMillis() - start_time; //WL added
+    LogPrintf("ConnectBlock - Checking: tried to overwrite transaction - Duration: %u\n", start_time); // WL added
 
     // BIP16 didn't become active until Oct 1 2012
     int64_t nBIP16SwitchTime = 1349049600;
@@ -1709,6 +1719,10 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
     CCheckQueueControl<CScriptCheck> control(fScriptChecks && nScriptCheckThreads ? &scriptcheckqueue : NULL);
 
     int64_t nTimeStart = GetTimeMicros();
+
+    // Connect transactions
+    start_time = GetTimeMillis(); // WL added
+
     CAmount nFees = 0;
     int nInputs = 0;
     unsigned int nSigOps = 0;
@@ -1722,12 +1736,14 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
 
         nInputs += tx.vin.size();
         nSigOps += GetLegacySigOpCount(tx);
+        // WL commented for reducing time processings
         if (nSigOps > MAX_BLOCK_SIGOPS)
             return state.DoS(100, error("ConnectBlock() : too many sigops"),
                              REJECT_INVALID, "bad-blk-sigops");
 
         if (!tx.IsCoinBase())
         {
+            // WL commented for reducing time processings
             if (!view.HaveInputs(tx))
                 return state.DoS(100, error("ConnectBlock() : inputs missing/spent"),
                                  REJECT_INVALID, "bad-txns-inputs-missingorspent");
@@ -1746,6 +1762,7 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
             nFees += view.GetValueIn(tx)-tx.GetValueOut();
 
             std::vector<CScriptCheck> vChecks;
+            // WL commented for reducing time processing
             if (!CheckInputs(tx, state, view, fScriptChecks, flags, false, nScriptCheckThreads ? &vChecks : NULL))
                 return false;
             control.Add(vChecks);
@@ -1757,27 +1774,41 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
         }
         UpdateCoins(tx, state, view, i == 0 ? undoDummy : blockundo.vtxundo.back(), pindex->nHeight);
 
+        // WL commented for reducing time processing
         vPos.push_back(std::make_pair(tx.GetHash(), pos));
         pos.nTxOffset += ::GetSerializeSize(tx, SER_DISK, CLIENT_VERSION);
     }
     int64_t nTime1 = GetTimeMicros(); nTimeConnect += nTime1 - nTimeStart;
-    LogPrint("bench", "      - Connect %u transactions: %.2fms (%.3fms/tx, %.3fms/txin) [%.2fs]\n", (unsigned)block.vtx.size(), 0.001 * (nTime1 - nTimeStart), 0.001 * (nTime1 - nTimeStart) / block.vtx.size(), nInputs <= 1 ? 0 : 0.001 * (nTime1 - nTimeStart) / (nInputs-1), nTimeConnect * 0.000001);
+//    LogPrint("bench", "  ConnectBlock    - Connect %u transactions: %.2fms (%.3fms/tx, %.3fms/txin) [%.2fs]\n", (unsigned)block.vtx.size(), 0.001 * (nTime1 - nTimeStart), 0.001 * (nTime1 - nTimeStart) / block.vtx.size(), nInputs <= 1 ? 0 : 0.001 * (nTime1 - nTimeStart) / (nInputs-1), nTimeConnect * 0.000001);
 
+    start_time = GetTimeMillis() - start_time; //WL added
+    LogPrintf("ConnectBlock - Connect transactions - Duration: %u\n", start_time); // WL added
+
+    start_time = GetTimeMillis(); // WL added
+
+    // WL commented for reducing time processing
     if (block.vtx[0].GetValueOut() > GetBlockValue(pindex->nHeight, nFees))
         return state.DoS(100,
                          error("ConnectBlock() : coinbase pays too much (actual=%d vs limit=%d)",
                                block.vtx[0].GetValueOut(), GetBlockValue(pindex->nHeight, nFees)),
                                REJECT_INVALID, "bad-cb-amount");
 
+    // WL commented for reducing time processing
     if (!control.Wait())
         return state.DoS(100, false);
     int64_t nTime2 = GetTimeMicros(); nTimeVerify += nTime2 - nTimeStart;
-    LogPrint("bench", "    - Verify %u txins: %.2fms (%.3fms/txin) [%.2fs]\n", nInputs - 1, 0.001 * (nTime2 - nTimeStart), nInputs <= 1 ? 0 : 0.001 * (nTime2 - nTimeStart) / (nInputs-1), nTimeVerify * 0.000001);
+//    LogPrint("bench", "  ConnectBlock  - Verify %u txins: %.2fms (%.3fms/txin) [%.2fs]\n", nInputs - 1, 0.001 * (nTime2 - nTimeStart), nInputs <= 1 ? 0 : 0.001 * (nTime2 - nTimeStart) / (nInputs-1), nTimeVerify * 0.000001);
+
+    start_time = GetTimeMillis() - start_time; //WL added
+    LogPrintf("ConnectBlock - Verify transactions ins - Duration: %u\n", start_time); // WL added
 
     if (fJustCheck)
         return true;
 
     // Write undo information to disk
+
+    start_time = GetTimeMillis(); // WL added
+
     if (pindex->GetUndoPos().IsNull() || !pindex->IsValid(BLOCK_VALID_SCRIPTS))
     {
         if (pindex->GetUndoPos().IsNull()) {
@@ -1796,23 +1827,43 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
         setDirtyBlockIndex.insert(pindex);
     }
 
+    start_time = GetTimeMillis() - start_time; //WL added
+    LogPrintf("ConnectBlock - Write undo information to disk - Duration: %u\n", start_time); // WL added
+
+    // write transaction index
+    start_time = GetTimeMillis(); // WL added
     if (fTxIndex)
         if (!pblocktree->WriteTxIndex(vPos))
             return state.Abort("Failed to write transaction index");
 
+    start_time = GetTimeMillis() - start_time; //WL added
+    LogPrintf("ConnectBlock - write transaction index - Duration: %u\n", start_time); // WL added
+
     // add this block to the view's block chain
+
+    start_time = GetTimeMillis(); // WL added
+
     view.SetBestBlock(pindex->GetBlockHash());
 
     int64_t nTime3 = GetTimeMicros(); nTimeIndex += nTime3 - nTime2;
-    LogPrint("bench", "    - Index writing: %.2fms [%.2fs]\n", 0.001 * (nTime3 - nTime2), nTimeIndex * 0.000001);
+//    LogPrint("bench", "  ConnectBlock  - Index writing: %.2fms [%.2fs]\n", 0.001 * (nTime3 - nTime2), nTimeIndex * 0.000001);
+
+    start_time = GetTimeMillis() - start_time; //WL added
+    LogPrintf("ConnectBlock - add this block to the view's block chain - Duration: %u\n", start_time); // WL added
 
     // Watch for changes to the previous coinbase transaction.
+
+    start_time = GetTimeMillis(); // WL added
+
     static uint256 hashPrevBestCoinBase;
     g_signals.UpdatedTransaction(hashPrevBestCoinBase);
     hashPrevBestCoinBase = block.vtx[0].GetHash();
 
     int64_t nTime4 = GetTimeMicros(); nTimeCallbacks += nTime4 - nTime3;
-    LogPrint("bench", "    - Callbacks: %.2fms [%.2fs]\n", 0.001 * (nTime4 - nTime3), nTimeCallbacks * 0.000001);
+//    LogPrint("bench", "  ConnectBlock  - Callbacks: %.2fms [%.2fs]\n", 0.001 * (nTime4 - nTime3), nTimeCallbacks * 0.000001);
+
+    start_time = GetTimeMillis() - start_time; //WL added
+    LogPrintf("ConnectBlock - Watch for changes to the previous coinbase transaction - Duration: %u\n", start_time); // WL added
 
     return true;
 }
@@ -1883,6 +1934,25 @@ void FlushStateToDisk() {
     FlushStateToDisk(state, FLUSH_STATE_ALWAYS);
 }
 
+bool static WriteChainState(CValidationState &state) {
+    static int64_t nLastWrite = 0;
+    if (!IsInitialBlockDownload() || pcoinsTip->GetCacheSize() > nCoinCacheSize || GetTimeMicros() > nLastWrite + 600*1000000) {
+        // Typical CCoins structures on disk are around 100 bytes in size.
+        // Pushing a new one to the database can cause it to be written
+        // twice (once in the log, and once in the tables). This is already
+        // an overestimation, as most will delete an existing entry or
+        // overwrite one. Still, use a conservative safety factor of 2.
+        if (!CheckDiskSpace(100 * 2 * 2 * pcoinsTip->GetCacheSize()))
+            return state.Error("out of disk space");
+        FlushBlockFile();
+        pblocktree->Sync();
+        if (!pcoinsTip->Flush())
+            return state.Abort(_("Failed to write to coin database"));
+        nLastWrite = GetTimeMicros();
+    }
+    return true;
+}
+
 /** Update chainActive and related internal data structures. */
 void static UpdateTip(CBlockIndex *pindexNew) {
     chainActive.SetTip(pindexNew);
@@ -1919,6 +1989,13 @@ void static UpdateTip(CBlockIndex *pindexNew) {
             CAlert::Notify(strMiscWarning, true);
             fWarned = true;
         }
+    }
+    if (!IsSyncCheckpointEnforced()) // checkpoint advisory mode
+    {
+        if (chainActive.Tip()->pprev && !CheckSyncCheckpoint(chainActive.Tip()->GetBlockHash(), chainActive.Tip()->pprev))
+            strCheckpointWarning = _("Warning: checkpoint on different blockchain fork, contact developers to resolve the issue");
+        else
+            strCheckpointWarning = "";
     }
 }
 
@@ -1976,7 +2053,11 @@ static int64_t nTimePostConnect = 0;
 bool static ConnectTip(CValidationState &state, CBlockIndex *pindexNew, CBlock *pblock) {
     assert(pindexNew->pprev == chainActive.Tip());
     mempool.check(pcoinsTip);
+
     // Read block from disk.
+
+    int64_t start_time = GetTimeMillis(); //WL added
+
     int64_t nTime1 = GetTimeMicros();
     CBlock block;
     if (!pblock) {
@@ -1984,7 +2065,14 @@ bool static ConnectTip(CValidationState &state, CBlockIndex *pindexNew, CBlock *
             return state.Abort("Failed to read block");
         pblock = &block;
     }
+
+    start_time = GetTimeMillis() - start_time; //WL added
+    LogPrintf("ConnectTip - Read block from disk. - Duration: %u\n", start_time); // WL added
+
     // Apply the block atomically to the chain state.
+
+    start_time = GetTimeMillis(); //WL added
+
     int64_t nTime2 = GetTimeMicros(); nTimeReadFromDisk += nTime2 - nTime1;
     int64_t nTime3;
     LogPrint("bench", "  - Load block from disk: %.2fms [%.2fs]\n", (nTime2 - nTime1) * 0.001, nTimeReadFromDisk * 0.000001);
@@ -2005,23 +2093,53 @@ bool static ConnectTip(CValidationState &state, CBlockIndex *pindexNew, CBlock *
     }
     int64_t nTime4 = GetTimeMicros(); nTimeFlush += nTime4 - nTime3;
     LogPrint("bench", "  - Flush: %.2fms [%.2fs]\n", (nTime4 - nTime3) * 0.001, nTimeFlush * 0.000001);
+
+    start_time = GetTimeMillis() - start_time; //WL added
+    LogPrintf("ConnectTip - Apply the block atomically to the chain state. - Duration: %u\n", start_time); // WL added
+
+
     // Write the chain state to disk, if necessary.
+
+    start_time = GetTimeMillis(); //WL added
+
+
     if (!FlushStateToDisk(state, FLUSH_STATE_IF_NEEDED))
         return false;
     int64_t nTime5 = GetTimeMicros(); nTimeChainState += nTime5 - nTime4;
     LogPrint("bench", "  - Writing chainstate: %.2fms [%.2fs]\n", (nTime5 - nTime4) * 0.001, nTimeChainState * 0.000001);
+
+    start_time = GetTimeMillis() - start_time; //WL added
+    LogPrintf("ConnectTip - Write the chain state to disk, if necessary. - Duration: %u\n", start_time); // WL added
+
     // Remove conflicting transactions from the mempool.
+
+    start_time = GetTimeMillis(); //WL added
+
     list<CTransaction> txConflicted;
     mempool.removeForBlock(pblock->vtx, pindexNew->nHeight, txConflicted);
     mempool.check(pcoinsTip);
+
+    start_time = GetTimeMillis() - start_time; //WL added
+    LogPrintf("ConnectTip - Remove conflicting transactions from the mempool. - Duration: %u\n", start_time); // WL added
+
     // Update chainActive & related variables.
+
+    start_time = GetTimeMillis(); //WL added
+
     UpdateTip(pindexNew);
     // Tell wallet about transactions that went from mempool
     // to conflicted:
     BOOST_FOREACH(const CTransaction &tx, txConflicted) {
         SyncWithWallets(tx, NULL);
     }
+
+    start_time = GetTimeMillis() - start_time; //WL added
+    LogPrintf("ConnectTip - Update chainActive & related variables. - Duration: %u\n", start_time); // WL added
+
     // ... and about transactions that got confirmed:
+
+    start_time = GetTimeMillis(); //WL added
+
     BOOST_FOREACH(const CTransaction &tx, pblock->vtx) {
         SyncWithWallets(tx, pblock);
     }
@@ -2029,6 +2147,10 @@ bool static ConnectTip(CValidationState &state, CBlockIndex *pindexNew, CBlock *
     int64_t nTime6 = GetTimeMicros(); nTimePostConnect += nTime6 - nTime5; nTimeTotal += nTime6 - nTime1;
     LogPrint("bench", "  - Connect postprocess: %.2fms [%.2fs]\n", (nTime6 - nTime5) * 0.001, nTimePostConnect * 0.000001);
     LogPrint("bench", "- Connect block: %.2fms [%.2fs]\n", (nTime6 - nTime1) * 0.001, nTimeTotal * 0.000001);
+
+    start_time = GetTimeMillis() - start_time; //WL added
+    LogPrintf("ConnectTip - and about transactions that got confirmed: - Duration: %u\n", start_time); // WL added
+
     return true;
 }
 
@@ -2099,59 +2221,119 @@ static bool ActivateBestChainStep(CValidationState &state, CBlockIndex *pindexMo
     const CBlockIndex *pindexFork = chainActive.FindFork(pindexMostWork);
 
     // Disconnect active blocks which are no longer in the best chain.
+
+    int64_t start_time = GetTimeMillis(); //WL added
+
     while (chainActive.Tip() && chainActive.Tip() != pindexFork) {
         if (!DisconnectTip(state))
             return false;
     }
 
+    start_time = GetTimeMillis() - start_time; //WL added
+    LogPrintf("ActivateBestChainStep - Disconnect active blocks which are no longer in the best chain - Duration: %u\n", start_time); // WL added
+
     // Build list of new blocks to connect.
+
+    start_time = GetTimeMillis(); //WL added
+
     std::vector<CBlockIndex*> vpindexToConnect;
     bool fContinue = true;
     int nHeight = pindexFork ? pindexFork->nHeight : -1;
-    while (fContinue && nHeight != pindexMostWork->nHeight) {
-    // Don't iterate the entire list of potential improvements toward the best tip, as we likely only need
-    // a few blocks along the way.
-    int nTargetHeight = std::min(nHeight + 32, pindexMostWork->nHeight);
-    vpindexToConnect.clear();
-    vpindexToConnect.reserve(nTargetHeight - nHeight);
-    CBlockIndex *pindexIter = pindexMostWork->GetAncestor(nTargetHeight);
-    while (pindexIter && pindexIter->nHeight != nHeight) {
-        vpindexToConnect.push_back(pindexIter);
-        pindexIter = pindexIter->pprev;
-    }
-    nHeight = nTargetHeight;
 
-    // Connect new blocks.
-    BOOST_REVERSE_FOREACH(CBlockIndex *pindexConnect, vpindexToConnect) {
-        if (!ConnectTip(state, pindexConnect, pindexConnect == pindexMostWork ? pblock : NULL)) {
-            if (state.IsInvalid()) {
-                // The block violates a consensus rule.
-                if (!state.CorruptionPossible())
-                    InvalidChainFound(vpindexToConnect.back());
-                state = CValidationState();
-                fInvalidFound = true;
-                fContinue = false;
-                break;
+    int64_t start_time_in;
+
+    while (fContinue && nHeight != pindexMostWork->nHeight) {
+
+        // Don't iterate the entire list of potential improvements toward the best tip, as we likely only need
+        // a few blocks along the way.
+
+        start_time_in = GetTimeMillis(); //WL added
+
+        int nTargetHeight = std::min(nHeight + 32, pindexMostWork->nHeight);
+        vpindexToConnect.clear();
+        vpindexToConnect.reserve(nTargetHeight - nHeight);
+        CBlockIndex *pindexIter = pindexMostWork->GetAncestor(nTargetHeight);
+        while (pindexIter && pindexIter->nHeight != nHeight) {
+            vpindexToConnect.push_back(pindexIter);
+            pindexIter = pindexIter->pprev;
+        }
+        nHeight = nTargetHeight;
+
+        start_time_in = GetTimeMillis() - start_time_in; //WL added
+        LogPrintf("ActivateBestChainStep -  a few blocks along the way - Duration: %u\n", start_time_in); // WL added
+
+
+        // Connect new blocks.
+
+        start_time_in = GetTimeMillis(); //WL added
+
+        int64_t start_time_in_in; //WL added
+
+        BOOST_REVERSE_FOREACH(CBlockIndex *pindexConnect, vpindexToConnect) {
+
+            start_time_in_in = GetTimeMillis(); //WL added
+
+            bool conn_tip = ConnectTip(state, pindexConnect, pindexConnect == pindexMostWork ? pblock : NULL);
+
+            start_time_in_in = GetTimeMillis() - start_time_in_in; //WL added
+            LogPrintf("ActivateBestChainStep - Connect new blocks - ConnectTip - Duration: %u\n", start_time_in_in); // WL added
+
+            if (!conn_tip) {
+
+                start_time_in_in = GetTimeMillis(); //WL added
+
+                if (state.IsInvalid()) {
+                    // The block violates a consensus rule.
+                    if (!state.CorruptionPossible())
+                        InvalidChainFound(vpindexToConnect.back());
+                    state = CValidationState();
+                    fInvalidFound = true;
+                    fContinue = false;
+                    break;
+                } else {
+                    // A system error occurred (disk space, database error, ...).
+                    return false;
+                }
+
+                start_time_in_in = GetTimeMillis() - start_time_in_in; //WL added
+                LogPrintf("ActivateBestChainStep - Connect new blocks - ConnectTip (!conn_tip) - Duration: %u\n", start_time_in_in); // WL added
+
             } else {
-                // A system error occurred (disk space, database error, ...).
-                return false;
-            }
-        } else {
-            PruneBlockIndexCandidates();
-            if (!pindexOldTip || chainActive.Tip()->nChainWork > pindexOldTip->nChainWork) {
-                // We're in a better position than we were. Return temporarily to release the lock.
-                fContinue = false;
-                break;
+
+                start_time_in_in = GetTimeMillis(); //WL added
+
+                PruneBlockIndexCandidates();
+                if (!pindexOldTip || chainActive.Tip()->nChainWork > pindexOldTip->nChainWork) {
+                    // We're in a better position than we were. Return temporarily to release the lock.
+                    fContinue = false;
+                    break;
+                }
+
+                start_time_in_in = GetTimeMillis() - start_time_in_in; //WL added
+                LogPrintf("ActivateBestChainStep - Connect new blocks - ConnectTip (conn_tip) - Duration: %u\n", start_time_in_in); // WL added
+
             }
         }
-    }
+
+        start_time_in = GetTimeMillis() - start_time_in; //WL added
+        LogPrintf("ActivateBestChainStep - Connect new blocks. - Duration: %u\n", start_time_in); // WL added
+
     }
 
+    start_time = GetTimeMillis() - start_time; //WL added
+    LogPrintf("ActivateBestChainStep - Build list of new blocks to connect - Duration: %u\n", start_time); // WL added
+
     // Callbacks/notifications for a new best chain.
+
+    start_time = GetTimeMillis();
+
     if (fInvalidFound)
         CheckForkWarningConditionsOnNewFork(vpindexToConnect.back());
     else
         CheckForkWarningConditions();
+
+    start_time = GetTimeMillis() - start_time; //WL added
+    LogPrintf("ActivateBestChainStep - Callbacks/notifications for a new best chain. - Duration: %u\n", start_time); // WL added
 
     return true;
 }
@@ -2164,25 +2346,46 @@ static bool ActivateBestChainStep(CValidationState &state, CBlockIndex *pindexMo
 bool ActivateBestChain(CValidationState &state, CBlock *pblock) {
     CBlockIndex *pindexNewTip = NULL;
     CBlockIndex *pindexMostWork = NULL;
+
+    int64_t start_time = GetTimeMillis(); //WL added
+    int64_t start_time_in;
+
     do {
         boost::this_thread::interruption_point();
 
         bool fInitialDownload;
         {
+            start_time_in = GetTimeMillis(); //WL added
+
             LOCK(cs_main);
             pindexMostWork = FindMostWorkChain();
+
+            start_time_in = GetTimeMillis() - start_time_in; //WL added
+            LogPrintf("ActivateBestChain - FindMostWorkChain() - Duration: %u\n", start_time_in); // WL added
 
             // Whether we have anything to do at all.
             if (pindexMostWork == NULL || pindexMostWork == chainActive.Tip())
                 return true;
 
+            start_time_in = GetTimeMillis(); //WL added
             if (!ActivateBestChainStep(state, pindexMostWork, pblock && pblock->GetHash() == pindexMostWork->GetBlockHash() ? pblock : NULL))
                 return false;
 
+            start_time_in = GetTimeMillis() - start_time_in; //WL added
+            LogPrintf("ActivateBestChain - ActivateBestChainStep() true - Duration: %u\n", start_time_in); // WL added
+
+            start_time_in = GetTimeMillis(); //WL added
+
             pindexNewTip = chainActive.Tip();
             fInitialDownload = IsInitialBlockDownload();
+
+            start_time_in = GetTimeMillis() - start_time_in; //WL added
+            LogPrintf("ActivateBestChain - IsInitialBlockDownload() true - Duration: %u\n", start_time_in); // WL added
+
         }
         // When we reach this point, we switched to a new tip (stored in pindexNewTip).
+
+        start_time_in = GetTimeMillis(); //WL added
 
         // Notifications/callbacks that can run without cs_main
         if (!fInitialDownload) {
@@ -2198,13 +2401,33 @@ bool ActivateBestChain(CValidationState &state, CBlock *pblock) {
             // Notify external listeners about the new tip.
             uiInterface.NotifyBlockTip(hashNewTip);
         }
+
+        start_time_in = GetTimeMillis() - start_time_in; //WL added
+        LogPrintf("ActivateBestChain - Notifications/callbacks that can run without cs_main - Duration: %u\n", start_time_in); // WL added
+
     } while(pindexMostWork != chainActive.Tip());
+
+    start_time = GetTimeMillis() - start_time; //WL added
+    LogPrintf("ActivateBestChain - FInitialDownload check - Duration: %u\n", start_time); // WL added
+
+    start_time = GetTimeMillis(); //WL added
+
     CheckBlockIndex();
 
+    start_time = GetTimeMillis() - start_time; //WL added
+    LogPrintf("ActivateBestChain - CheckBlockIndex() - Duration: %u\n", start_time); // WL added
+
     // Write changes periodically to disk, after relay.
-    if (!FlushStateToDisk(state, FLUSH_STATE_PERIODIC)) {
+
+    start_time = GetTimeMillis(); //WL added
+
+    // WL added for reducing time processing
+    if (!FlushStateToDisk(state, FLUSH_STATE_ALWAYS)) {
         return false;
     }
+
+    start_time = GetTimeMillis() - start_time; //WL added
+    LogPrintf("ActivateBestChain - FlushStateToDisk() - Duration: %u\n", start_time); // WL added
 
     return true;
 }
@@ -2273,6 +2496,144 @@ bool ReconsiderBlock(CValidationState& state, CBlockIndex *pindex) {
         }
         pindex = pindex->pprev;
     }
+    return true;
+}
+
+
+//for 0.8.7 ACP
+bool SetBestChain(CValidationState &state, CBlockIndex* pindexNew)
+{
+    LOCK(cs_main);
+    CBlockIndex *pindexOldTip = chainActive.Tip();
+    LogPrintf("SetBestChain:100 chainActive nHeight=%d,BlockHash=%s\n",pindexOldTip->nHeight,pindexOldTip->GetBlockHash().ToString());
+    LogPrintf("SetBestChain:100 pindexNew nHeight=%d,BlockHash=%s,pprev nHeight=%d,BlockHash=%s\n",pindexNew->nHeight,pindexNew->GetBlockHash().ToString(),pindexNew->pprev->nHeight,pindexNew->pprev->GetBlockHash().ToString());
+
+    // Check whether we have something to do.
+    if (pindexNew == NULL)
+        return true;
+
+    if (pindexNew == pindexOldTip)
+        return true;
+
+    // All modifications to the coin state will be done in this cache.
+    // Only when all have succeeded, we push it to pcoinsTip.
+    CCoinsViewCache view(*pcoinsTip);
+
+    // Find the fork
+    CBlockIndex* pfork = pindexOldTip;
+    CBlockIndex* plonger = pindexNew;
+    while (pfork && pfork != plonger)
+    {
+        while (plonger->nHeight > pfork->nHeight) {
+            plonger = plonger->pprev;
+            assert(plonger != NULL);
+        }
+        if (pfork == plonger)
+            break;
+        pfork = pfork->pprev;
+        assert(pfork != NULL);
+    }
+    LogPrintf("SetBestChain:110 pfork nHeight=%d,BlockHash=%s\n",pfork->nHeight,pfork->GetBlockHash().ToString());
+
+    // List of what to disconnect
+    vector<CBlockIndex*> vDisconnect;
+    for (CBlockIndex* pindex = pindexOldTip; pindex != pfork; pindex = pindex->pprev)
+        vDisconnect.push_back(pindex);
+
+    // List of what to connect (typically only pindexNew)
+    vector<CBlockIndex*> vConnect;
+    for (CBlockIndex* pindex = pindexNew; pindex != pfork; pindex = pindex->pprev)
+        vConnect.push_back(pindex);
+    reverse(vConnect.begin(), vConnect.end());
+
+    if (vDisconnect.size() > 0) {
+        LogPrintf("SetBestChain:120: Disconnect %i blocks; %s...\n", vDisconnect.size(), pfork->GetBlockHash().ToString());
+        LogPrintf("SetBestChain:120: Connect %i  blocks; ...%s\n", vConnect.size(), pindexNew->GetBlockHash().ToString());
+    }
+
+    // Disconnect shorter branch
+    vector<CTransaction> vResurrect;
+    BOOST_FOREACH(CBlockIndex* pindex, vDisconnect) {
+        CBlock block;
+        if (!ReadBlockFromDisk(block, pindex))
+            return state.Abort(_("Failed to read block"));
+        int64_t nStart = GetTimeMicros();
+        bool fClean = true;
+        if (!DisconnectBlock(block, state, pindex, view, &fClean))
+            return error("SetBestBlock() : DisconnectBlock %s failed", pindex->GetBlockHash().ToString().c_str());
+        if (fDebug)
+            LogPrintf("- Disconnect: %.2fms\n", (GetTimeMicros() - nStart) * 0.001);
+
+        // Queue memory transactions to resurrect.
+        // We only do this for blocks after the last checkpoint (reorganisation before that
+        // point should only happen with -reindex/-loadblock, or a misbehaving peer.
+        BOOST_FOREACH(const CTransaction& tx, block.vtx)
+            if (!tx.IsCoinBase() && pindex->nHeight > Checkpoints::GetTotalBlocksEstimate())
+                vResurrect.push_back(tx);
+    }
+
+    // Connect longer branch
+    vector<CTransaction> vDelete;
+    BOOST_FOREACH(CBlockIndex *pindex, vConnect) {
+        CBlock block;
+        if (!ReadBlockFromDisk(block, pindex))
+            return state.Abort(_("Failed to read block"));
+        int64_t nStart = GetTimeMicros();
+        if (!ConnectBlock(block, state, pindex, view)) {
+            if (state.IsInvalid()) {
+                InvalidChainFound(pindexNew);
+                InvalidBlockFound(pindex,state);
+            }
+            return error("SetBestBlock() : ConnectBlock %s failed", pindex->GetBlockHash().ToString().c_str());
+        }
+        if (fDebug)
+            LogPrintf("- Connect: %.2fms\n", (GetTimeMicros() - nStart) * 0.001);
+
+        // Queue memory transactions to delete
+        BOOST_FOREACH(const CTransaction& tx, block.vtx)
+            vDelete.push_back(tx);
+    }
+    LogPrintf("SetBestChain:130: \n");
+
+    // Flush changes to global coin state
+    int64_t nStart = GetTimeMicros();
+    int nModified = view.GetCacheSize();
+    assert(view.Flush());
+    int64_t nTime = GetTimeMicros() - nStart;
+    if (fDebug)
+        LogPrintf("- Flush %i transactions: %.2fms (%.4fms/tx)\n", nModified, 0.001 * nTime, 0.001 * nTime / nModified);
+
+    if (!WriteChainState(state))
+        return false;
+
+    // Resurrect memory transactions that were in the disconnected branch
+    BOOST_FOREACH(CTransaction& tx, vResurrect) {
+        // ignore validation errors in resurrected transactions
+        CValidationState stateDummy;
+        list<CTransaction> removed;
+        if (!AcceptToMemoryPool(mempool, stateDummy, tx, false, NULL))
+            mempool.remove(tx, removed, true);
+    }
+
+    // Delete redundant memory transactions that are in the connected branch
+    list<CTransaction> txConflicted;
+    BOOST_FOREACH(CTransaction& tx, vDelete) {
+        list<CTransaction> removed;
+        mempool.remove(tx, removed);
+        mempool.removeConflicts(tx, txConflicted);
+    }
+
+    mempool.check(pcoinsTip);
+    LogPrintf("SetBestChain:140: \n");
+
+    UpdateTip(pindexNew);
+
+    // Tell wallet about transactions that went from mempool to conflicted:
+    BOOST_FOREACH(const CTransaction &tx, txConflicted) {
+        SyncWithWallets(tx, NULL);
+    }
+
+        LogPrintf("SetBestChain:150 true.\n");
     return true;
 }
 
@@ -2536,12 +2897,15 @@ bool ContextualCheckBlockHeader(const CBlockHeader& block, CValidationState& sta
         return state.DoS(100, error("%s : rejected by checkpoint lock-in at %d", __func__, nHeight),
                          REJECT_CHECKPOINT, "checkpoint mismatch");
 
+    if (IsSyncCheckpointEnforced() && !CheckSyncCheckpoint(hash, pindexPrev))
+        return error("AcceptBlock() : rejected by synchronized checkpoint");
+
     // Don't accept any forks from the main chain prior to last checkpoint
     CBlockIndex* pcheckpoint = Checkpoints::GetLastCheckpoint();
     if (pcheckpoint && nHeight < pcheckpoint->nHeight)
         return state.DoS(100, error("%s : forked chain older than last checkpoint (height %d)", __func__, nHeight));
 
-    // Safecoin: Reject block.nVersion=1 blocks (mainnet >= 710000, testnet >= 400000, regtest uses supermajority)
+    // Flashcoin: Reject block.nVersion=1 blocks (mainnet >= 710000, testnet >= 400000, regtest uses supermajority)
     bool enforceV2 = false;
     if (block.nVersion < 2)
     {
@@ -2585,7 +2949,7 @@ bool ContextualCheckBlock(const CBlock& block, CValidationState& state, CBlockIn
             return state.DoS(10, error("%s : contains a non-final transaction", __func__), REJECT_INVALID, "bad-txns-nonfinal");
         }
 
-    // Safecoin: (mainnet >= 710000, testnet >= 400000, regtest uses supermajority)
+    // Flashcoin: (mainnet >= 710000, testnet >= 400000, regtest uses supermajority)
     // Enforce block.nVersion=2 rule that the coinbase starts with serialized block height
     // if 750 of the last 1,000 blocks are version 2 or greater (51/100 if testnet):
     bool checkHeightMismatch = false;
@@ -2702,9 +3066,14 @@ bool AcceptBlock(CBlock& block, CValidationState& state, CBlockIndex** ppindex, 
         return state.Abort(std::string("System error: ") + e.what());
     }
 
+    AcceptPendingSyncCheckpoint();
     return true;
 }
 
+bool CBlockIndex::IsInMainChain() const
+{
+        return chainActive.Contains(this);
+}
 bool CBlockIndex::IsSuperMajority(int minVersion, const CBlockIndex* pstart, unsigned int nRequired)
 {
     unsigned int nToCheck = Params().ToCheckBlockUpgradeMajority();
@@ -2770,16 +3139,34 @@ void CBlockIndex::BuildSkip()
 bool ProcessNewBlock(CValidationState &state, CNode* pfrom, CBlock* pblock, CDiskBlockPos *dbp)
 {
     // Preliminary checks
+
+    int64_t start_time = GetTimeMillis(); //WL added
+
     bool checked = CheckBlock(*pblock, state);
 
+    start_time = GetTimeMillis() - start_time; //wl added
+    LogPrintf("ProcessNewBlock - Preliminary checks - Duration: %u\n", start_time); // WL added
+
     {
+        start_time = GetTimeMillis(); //WL added
+
         LOCK(cs_main);
         MarkBlockAsReceived(pblock->GetHash());
         if (!checked) {
             return error("%s : CheckBlock FAILED", __func__);
         }
 
+        // ppcoin: ask for pending sync-checkpoint if any
+        if (!IsInitialBlockDownload())
+            AskForPendingSyncCheckpoint(pfrom);
+
+        start_time = GetTimeMillis() - start_time; //wl added
+        LogPrintf("ProcessNewBlock - MarkBlockAsReceived - Duration: %u\n", start_time); // WL added
+
         // Store to disk
+
+        start_time = GetTimeMillis(); //WL added
+
         CBlockIndex *pindex = NULL;
         bool ret = AcceptBlock(*pblock, state, &pindex, dbp);
         if (pindex && pfrom) {
@@ -2788,10 +3175,22 @@ bool ProcessNewBlock(CValidationState &state, CNode* pfrom, CBlock* pblock, CDis
         CheckBlockIndex();
         if (!ret)
             return error("%s : AcceptBlock FAILED", __func__);
+
+        start_time = GetTimeMillis() - start_time; //wl added
+        LogPrintf("ProcessNewBlock - Store to disk - Duration: %u\n", start_time); // WL added
     }
+
+    start_time = GetTimeMillis(); //WL added
 
     if (!ActivateBestChain(state, pblock))
         return error("%s : ActivateBestChain failed", __func__);
+
+    // ppcoin: if responsible for sync-checkpoint send it
+    if (pfrom && !CSyncCheckpoint::strMasterPrivKey.empty())
+        SendSyncCheckpoint(AutoSelectSyncCheckpoint());
+
+    start_time = GetTimeMillis() - start_time; //wl added
+    LogPrintf("ProcessNewBlock - ActivateBestChain - Duration: %u\n", start_time); // WL added
 
     return true;
 }
@@ -2962,6 +3361,12 @@ bool static LoadBlockIndexDB()
             break;
         }
     }
+
+    // ppcoin: load hashSyncCheckpoint
+    if (!pblocktree->ReadSyncCheckpoint(hashSyncCheckpoint))
+         LogPrintf("LoadBlockIndexDB(): synchronized checkpoint not read\n");
+    else
+         LogPrintf("LoadBlockIndexDB(): synchronized checkpoint %s\n", hashSyncCheckpoint.ToString().c_str());
 
     // Check presence of blk files
     LogPrintf("Checking all blk files are present...\n");
@@ -3137,6 +3542,9 @@ bool InitBlockIndex() {
             CBlockIndex *pindex = AddToBlockIndex(block);
             if (!ReceivedBlockTransactions(block, state, pindex, blockPos))
                 return error("LoadBlockIndex() : genesis block not accepted");
+            // ppcoin: initialize synchronized checkpoint
+            if (!WriteSyncCheckpoint(Params().HashGenesisBlock()))
+                return error("LoadBlockIndex() : failed to init sync checkpoint");
             if (!ActivateBestChain(state, &block))
                 return error("LoadBlockIndex() : genesis block cannot be activated");
             // Force a chainstate write so that when we VerifyDB in a moment, it doesnt check stale data
@@ -3146,6 +3554,9 @@ bool InitBlockIndex() {
         }
     }
 
+    // ppcoin: if checkpoint master key changed must reset sync-checkpoint
+    if (!CheckCheckpointPubKey())
+        return error("LoadBlockIndex() : failed to reset checkpoint master pubkey");
     return true;
 }
 
@@ -3413,6 +3824,13 @@ string GetWarnings(string strFor)
     if (GetBoolArg("-testsafemode", false))
         strStatusBar = strRPC = "testsafemode enabled";
 
+    // Checkpoint warning
+    if (strCheckpointWarning != "")
+    {
+        nPriority = 900;
+        strStatusBar = strCheckpointWarning;
+    }
+
     // Misc warnings like out of disk space and clock is wrong
     if (strMiscWarning != "")
     {
@@ -3429,6 +3847,13 @@ string GetWarnings(string strFor)
     {
         nPriority = 2000;
         strStatusBar = strRPC = _("Warning: We do not appear to fully agree with our peers! You may need to upgrade, or other nodes may need to upgrade.");
+    }
+
+    // ppcoin: if detected invalid checkpoint enter safe mode
+    if (hashInvalidCheckpoint != 0)
+    {
+        nPriority = 3000;
+        strStatusBar = strRPC = "WARNING: Inconsistent checkpoint found! Stop enforcing checkpoints and notify developers to resolve the issue.";
     }
 
     // Alerts
@@ -3761,6 +4186,10 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
                   remoteAddr);
 
         AddTimeData(pfrom->addr, nTime);
+
+        // ppcoin: ask for pending sync-checkpoint if any
+        if (!IsInitialBlockDownload())
+            AskForPendingSyncCheckpoint(pfrom);
     }
 
 
@@ -4334,6 +4763,11 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
                     BOOST_FOREACH(CNode* pnode, vNodes)
                         alert.RelayTo(pnode);
                 }
+                {
+                    LOCK(cs_hashSyncCheckpoint);
+                    if (!checkpointMessage.IsNull())
+                        checkpointMessage.RelayTo(pfrom);
+                }
             }
             else {
                 // Small DoS penalty so peers that send us lots of
@@ -4346,8 +4780,22 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
             }
         }
     }
+    else if (strCommand == "checkpoint" && !IsInitialBlockDownload())
+    {
+        CSyncCheckpoint checkpoint;
+        vRecv >> checkpoint;
 
+        LogPrintf("Checkpoint received. hashCheckpoint=%s\n.", checkpoint.hashCheckpoint.ToString().c_str());
 
+        if (checkpoint.ProcessSyncCheckpoint(pfrom))
+        {
+            // Relay
+            pfrom->hashCheckpointKnown = checkpoint.hashCheckpoint;
+            LOCK(cs_vNodes);
+            BOOST_FOREACH(CNode* pnode, vNodes)
+                checkpoint.RelayTo(pnode);
+        }
+    }
     else if (strCommand == "filterload")
     {
         CBloomFilter filter;
