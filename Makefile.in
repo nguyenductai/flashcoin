@@ -266,6 +266,8 @@ QTPLATFORM_CFLAGS = @QTPLATFORM_CFLAGS@
 QTPLATFORM_LIBS = @QTPLATFORM_LIBS@
 QTPRINT_CFLAGS = @QTPRINT_CFLAGS@
 QTPRINT_LIBS = @QTPRINT_LIBS@
+QTXCBQPA_CFLAGS = @QTXCBQPA_CFLAGS@
+QTXCBQPA_LIBS = @QTXCBQPA_LIBS@
 QT_CFLAGS = @QT_CFLAGS@
 QT_DBUS_CFLAGS = @QT_DBUS_CFLAGS@
 QT_DBUS_INCLUDES = @QT_DBUS_INCLUDES@
@@ -356,12 +358,12 @@ top_srcdir = @top_srcdir@
 ACLOCAL_AMFLAGS = -I build-aux/m4
 SUBDIRS = src
 GZIP_ENV = "-9n"
-BITCOIND_BIN = $(top_builddir)/src/safecoind$(EXEEXT)
-BITCOIN_QT_BIN = $(top_builddir)/src/qt/safecoin-qt$(EXEEXT)
-BITCOIN_CLI_BIN = $(top_builddir)/src/safecoin-cli$(EXEEXT)
+BITCOIND_BIN = $(top_builddir)/src/flashcoind$(EXEEXT)
+BITCOIN_QT_BIN = $(top_builddir)/src/qt/flashcoin-qt$(EXEEXT)
+BITCOIN_CLI_BIN = $(top_builddir)/src/flashcoin-cli$(EXEEXT)
 BITCOIN_WIN_INSTALLER = $(PACKAGE)-$(PACKAGE_VERSION)-win$(WINDOWS_BITS)-setup$(EXEEXT)
-OSX_APP = Safecoin-Qt.app
-OSX_DMG = Safecoin-Qt.dmg
+OSX_APP = Flashcoin-Qt.app
+OSX_DMG = Flashcoin-Qt.dmg
 OSX_DEPLOY_SCRIPT = $(top_srcdir)/contrib/macdeploy/macdeployqtplus
 OSX_FANCY_PLIST = $(top_srcdir)/contrib/macdeploy/fancy.plist
 OSX_INSTALLER_ICONS = $(top_srcdir)/src/qt/res/icons/bitcoin.icns
@@ -386,7 +388,7 @@ COVERAGE_INFO = baseline_filtered_combined.info baseline.info block_test.info \
 
 OSX_APP_BUILT = $(OSX_APP)/Contents/PkgInfo $(OSX_APP)/Contents/Resources/empty.lproj \
   $(OSX_APP)/Contents/Resources/bitcoin.icns $(OSX_APP)/Contents/Info.plist \
-  $(OSX_APP)/Contents/MacOS/Safecoin-Qt
+  $(OSX_APP)/Contents/MacOS/Flashcoin-Qt
 
 @BUILD_DARWIN_FALSE@APP_DIST_DIR = $(top_builddir)/dist
 @BUILD_DARWIN_FALSE@APP_DIST_EXTRAS = $(APP_DIST_DIR)/.background/background.png $(APP_DIST_DIR)/.DS_Store $(APP_DIST_DIR)/Applications
@@ -955,7 +957,7 @@ $(OSX_APP)/Contents/Resources/bitcoin.icns: $(OSX_INSTALLER_ICONS)
 	$(MKDIR_P) $(@D)
 	$(INSTALL_DATA) $< $@
 
-$(OSX_APP)/Contents/MacOS/Safecoin-Qt: $(BITCOIN_QT_BIN)
+$(OSX_APP)/Contents/MacOS/Flashcoin-Qt: $(BITCOIN_QT_BIN)
 	$(MKDIR_P) $(@D)
 	STRIPPROG="$(STRIP)" $(INSTALL_STRIP_PROGRAM)  $< $@
 
@@ -968,10 +970,10 @@ $(OSX_APP)/Contents/MacOS/Safecoin-Qt: $(BITCOIN_QT_BIN)
 @BUILD_DARWIN_FALSE@	@rm -f $@
 @BUILD_DARWIN_FALSE@	@cd $(@D); $(LN_S) /Applications $(@F)
 
-@BUILD_DARWIN_FALSE@$(APP_DIST_EXTRAS): $(APP_DIST_DIR)/$(OSX_APP)/Contents/MacOS/Safecoin-Qt
+@BUILD_DARWIN_FALSE@$(APP_DIST_EXTRAS): $(APP_DIST_DIR)/$(OSX_APP)/Contents/MacOS/Flashcoin-Qt
 
 @BUILD_DARWIN_FALSE@$(OSX_DMG): $(APP_DIST_EXTRAS)
-@BUILD_DARWIN_FALSE@	$(GENISOIMAGE) -no-cache-inodes -D -l -probe -V "Safecoin-Qt" -no-pad -r -apple -o $@ dist
+@BUILD_DARWIN_FALSE@	$(GENISOIMAGE) -no-cache-inodes -D -l -probe -V "Flashcoin-Qt" -no-pad -r -apple -o $@ dist
 
 @BUILD_DARWIN_FALSE@$(APP_DIST_DIR)/.background/background.png:
 @BUILD_DARWIN_FALSE@	$(MKDIR_P) $(@D)
@@ -979,7 +981,7 @@ $(OSX_APP)/Contents/MacOS/Safecoin-Qt: $(BITCOIN_QT_BIN)
 @BUILD_DARWIN_FALSE@$(APP_DIST_DIR)/.DS_Store:
 @BUILD_DARWIN_FALSE@	$(INSTALL) $(top_srcdir)/contrib/macdeploy/DS_Store $@
 
-@BUILD_DARWIN_FALSE@$(APP_DIST_DIR)/$(OSX_APP)/Contents/MacOS/Safecoin-Qt: $(OSX_APP_BUILT) $(OSX_PACKAGING)
+@BUILD_DARWIN_FALSE@$(APP_DIST_DIR)/$(OSX_APP)/Contents/MacOS/Flashcoin-Qt: $(OSX_APP_BUILT) $(OSX_PACKAGING)
 @BUILD_DARWIN_FALSE@	INSTALLNAMETOOL=$(INSTALLNAMETOOL)  OTOOL=$(OTOOL) STRIP=$(STRIP) $(OSX_DEPLOY_SCRIPT) $(OSX_APP) -translations-dir=$(QT_TRANSLATION_DIR) -add-qt-tr $(OSX_QT_TRANSLATIONS) -verbose 2
 
 @BUILD_DARWIN_FALSE@deploydir: $(APP_DIST_EXTRAS)

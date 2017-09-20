@@ -1,3 +1,611 @@
+m4trace:/usr/share/aclocal/argz.m4:12: -1- AC_DEFUN([gl_FUNC_ARGZ], [gl_PREREQ_ARGZ
+
+AC_CHECK_HEADERS([argz.h], [], [], [AC_INCLUDES_DEFAULT])
+
+AC_CHECK_TYPES([error_t],
+  [],
+  [AC_DEFINE([error_t], [int],
+   [Define to a type to use for `error_t' if it is not otherwise available.])
+   AC_DEFINE([__error_t_defined], [1], [Define so that glibc/gnulib argp.h
+    does not typedef error_t.])],
+  [#if defined(HAVE_ARGZ_H)
+#  include <argz.h>
+#endif])
+
+ARGZ_H=
+AC_CHECK_FUNCS([argz_add argz_append argz_count argz_create_sep argz_insert \
+	argz_next argz_stringify], [], [ARGZ_H=argz.h; AC_LIBOBJ([argz])])
+
+dnl if have system argz functions, allow forced use of
+dnl libltdl-supplied implementation (and default to do so
+dnl on "known bad" systems). Could use a runtime check, but
+dnl (a) detecting malloc issues is notoriously unreliable
+dnl (b) only known system that declares argz functions,
+dnl     provides them, yet they are broken, is cygwin
+dnl     releases prior to 16-Mar-2007 (1.5.24 and earlier)
+dnl So, it's more straightforward simply to special case
+dnl this for known bad systems.
+AS_IF([test -z "$ARGZ_H"],
+    [AC_CACHE_CHECK(
+        [if argz actually works],
+        [lt_cv_sys_argz_works],
+        [[case $host_os in #(
+	 *cygwin*)
+	   lt_cv_sys_argz_works=no
+	   if test "$cross_compiling" != no; then
+	     lt_cv_sys_argz_works="guessing no"
+	   else
+	     lt_sed_extract_leading_digits='s/^\([0-9\.]*\).*/\1/'
+	     save_IFS=$IFS
+	     IFS=-.
+	     set x `uname -r | sed -e "$lt_sed_extract_leading_digits"`
+	     IFS=$save_IFS
+	     lt_os_major=${2-0}
+	     lt_os_minor=${3-0}
+	     lt_os_micro=${4-0}
+	     if test "$lt_os_major" -gt 1 \
+		|| { test "$lt_os_major" -eq 1 \
+		  && { test "$lt_os_minor" -gt 5 \
+		    || { test "$lt_os_minor" -eq 5 \
+		      && test "$lt_os_micro" -gt 24; }; }; }; then
+	       lt_cv_sys_argz_works=yes
+	     fi
+	   fi
+	   ;; #(
+	 *) lt_cv_sys_argz_works=yes ;;
+	 esac]])
+     AS_IF([test "$lt_cv_sys_argz_works" = yes],
+        [AC_DEFINE([HAVE_WORKING_ARGZ], 1,
+                   [This value is set to 1 to indicate that the system argz facility works])],
+        [ARGZ_H=argz.h
+        AC_LIBOBJ([argz])])])
+
+AC_SUBST([ARGZ_H])
+])
+m4trace:/usr/share/aclocal/argz.m4:79: -1- AC_DEFUN([gl_PREREQ_ARGZ], [:])
+m4trace:/usr/share/aclocal/ltdl.m4:16: -1- AC_DEFUN([LT_CONFIG_LTDL_DIR], [AC_BEFORE([$0], [LTDL_INIT])
+_$0($*)
+])
+m4trace:/usr/share/aclocal/ltdl.m4:68: -1- AC_DEFUN([LTDL_CONVENIENCE], [AC_BEFORE([$0], [LTDL_INIT])dnl
+dnl Although the argument is deprecated and no longer documented,
+dnl LTDL_CONVENIENCE used to take a DIRECTORY orgument, if we have one
+dnl here make sure it is the same as any other declaration of libltdl's
+dnl location!  This also ensures lt_ltdl_dir is set when configure.ac is
+dnl not yet using an explicit LT_CONFIG_LTDL_DIR.
+m4_ifval([$1], [_LT_CONFIG_LTDL_DIR([$1])])dnl
+_$0()
+])
+m4trace:/usr/share/aclocal/ltdl.m4:81: -1- AU_DEFUN([AC_LIBLTDL_CONVENIENCE], [_LT_CONFIG_LTDL_DIR([m4_default([$1], [libltdl])])
+_LTDL_CONVENIENCE])
+m4trace:/usr/share/aclocal/ltdl.m4:81: -1- AC_DEFUN([AC_LIBLTDL_CONVENIENCE], [AC_DIAGNOSE([obsolete], [The macro `AC_LIBLTDL_CONVENIENCE' is obsolete.
+You should run autoupdate.])dnl
+_LT_CONFIG_LTDL_DIR([m4_default([$1], [libltdl])])
+_LTDL_CONVENIENCE])
+m4trace:/usr/share/aclocal/ltdl.m4:124: -1- AC_DEFUN([LTDL_INSTALLABLE], [AC_BEFORE([$0], [LTDL_INIT])dnl
+dnl Although the argument is deprecated and no longer documented,
+dnl LTDL_INSTALLABLE used to take a DIRECTORY orgument, if we have one
+dnl here make sure it is the same as any other declaration of libltdl's
+dnl location!  This also ensures lt_ltdl_dir is set when configure.ac is
+dnl not yet using an explicit LT_CONFIG_LTDL_DIR.
+m4_ifval([$1], [_LT_CONFIG_LTDL_DIR([$1])])dnl
+_$0()
+])
+m4trace:/usr/share/aclocal/ltdl.m4:137: -1- AU_DEFUN([AC_LIBLTDL_INSTALLABLE], [_LT_CONFIG_LTDL_DIR([m4_default([$1], [libltdl])])
+_LTDL_INSTALLABLE])
+m4trace:/usr/share/aclocal/ltdl.m4:137: -1- AC_DEFUN([AC_LIBLTDL_INSTALLABLE], [AC_DIAGNOSE([obsolete], [The macro `AC_LIBLTDL_INSTALLABLE' is obsolete.
+You should run autoupdate.])dnl
+_LT_CONFIG_LTDL_DIR([m4_default([$1], [libltdl])])
+_LTDL_INSTALLABLE])
+m4trace:/usr/share/aclocal/ltdl.m4:213: -1- AC_DEFUN([_LT_LIBOBJ], [
+  m4_pattern_allow([^_LT_LIBOBJS$])
+  _LT_LIBOBJS="$_LT_LIBOBJS $1.$ac_objext"
+])
+m4trace:/usr/share/aclocal/ltdl.m4:226: -1- AC_DEFUN([LTDL_INIT], [dnl Parse OPTIONS
+_LT_SET_OPTIONS([$0], [$1])
+
+dnl We need to keep our own list of libobjs separate from our parent project,
+dnl and the easiest way to do that is redefine the AC_LIBOBJs macro while
+dnl we look for our own LIBOBJs.
+m4_pushdef([AC_LIBOBJ], m4_defn([_LT_LIBOBJ]))
+m4_pushdef([AC_LIBSOURCES])
+
+dnl If not otherwise defined, default to the 1.5.x compatible subproject mode:
+m4_if(_LTDL_MODE, [],
+        [m4_define([_LTDL_MODE], m4_default([$2], [subproject]))
+        m4_if([-1], [m4_bregexp(_LTDL_MODE, [\(subproject\|\(non\)?recursive\)])],
+                [m4_fatal([unknown libltdl mode: ]_LTDL_MODE)])])
+
+AC_ARG_WITH([included_ltdl],
+    [AS_HELP_STRING([--with-included-ltdl],
+                    [use the GNU ltdl sources included here])])
+
+if test "x$with_included_ltdl" != xyes; then
+  # We are not being forced to use the included libltdl sources, so
+  # decide whether there is a useful installed version we can use.
+  AC_CHECK_HEADER([ltdl.h],
+      [AC_CHECK_DECL([lt_dlinterface_register],
+	   [AC_CHECK_LIB([ltdl], [lt_dladvise_preload],
+	       [with_included_ltdl=no],
+	       [with_included_ltdl=yes])],
+	   [with_included_ltdl=yes],
+	   [AC_INCLUDES_DEFAULT
+	    #include <ltdl.h>])],
+      [with_included_ltdl=yes],
+      [AC_INCLUDES_DEFAULT]
+  )
+fi
+
+dnl If neither LT_CONFIG_LTDL_DIR, LTDL_CONVENIENCE nor LTDL_INSTALLABLE
+dnl was called yet, then for old times' sake, we assume libltdl is in an
+dnl eponymous directory:
+AC_PROVIDE_IFELSE([LT_CONFIG_LTDL_DIR], [], [_LT_CONFIG_LTDL_DIR([libltdl])])
+
+AC_ARG_WITH([ltdl_include],
+    [AS_HELP_STRING([--with-ltdl-include=DIR],
+                    [use the ltdl headers installed in DIR])])
+
+if test -n "$with_ltdl_include"; then
+  if test -f "$with_ltdl_include/ltdl.h"; then :
+  else
+    AC_MSG_ERROR([invalid ltdl include directory: `$with_ltdl_include'])
+  fi
+else
+  with_ltdl_include=no
+fi
+
+AC_ARG_WITH([ltdl_lib],
+    [AS_HELP_STRING([--with-ltdl-lib=DIR],
+                    [use the libltdl.la installed in DIR])])
+
+if test -n "$with_ltdl_lib"; then
+  if test -f "$with_ltdl_lib/libltdl.la"; then :
+  else
+    AC_MSG_ERROR([invalid ltdl library directory: `$with_ltdl_lib'])
+  fi
+else
+  with_ltdl_lib=no
+fi
+
+case ,$with_included_ltdl,$with_ltdl_include,$with_ltdl_lib, in
+  ,yes,no,no,)
+	m4_case(m4_default(_LTDL_TYPE, [convenience]),
+	    [convenience], [_LTDL_CONVENIENCE],
+	    [installable], [_LTDL_INSTALLABLE],
+	  [m4_fatal([unknown libltdl build type: ]_LTDL_TYPE)])
+	;;
+  ,no,no,no,)
+	# If the included ltdl is not to be used, then use the
+	# preinstalled libltdl we found.
+	AC_DEFINE([HAVE_LTDL], [1],
+	  [Define this if a modern libltdl is already installed])
+	LIBLTDL=-lltdl
+	LTDLDEPS=
+	LTDLINCL=
+	;;
+  ,no*,no,*)
+	AC_MSG_ERROR([`--with-ltdl-include' and `--with-ltdl-lib' options must be used together])
+	;;
+  *)	with_included_ltdl=no
+	LIBLTDL="-L$with_ltdl_lib -lltdl"
+	LTDLDEPS=
+	LTDLINCL="-I$with_ltdl_include"
+	;;
+esac
+INCLTDL="$LTDLINCL"
+
+# Report our decision...
+AC_MSG_CHECKING([where to find libltdl headers])
+AC_MSG_RESULT([$LTDLINCL])
+AC_MSG_CHECKING([where to find libltdl library])
+AC_MSG_RESULT([$LIBLTDL])
+
+_LTDL_SETUP
+
+dnl restore autoconf definition.
+m4_popdef([AC_LIBOBJ])
+m4_popdef([AC_LIBSOURCES])
+
+AC_CONFIG_COMMANDS_PRE([
+    _ltdl_libobjs=
+    _ltdl_ltlibobjs=
+    if test -n "$_LT_LIBOBJS"; then
+      # Remove the extension.
+      _lt_sed_drop_objext='s/\.o$//;s/\.obj$//'
+      for i in `for i in $_LT_LIBOBJS; do echo "$i"; done | sed "$_lt_sed_drop_objext" | sort -u`; do
+        _ltdl_libobjs="$_ltdl_libobjs $lt_libobj_prefix$i.$ac_objext"
+        _ltdl_ltlibobjs="$_ltdl_ltlibobjs $lt_libobj_prefix$i.lo"
+      done
+    fi
+    AC_SUBST([ltdl_LIBOBJS], [$_ltdl_libobjs])
+    AC_SUBST([ltdl_LTLIBOBJS], [$_ltdl_ltlibobjs])
+])
+
+# Only expand once:
+m4_define([LTDL_INIT])
+])
+m4trace:/usr/share/aclocal/ltdl.m4:352: -1- AU_DEFUN([AC_LIB_LTDL], [LTDL_INIT($@)])
+m4trace:/usr/share/aclocal/ltdl.m4:352: -1- AC_DEFUN([AC_LIB_LTDL], [AC_DIAGNOSE([obsolete], [The macro `AC_LIB_LTDL' is obsolete.
+You should run autoupdate.])dnl
+LTDL_INIT($@)])
+m4trace:/usr/share/aclocal/ltdl.m4:353: -1- AU_DEFUN([AC_WITH_LTDL], [LTDL_INIT($@)])
+m4trace:/usr/share/aclocal/ltdl.m4:353: -1- AC_DEFUN([AC_WITH_LTDL], [AC_DIAGNOSE([obsolete], [The macro `AC_WITH_LTDL' is obsolete.
+You should run autoupdate.])dnl
+LTDL_INIT($@)])
+m4trace:/usr/share/aclocal/ltdl.m4:354: -1- AU_DEFUN([LT_WITH_LTDL], [LTDL_INIT($@)])
+m4trace:/usr/share/aclocal/ltdl.m4:354: -1- AC_DEFUN([LT_WITH_LTDL], [AC_DIAGNOSE([obsolete], [The macro `LT_WITH_LTDL' is obsolete.
+You should run autoupdate.])dnl
+LTDL_INIT($@)])
+m4trace:/usr/share/aclocal/ltdl.m4:367: -1- AC_DEFUN([_LTDL_SETUP], [AC_REQUIRE([AC_PROG_CC])dnl
+AC_REQUIRE([LT_SYS_MODULE_EXT])dnl
+AC_REQUIRE([LT_SYS_MODULE_PATH])dnl
+AC_REQUIRE([LT_SYS_DLSEARCH_PATH])dnl
+AC_REQUIRE([LT_LIB_DLLOAD])dnl
+AC_REQUIRE([LT_SYS_SYMBOL_USCORE])dnl
+AC_REQUIRE([LT_FUNC_DLSYM_USCORE])dnl
+AC_REQUIRE([LT_SYS_DLOPEN_DEPLIBS])dnl
+AC_REQUIRE([gl_FUNC_ARGZ])dnl
+
+m4_require([_LT_CHECK_OBJDIR])dnl
+m4_require([_LT_HEADER_DLFCN])dnl
+m4_require([_LT_CHECK_DLPREOPEN])dnl
+m4_require([_LT_DECL_SED])dnl
+
+dnl Don't require this, or it will be expanded earlier than the code
+dnl that sets the variables it relies on:
+_LT_ENABLE_INSTALL
+
+dnl _LTDL_MODE specific code must be called at least once:
+_LTDL_MODE_DISPATCH
+
+# In order that ltdl.c can compile, find out the first AC_CONFIG_HEADERS
+# the user used.  This is so that ltdl.h can pick up the parent projects
+# config.h file, The first file in AC_CONFIG_HEADERS must contain the
+# definitions required by ltdl.c.
+# FIXME: Remove use of undocumented AC_LIST_HEADERS (2.59 compatibility).
+AC_CONFIG_COMMANDS_PRE([dnl
+m4_pattern_allow([^LT_CONFIG_H$])dnl
+m4_ifset([AH_HEADER],
+    [LT_CONFIG_H=AH_HEADER],
+    [m4_ifset([AC_LIST_HEADERS],
+	    [LT_CONFIG_H=`echo "AC_LIST_HEADERS" | $SED 's,^[[      ]]*,,;s,[[ :]].*$,,'`],
+	[])])])
+AC_SUBST([LT_CONFIG_H])
+
+AC_CHECK_HEADERS([unistd.h dl.h sys/dl.h dld.h mach-o/dyld.h dirent.h],
+	[], [], [AC_INCLUDES_DEFAULT])
+
+AC_CHECK_FUNCS([closedir opendir readdir], [], [AC_LIBOBJ([lt__dirent])])
+AC_CHECK_FUNCS([strlcat strlcpy], [], [AC_LIBOBJ([lt__strl])])
+
+m4_pattern_allow([LT_LIBEXT])dnl
+AC_DEFINE_UNQUOTED([LT_LIBEXT],["$libext"],[The archive extension])
+
+name=
+eval "lt_libprefix=\"$libname_spec\""
+m4_pattern_allow([LT_LIBPREFIX])dnl
+AC_DEFINE_UNQUOTED([LT_LIBPREFIX],["$lt_libprefix"],[The archive prefix])
+
+name=ltdl
+eval "LTDLOPEN=\"$libname_spec\""
+AC_SUBST([LTDLOPEN])
+])
+m4trace:/usr/share/aclocal/ltdl.m4:443: -1- AC_DEFUN([LT_SYS_DLOPEN_DEPLIBS], [AC_REQUIRE([AC_CANONICAL_HOST])dnl
+AC_CACHE_CHECK([whether deplibs are loaded by dlopen],
+  [lt_cv_sys_dlopen_deplibs],
+  [# PORTME does your system automatically load deplibs for dlopen?
+  # or its logical equivalent (e.g. shl_load for HP-UX < 11)
+  # For now, we just catch OSes we know something about -- in the
+  # future, we'll try test this programmatically.
+  lt_cv_sys_dlopen_deplibs=unknown
+  case $host_os in
+  aix3*|aix4.1.*|aix4.2.*)
+    # Unknown whether this is true for these versions of AIX, but
+    # we want this `case' here to explicitly catch those versions.
+    lt_cv_sys_dlopen_deplibs=unknown
+    ;;
+  aix[[4-9]]*)
+    lt_cv_sys_dlopen_deplibs=yes
+    ;;
+  amigaos*)
+    case $host_cpu in
+    powerpc)
+      lt_cv_sys_dlopen_deplibs=no
+      ;;
+    esac
+    ;;
+  darwin*)
+    # Assuming the user has installed a libdl from somewhere, this is true
+    # If you are looking for one http://www.opendarwin.org/projects/dlcompat
+    lt_cv_sys_dlopen_deplibs=yes
+    ;;
+  freebsd* | dragonfly*)
+    lt_cv_sys_dlopen_deplibs=yes
+    ;;
+  gnu* | linux* | k*bsd*-gnu | kopensolaris*-gnu)
+    # GNU and its variants, using gnu ld.so (Glibc)
+    lt_cv_sys_dlopen_deplibs=yes
+    ;;
+  hpux10*|hpux11*)
+    lt_cv_sys_dlopen_deplibs=yes
+    ;;
+  interix*)
+    lt_cv_sys_dlopen_deplibs=yes
+    ;;
+  irix[[12345]]*|irix6.[[01]]*)
+    # Catch all versions of IRIX before 6.2, and indicate that we don't
+    # know how it worked for any of those versions.
+    lt_cv_sys_dlopen_deplibs=unknown
+    ;;
+  irix*)
+    # The case above catches anything before 6.2, and it's known that
+    # at 6.2 and later dlopen does load deplibs.
+    lt_cv_sys_dlopen_deplibs=yes
+    ;;
+  netbsd* | netbsdelf*-gnu)
+    lt_cv_sys_dlopen_deplibs=yes
+    ;;
+  openbsd*)
+    lt_cv_sys_dlopen_deplibs=yes
+    ;;
+  osf[[1234]]*)
+    # dlopen did load deplibs (at least at 4.x), but until the 5.x series,
+    # it did *not* use an RPATH in a shared library to find objects the
+    # library depends on, so we explicitly say `no'.
+    lt_cv_sys_dlopen_deplibs=no
+    ;;
+  osf5.0|osf5.0a|osf5.1)
+    # dlopen *does* load deplibs and with the right loader patch applied
+    # it even uses RPATH in a shared library to search for shared objects
+    # that the library depends on, but there's no easy way to know if that
+    # patch is installed.  Since this is the case, all we can really
+    # say is unknown -- it depends on the patch being installed.  If
+    # it is, this changes to `yes'.  Without it, it would be `no'.
+    lt_cv_sys_dlopen_deplibs=unknown
+    ;;
+  osf*)
+    # the two cases above should catch all versions of osf <= 5.1.  Read
+    # the comments above for what we know about them.
+    # At > 5.1, deplibs are loaded *and* any RPATH in a shared library
+    # is used to find them so we can finally say `yes'.
+    lt_cv_sys_dlopen_deplibs=yes
+    ;;
+  qnx*)
+    lt_cv_sys_dlopen_deplibs=yes
+    ;;
+  solaris*)
+    lt_cv_sys_dlopen_deplibs=yes
+    ;;
+  sysv5* | sco3.2v5* | sco5v6* | unixware* | OpenUNIX* | sysv4*uw2*)
+    libltdl_cv_sys_dlopen_deplibs=yes
+    ;;
+  esac
+  ])
+if test "$lt_cv_sys_dlopen_deplibs" != yes; then
+ AC_DEFINE([LTDL_DLOPEN_DEPLIBS], [1],
+    [Define if the OS needs help to load dependent libraries for dlopen().])
+fi
+])
+m4trace:/usr/share/aclocal/ltdl.m4:542: -1- AU_DEFUN([AC_LTDL_SYS_DLOPEN_DEPLIBS], [m4_if($#, 0, [LT_SYS_DLOPEN_DEPLIBS], [LT_SYS_DLOPEN_DEPLIBS($@)])])
+m4trace:/usr/share/aclocal/ltdl.m4:542: -1- AC_DEFUN([AC_LTDL_SYS_DLOPEN_DEPLIBS], [AC_DIAGNOSE([obsolete], [The macro `AC_LTDL_SYS_DLOPEN_DEPLIBS' is obsolete.
+You should run autoupdate.])dnl
+m4_if($#, 0, [LT_SYS_DLOPEN_DEPLIBS], [LT_SYS_DLOPEN_DEPLIBS($@)])])
+m4trace:/usr/share/aclocal/ltdl.m4:549: -1- AC_DEFUN([LT_SYS_MODULE_EXT], [m4_require([_LT_SYS_DYNAMIC_LINKER])dnl
+AC_CACHE_CHECK([which extension is used for runtime loadable modules],
+  [libltdl_cv_shlibext],
+[
+module=yes
+eval libltdl_cv_shlibext=$shrext_cmds
+module=no
+eval libltdl_cv_shrext=$shrext_cmds
+  ])
+if test -n "$libltdl_cv_shlibext"; then
+  m4_pattern_allow([LT_MODULE_EXT])dnl
+  AC_DEFINE_UNQUOTED([LT_MODULE_EXT], ["$libltdl_cv_shlibext"],
+    [Define to the extension used for runtime loadable modules, say, ".so".])
+fi
+if test "$libltdl_cv_shrext" != "$libltdl_cv_shlibext"; then
+  m4_pattern_allow([LT_SHARED_EXT])dnl
+  AC_DEFINE_UNQUOTED([LT_SHARED_EXT], ["$libltdl_cv_shrext"],
+    [Define to the shared library suffix, say, ".dylib".])
+fi
+])
+m4trace:/usr/share/aclocal/ltdl.m4:572: -1- AU_DEFUN([AC_LTDL_SHLIBEXT], [m4_if($#, 0, [LT_SYS_MODULE_EXT], [LT_SYS_MODULE_EXT($@)])])
+m4trace:/usr/share/aclocal/ltdl.m4:572: -1- AC_DEFUN([AC_LTDL_SHLIBEXT], [AC_DIAGNOSE([obsolete], [The macro `AC_LTDL_SHLIBEXT' is obsolete.
+You should run autoupdate.])dnl
+m4_if($#, 0, [LT_SYS_MODULE_EXT], [LT_SYS_MODULE_EXT($@)])])
+m4trace:/usr/share/aclocal/ltdl.m4:579: -1- AC_DEFUN([LT_SYS_MODULE_PATH], [m4_require([_LT_SYS_DYNAMIC_LINKER])dnl
+AC_CACHE_CHECK([which variable specifies run-time module search path],
+  [lt_cv_module_path_var], [lt_cv_module_path_var="$shlibpath_var"])
+if test -n "$lt_cv_module_path_var"; then
+  m4_pattern_allow([LT_MODULE_PATH_VAR])dnl
+  AC_DEFINE_UNQUOTED([LT_MODULE_PATH_VAR], ["$lt_cv_module_path_var"],
+    [Define to the name of the environment variable that determines the run-time module search path.])
+fi
+])
+m4trace:/usr/share/aclocal/ltdl.m4:591: -1- AU_DEFUN([AC_LTDL_SHLIBPATH], [m4_if($#, 0, [LT_SYS_MODULE_PATH], [LT_SYS_MODULE_PATH($@)])])
+m4trace:/usr/share/aclocal/ltdl.m4:591: -1- AC_DEFUN([AC_LTDL_SHLIBPATH], [AC_DIAGNOSE([obsolete], [The macro `AC_LTDL_SHLIBPATH' is obsolete.
+You should run autoupdate.])dnl
+m4_if($#, 0, [LT_SYS_MODULE_PATH], [LT_SYS_MODULE_PATH($@)])])
+m4trace:/usr/share/aclocal/ltdl.m4:598: -1- AC_DEFUN([LT_SYS_DLSEARCH_PATH], [m4_require([_LT_SYS_DYNAMIC_LINKER])dnl
+AC_CACHE_CHECK([for the default library search path],
+  [lt_cv_sys_dlsearch_path],
+  [lt_cv_sys_dlsearch_path="$sys_lib_dlsearch_path_spec"])
+if test -n "$lt_cv_sys_dlsearch_path"; then
+  sys_dlsearch_path=
+  for dir in $lt_cv_sys_dlsearch_path; do
+    if test -z "$sys_dlsearch_path"; then
+      sys_dlsearch_path="$dir"
+    else
+      sys_dlsearch_path="$sys_dlsearch_path$PATH_SEPARATOR$dir"
+    fi
+  done
+  m4_pattern_allow([LT_DLSEARCH_PATH])dnl
+  AC_DEFINE_UNQUOTED([LT_DLSEARCH_PATH], ["$sys_dlsearch_path"],
+    [Define to the system default library search path.])
+fi
+])
+m4trace:/usr/share/aclocal/ltdl.m4:619: -1- AU_DEFUN([AC_LTDL_SYSSEARCHPATH], [m4_if($#, 0, [LT_SYS_DLSEARCH_PATH], [LT_SYS_DLSEARCH_PATH($@)])])
+m4trace:/usr/share/aclocal/ltdl.m4:619: -1- AC_DEFUN([AC_LTDL_SYSSEARCHPATH], [AC_DIAGNOSE([obsolete], [The macro `AC_LTDL_SYSSEARCHPATH' is obsolete.
+You should run autoupdate.])dnl
+m4_if($#, 0, [LT_SYS_DLSEARCH_PATH], [LT_SYS_DLSEARCH_PATH($@)])])
+m4trace:/usr/share/aclocal/ltdl.m4:645: -1- AC_DEFUN([LT_LIB_DLLOAD], [m4_pattern_allow([^LT_DLLOADERS$])
+LT_DLLOADERS=
+AC_SUBST([LT_DLLOADERS])
+
+AC_LANG_PUSH([C])
+
+LIBADD_DLOPEN=
+AC_SEARCH_LIBS([dlopen], [dl],
+	[AC_DEFINE([HAVE_LIBDL], [1],
+		   [Define if you have the libdl library or equivalent.])
+	if test "$ac_cv_search_dlopen" != "none required" ; then
+	  LIBADD_DLOPEN="-ldl"
+	fi
+	libltdl_cv_lib_dl_dlopen="yes"
+	LT_DLLOADERS="$LT_DLLOADERS ${lt_dlopen_dir+$lt_dlopen_dir/}dlopen.la"],
+    [AC_LINK_IFELSE([AC_LANG_PROGRAM([[#if HAVE_DLFCN_H
+#  include <dlfcn.h>
+#endif
+    ]], [[dlopen(0, 0);]])],
+	    [AC_DEFINE([HAVE_LIBDL], [1],
+		       [Define if you have the libdl library or equivalent.])
+	    libltdl_cv_func_dlopen="yes"
+	    LT_DLLOADERS="$LT_DLLOADERS ${lt_dlopen_dir+$lt_dlopen_dir/}dlopen.la"],
+	[AC_CHECK_LIB([svld], [dlopen],
+		[AC_DEFINE([HAVE_LIBDL], [1],
+			 [Define if you have the libdl library or equivalent.])
+	        LIBADD_DLOPEN="-lsvld" libltdl_cv_func_dlopen="yes"
+		LT_DLLOADERS="$LT_DLLOADERS ${lt_dlopen_dir+$lt_dlopen_dir/}dlopen.la"])])])
+if test x"$libltdl_cv_func_dlopen" = xyes || test x"$libltdl_cv_lib_dl_dlopen" = xyes
+then
+  lt_save_LIBS="$LIBS"
+  LIBS="$LIBS $LIBADD_DLOPEN"
+  AC_CHECK_FUNCS([dlerror])
+  LIBS="$lt_save_LIBS"
+fi
+AC_SUBST([LIBADD_DLOPEN])
+
+LIBADD_SHL_LOAD=
+AC_CHECK_FUNC([shl_load],
+	[AC_DEFINE([HAVE_SHL_LOAD], [1],
+		   [Define if you have the shl_load function.])
+	LT_DLLOADERS="$LT_DLLOADERS ${lt_dlopen_dir+$lt_dlopen_dir/}shl_load.la"],
+    [AC_CHECK_LIB([dld], [shl_load],
+	    [AC_DEFINE([HAVE_SHL_LOAD], [1],
+		       [Define if you have the shl_load function.])
+	    LT_DLLOADERS="$LT_DLLOADERS ${lt_dlopen_dir+$lt_dlopen_dir/}shl_load.la"
+	    LIBADD_SHL_LOAD="-ldld"])])
+AC_SUBST([LIBADD_SHL_LOAD])
+
+case $host_os in
+darwin[[1567]].*)
+# We only want this for pre-Mac OS X 10.4.
+  AC_CHECK_FUNC([_dyld_func_lookup],
+	[AC_DEFINE([HAVE_DYLD], [1],
+		   [Define if you have the _dyld_func_lookup function.])
+	LT_DLLOADERS="$LT_DLLOADERS ${lt_dlopen_dir+$lt_dlopen_dir/}dyld.la"])
+  ;;
+beos*)
+  LT_DLLOADERS="$LT_DLLOADERS ${lt_dlopen_dir+$lt_dlopen_dir/}load_add_on.la"
+  ;;
+cygwin* | mingw* | os2* | pw32*)
+  AC_CHECK_DECLS([cygwin_conv_path], [], [], [[#include <sys/cygwin.h>]])
+  LT_DLLOADERS="$LT_DLLOADERS ${lt_dlopen_dir+$lt_dlopen_dir/}loadlibrary.la"
+  ;;
+esac
+
+AC_CHECK_LIB([dld], [dld_link],
+	[AC_DEFINE([HAVE_DLD], [1],
+		   [Define if you have the GNU dld library.])
+		LT_DLLOADERS="$LT_DLLOADERS ${lt_dlopen_dir+$lt_dlopen_dir/}dld_link.la"])
+AC_SUBST([LIBADD_DLD_LINK])
+
+m4_pattern_allow([^LT_DLPREOPEN$])
+LT_DLPREOPEN=
+if test -n "$LT_DLLOADERS"
+then
+  for lt_loader in $LT_DLLOADERS; do
+    LT_DLPREOPEN="$LT_DLPREOPEN-dlpreopen $lt_loader "
+  done
+  AC_DEFINE([HAVE_LIBDLLOADER], [1],
+            [Define if libdlloader will be built on this platform])
+fi
+AC_SUBST([LT_DLPREOPEN])
+
+dnl This isn't used anymore, but set it for backwards compatibility
+LIBADD_DL="$LIBADD_DLOPEN $LIBADD_SHL_LOAD"
+AC_SUBST([LIBADD_DL])
+
+AC_LANG_POP
+])
+m4trace:/usr/share/aclocal/ltdl.m4:738: -1- AU_DEFUN([AC_LTDL_DLLIB], [m4_if($#, 0, [LT_LIB_DLLOAD], [LT_LIB_DLLOAD($@)])])
+m4trace:/usr/share/aclocal/ltdl.m4:738: -1- AC_DEFUN([AC_LTDL_DLLIB], [AC_DIAGNOSE([obsolete], [The macro `AC_LTDL_DLLIB' is obsolete.
+You should run autoupdate.])dnl
+m4_if($#, 0, [LT_LIB_DLLOAD], [LT_LIB_DLLOAD($@)])])
+m4trace:/usr/share/aclocal/ltdl.m4:746: -1- AC_DEFUN([LT_SYS_SYMBOL_USCORE], [m4_require([_LT_CMD_GLOBAL_SYMBOLS])dnl
+AC_CACHE_CHECK([for _ prefix in compiled symbols],
+  [lt_cv_sys_symbol_underscore],
+  [lt_cv_sys_symbol_underscore=no
+  cat > conftest.$ac_ext <<_LT_EOF
+void nm_test_func(){}
+int main(){nm_test_func;return 0;}
+_LT_EOF
+  if AC_TRY_EVAL(ac_compile); then
+    # Now try to grab the symbols.
+    ac_nlist=conftest.nm
+    if AC_TRY_EVAL(NM conftest.$ac_objext \| $lt_cv_sys_global_symbol_pipe \> $ac_nlist) && test -s "$ac_nlist"; then
+      # See whether the symbols have a leading underscore.
+      if grep '^. _nm_test_func' "$ac_nlist" >/dev/null; then
+        lt_cv_sys_symbol_underscore=yes
+      else
+        if grep '^. nm_test_func ' "$ac_nlist" >/dev/null; then
+	  :
+        else
+	  echo "configure: cannot find nm_test_func in $ac_nlist" >&AS_MESSAGE_LOG_FD
+        fi
+      fi
+    else
+      echo "configure: cannot run $lt_cv_sys_global_symbol_pipe" >&AS_MESSAGE_LOG_FD
+    fi
+  else
+    echo "configure: failed program was:" >&AS_MESSAGE_LOG_FD
+    cat conftest.c >&AS_MESSAGE_LOG_FD
+  fi
+  rm -rf conftest*
+  ])
+  sys_symbol_underscore=$lt_cv_sys_symbol_underscore
+  AC_SUBST([sys_symbol_underscore])
+])
+m4trace:/usr/share/aclocal/ltdl.m4:783: -1- AU_DEFUN([AC_LTDL_SYMBOL_USCORE], [m4_if($#, 0, [LT_SYS_SYMBOL_USCORE], [LT_SYS_SYMBOL_USCORE($@)])])
+m4trace:/usr/share/aclocal/ltdl.m4:783: -1- AC_DEFUN([AC_LTDL_SYMBOL_USCORE], [AC_DIAGNOSE([obsolete], [The macro `AC_LTDL_SYMBOL_USCORE' is obsolete.
+You should run autoupdate.])dnl
+m4_if($#, 0, [LT_SYS_SYMBOL_USCORE], [LT_SYS_SYMBOL_USCORE($@)])])
+m4trace:/usr/share/aclocal/ltdl.m4:790: -1- AC_DEFUN([LT_FUNC_DLSYM_USCORE], [AC_REQUIRE([LT_SYS_SYMBOL_USCORE])dnl
+if test x"$lt_cv_sys_symbol_underscore" = xyes; then
+  if test x"$libltdl_cv_func_dlopen" = xyes ||
+     test x"$libltdl_cv_lib_dl_dlopen" = xyes ; then
+	AC_CACHE_CHECK([whether we have to add an underscore for dlsym],
+	  [libltdl_cv_need_uscore],
+	  [libltdl_cv_need_uscore=unknown
+          save_LIBS="$LIBS"
+          LIBS="$LIBS $LIBADD_DLOPEN"
+	  _LT_TRY_DLOPEN_SELF(
+	    [libltdl_cv_need_uscore=no], [libltdl_cv_need_uscore=yes],
+	    [],				 [libltdl_cv_need_uscore=cross])
+	  LIBS="$save_LIBS"
+	])
+  fi
+fi
+
+if test x"$libltdl_cv_need_uscore" = xyes; then
+  AC_DEFINE([NEED_USCORE], [1],
+    [Define if dlsym() requires a leading underscore in symbol names.])
+fi
+])
+m4trace:/usr/share/aclocal/ltdl.m4:815: -1- AU_DEFUN([AC_LTDL_DLSYM_USCORE], [m4_if($#, 0, [LT_FUNC_DLSYM_USCORE], [LT_FUNC_DLSYM_USCORE($@)])])
+m4trace:/usr/share/aclocal/ltdl.m4:815: -1- AC_DEFUN([AC_LTDL_DLSYM_USCORE], [AC_DIAGNOSE([obsolete], [The macro `AC_LTDL_DLSYM_USCORE' is obsolete.
+You should run autoupdate.])dnl
+m4_if($#, 0, [LT_FUNC_DLSYM_USCORE], [LT_FUNC_DLSYM_USCORE($@)])])
 m4trace:/usr/share/aclocal-1.11/amversion.m4:17: -1- AC_DEFUN([AM_AUTOMAKE_VERSION], [am__api_version='1.11'
 dnl Some users find AM_AUTOMAKE_VERSION and mistake it for a way to
 dnl require some minimum version.  Point them to the right macro.
@@ -2000,30 +2608,35 @@ m4trace:build-aux/m4/bitcoin_qt.m4:84: -1- AC_DEFUN([BITCOIN_QT_CONFIGURE], [
   dnl results to QT_LIBS.
   BITCOIN_QT_CHECK([
   TEMP_CPPFLAGS=$CPPFLAGS
-  CPPFLAGS=$QT_INCLUDES
+  TEMP_CXXFLAGS=$CXXFLAGS
+  CPPFLAGS="$QT_INCLUDES $CPPFLAGS"
+  CXXFLAGS="$PIC_FLAGS $CXXFLAGS"
   if test x$bitcoin_qt_got_major_vers = x5; then
     _BITCOIN_QT_IS_STATIC
     if test x$bitcoin_cv_static_qt = xyes; then
+      _BITCOIN_QT_FIND_STATIC_PLUGINS
       AC_DEFINE(QT_STATICPLUGIN, 1, [Define this symbol if qt plugins are static])
-      if test x$qt_plugin_path != x; then
-        QT_LIBS="$QT_LIBS -L$qt_plugin_path/accessible"
-        QT_LIBS="$QT_LIBS -L$qt_plugin_path/platforms"
+      AC_CACHE_CHECK(for Qt < 5.4, bitcoin_cv_need_acc_widget,[AC_COMPILE_IFELSE([AC_LANG_PROGRAM(
+          [[#include <QtCore>]],[[
+          #if QT_VERSION >= 0x050400
+          choke;
+          #endif
+          ]])],
+        [bitcoin_cv_need_acc_widget=yes],
+        [bitcoin_cv_need_acc_widget=no])
+      ])
+      if test "x$bitcoin_cv_need_acc_widget" = "xyes"; then
+        _BITCOIN_QT_CHECK_STATIC_PLUGINS([Q_IMPORT_PLUGIN(AccessibleFactory)], [-lqtaccessiblewidgets])
       fi
-      if test x$use_pkgconfig = xyes; then
-        PKG_CHECK_MODULES([QTPLATFORM], [Qt5PlatformSupport], [QT_LIBS="$QTPLATFORM_LIBS $QT_LIBS"])
-      fi
-      _BITCOIN_QT_CHECK_STATIC_PLUGINS([Q_IMPORT_PLUGIN(AccessibleFactory)], [-lqtaccessiblewidgets])
+      _BITCOIN_QT_CHECK_STATIC_PLUGINS([Q_IMPORT_PLUGIN(QMinimalIntegrationPlugin)],[-lqminimal])
+      AC_DEFINE(QT_QPA_PLATFORM_MINIMAL, 1, [Define this symbol if the minimal qt platform exists])
       if test x$TARGET_OS = xwindows; then
         _BITCOIN_QT_CHECK_STATIC_PLUGINS([Q_IMPORT_PLUGIN(QWindowsIntegrationPlugin)],[-lqwindows])
         AC_DEFINE(QT_QPA_PLATFORM_WINDOWS, 1, [Define this symbol if the qt platform is windows])
       elif test x$TARGET_OS = xlinux; then
-        PKG_CHECK_MODULES([X11XCB], [x11-xcb], [QT_LIBS="$X11XCB_LIBS $QT_LIBS"])
         _BITCOIN_QT_CHECK_STATIC_PLUGINS([Q_IMPORT_PLUGIN(QXcbIntegrationPlugin)],[-lqxcb -lxcb-static])
         AC_DEFINE(QT_QPA_PLATFORM_XCB, 1, [Define this symbol if the qt platform is xcb])
       elif test x$TARGET_OS = xdarwin; then
-        if test x$use_pkgconfig = xyes; then
-          PKG_CHECK_MODULES([QTPRINT], [Qt5PrintSupport], [QT_LIBS="$QTPRINT_LIBS $QT_LIBS"])
-        fi
         AX_CHECK_LINK_FLAG([[-framework IOKit]],[QT_LIBS="$QT_LIBS -framework IOKit"],[AC_MSG_ERROR(could not iokit framework)])
         _BITCOIN_QT_CHECK_STATIC_PLUGINS([Q_IMPORT_PLUGIN(QCocoaIntegrationPlugin)],[-lqcocoa])
         AC_DEFINE(QT_QPA_PLATFORM_COCOA, 1, [Define this symbol if the qt platform is cocoa])
@@ -2032,10 +2645,6 @@ m4trace:build-aux/m4/bitcoin_qt.m4:84: -1- AC_DEFUN([BITCOIN_QT_CONFIGURE], [
   else
     if test x$TARGET_OS = xwindows; then
       AC_DEFINE(QT_STATICPLUGIN, 1, [Define this symbol if qt plugins are static])
-      if test x$qt_plugin_path != x; then
-        QT_LIBS="$QT_LIBS -L$qt_plugin_path/accessible"
-        QT_LIBS="$QT_LIBS -L$qt_plugin_path/codecs"
-      fi
       _BITCOIN_QT_CHECK_STATIC_PLUGINS([
          Q_IMPORT_PLUGIN(qcncodecs)
          Q_IMPORT_PLUGIN(qjpcodecs)
@@ -2046,6 +2655,7 @@ m4trace:build-aux/m4/bitcoin_qt.m4:84: -1- AC_DEFUN([BITCOIN_QT_CONFIGURE], [
     fi
   fi
   CPPFLAGS=$TEMP_CPPFLAGS
+  CXXFLAGS=$TEMP_CXXFLAGS
   ])
 
   if test x$use_pkgconfig$qt_bin_path = xyes; then
@@ -2109,7 +2719,7 @@ m4trace:build-aux/m4/bitcoin_qt.m4:84: -1- AC_DEFUN([BITCOIN_QT_CONFIGURE], [
   AC_SUBST(QT_SELECT, qt${bitcoin_qt_got_major_vers})
   AC_SUBST(MOC_DEFS)
 ])
-m4trace:build-aux/m4/bitcoin_qt.m4:225: -1- AC_DEFUN([_BITCOIN_QT_CHECK_QT5], [
+m4trace:build-aux/m4/bitcoin_qt.m4:227: -1- AC_DEFUN([_BITCOIN_QT_CHECK_QT5], [
   AC_CACHE_CHECK(for Qt 5, bitcoin_cv_qt5,[
   AC_COMPILE_IFELSE([AC_LANG_PROGRAM(
     [[#include <QtCore>]],
@@ -2123,7 +2733,7 @@ m4trace:build-aux/m4/bitcoin_qt.m4:225: -1- AC_DEFUN([_BITCOIN_QT_CHECK_QT5], [
     [bitcoin_cv_qt5=yes],
     [bitcoin_cv_qt5=no])
 ])])
-m4trace:build-aux/m4/bitcoin_qt.m4:245: -1- AC_DEFUN([_BITCOIN_QT_IS_STATIC], [
+m4trace:build-aux/m4/bitcoin_qt.m4:247: -1- AC_DEFUN([_BITCOIN_QT_IS_STATIC], [
   AC_CACHE_CHECK(for static Qt, bitcoin_cv_static_qt,[
   AC_COMPILE_IFELSE([AC_LANG_PROGRAM(
     [[#include <QtCore>]],
@@ -2141,7 +2751,7 @@ m4trace:build-aux/m4/bitcoin_qt.m4:245: -1- AC_DEFUN([_BITCOIN_QT_IS_STATIC], [
     AC_DEFINE(QT_STATICPLUGIN, 1, [Define this symbol for static Qt plugins])
   fi
 ])
-m4trace:build-aux/m4/bitcoin_qt.m4:269: -1- AC_DEFUN([_BITCOIN_QT_CHECK_STATIC_PLUGINS], [
+m4trace:build-aux/m4/bitcoin_qt.m4:271: -1- AC_DEFUN([_BITCOIN_QT_CHECK_STATIC_PLUGINS], [
   AC_MSG_CHECKING(for static Qt plugins: $2)
   CHECK_STATIC_PLUGINS_TEMP_LIBS="$LIBS"
   LIBS="$2 $QT_LIBS $LIBS"
@@ -2154,7 +2764,7 @@ m4trace:build-aux/m4/bitcoin_qt.m4:269: -1- AC_DEFUN([_BITCOIN_QT_CHECK_STATIC_P
     [AC_MSG_RESULT(no); BITCOIN_QT_FAIL(Could not resolve: $2)])
   LIBS="$CHECK_STATIC_PLUGINS_TEMP_LIBS"
 ])
-m4trace:build-aux/m4/bitcoin_qt.m4:291: -1- AC_DEFUN([_BITCOIN_QT_FIND_LIBS_WITH_PKGCONFIG], [
+m4trace:build-aux/m4/bitcoin_qt.m4:293: -1- AC_DEFUN([_BITCOIN_QT_FIND_LIBS_WITH_PKGCONFIG], [
   m4_ifdef([PKG_CHECK_MODULES],[
   auto_priority_version=$1
   if test x$auto_priority_version = x; then
@@ -2198,7 +2808,7 @@ m4trace:build-aux/m4/bitcoin_qt.m4:291: -1- AC_DEFUN([_BITCOIN_QT_FIND_LIBS_WITH
   ])
   true; dnl
 ])
-m4trace:build-aux/m4/bitcoin_qt.m4:343: -1- AC_DEFUN([_BITCOIN_QT_FIND_LIBS_WITHOUT_PKGCONFIG], [
+m4trace:build-aux/m4/bitcoin_qt.m4:345: -1- AC_DEFUN([_BITCOIN_QT_FIND_LIBS_WITHOUT_PKGCONFIG], [
   TEMP_CPPFLAGS="$CPPFLAGS"
   TEMP_LIBS="$LIBS"
   BITCOIN_QT_CHECK([
@@ -2268,6 +2878,215 @@ m4trace:build-aux/m4/bitcoin_qt.m4:343: -1- AC_DEFUN([_BITCOIN_QT_FIND_LIBS_WITH
     fi
   ])
   CPPFLAGS="$TEMP_CPPFLAGS"
+  LIBS="$TEMP_LIBS"
+])
+m4trace:build-aux/m4/bitcoin_qt.m4:427: -1- AC_DEFUN([_BITCOIN_QT_CHECK_QT5], [
+  AC_CACHE_CHECK(for Qt 5, bitcoin_cv_qt5,[
+  AC_COMPILE_IFELSE([AC_LANG_PROGRAM(
+    [[#include <QtCore>]],
+    [[
+      #if QT_VERSION < 0x050000
+      choke me
+      #else
+      return 0;
+      #endif
+    ]])],
+    [bitcoin_cv_qt5=yes],
+    [bitcoin_cv_qt5=no])
+])])
+m4trace:build-aux/m4/bitcoin_qt.m4:447: -1- AC_DEFUN([_BITCOIN_QT_IS_STATIC], [
+  AC_CACHE_CHECK(for static Qt, bitcoin_cv_static_qt,[
+  AC_COMPILE_IFELSE([AC_LANG_PROGRAM(
+    [[#include <QtCore>]],
+    [[
+      #if defined(QT_STATIC)
+      return 0;
+      #else
+      choke me
+      #endif
+    ]])],
+    [bitcoin_cv_static_qt=yes],
+    [bitcoin_cv_static_qt=no])
+  ])
+  if test xbitcoin_cv_static_qt = xyes; then
+    AC_DEFINE(QT_STATICPLUGIN, 1, [Define this symbol for static Qt plugins])
+  fi
+])
+m4trace:build-aux/m4/bitcoin_qt.m4:471: -1- AC_DEFUN([_BITCOIN_QT_CHECK_STATIC_PLUGINS], [
+  AC_MSG_CHECKING(for static Qt plugins: $2)
+  CHECK_STATIC_PLUGINS_TEMP_LIBS="$LIBS"
+  LIBS="$2 $QT_LIBS $LIBS"
+  AC_LINK_IFELSE([AC_LANG_PROGRAM([[
+    #define QT_STATICPLUGIN
+    #include <QtPlugin>
+    $1]],
+    [[return 0;]])],
+    [AC_MSG_RESULT(yes); QT_LIBS="$2 $QT_LIBS"],
+    [AC_MSG_RESULT(no); BITCOIN_QT_FAIL(Could not resolve: $2)])
+  LIBS="$CHECK_STATIC_PLUGINS_TEMP_LIBS"
+])
+m4trace:build-aux/m4/bitcoin_qt.m4:489: -1- AC_DEFUN([_BITCOIN_QT_FIND_STATIC_PLUGINS], [
+  if test x$bitcoin_qt_got_major_vers = x5; then
+      if test x$qt_plugin_path != x; then
+        QT_LIBS="$QT_LIBS -L$qt_plugin_path/platforms"
+        if test -d "$qt_plugin_path/accessible"; then
+          QT_LIBS="$QT_LIBS -L$qt_plugin_path/accessible"
+        fi
+      fi
+     if test x$use_pkgconfig = xyes; then
+     : dnl
+     m4_ifdef([PKG_CHECK_MODULES],[
+       PKG_CHECK_MODULES([QTPLATFORM], [Qt5PlatformSupport], [QT_LIBS="$QTPLATFORM_LIBS $QT_LIBS"])
+       if test x$TARGET_OS = xlinux; then
+         PKG_CHECK_MODULES([X11XCB], [x11-xcb], [QT_LIBS="$X11XCB_LIBS $QT_LIBS"])
+         if ${PKG_CONFIG} --exists "Qt5Core >= 5.5" 2>/dev/null; then
+           PKG_CHECK_MODULES([QTXCBQPA], [Qt5XcbQpa], [QT_LIBS="$QTXCBQPA_LIBS $QT_LIBS"])
+         fi
+       elif test x$TARGET_OS = xdarwin; then
+         PKG_CHECK_MODULES([QTPRINT], [Qt5PrintSupport], [QT_LIBS="$QTPRINT_LIBS $QT_LIBS"])
+       fi
+     ])
+     else
+       if test x$TARGET_OS = xwindows; then
+         AC_CACHE_CHECK(for Qt >= 5.6, bitcoin_cv_need_platformsupport,[AC_COMPILE_IFELSE([AC_LANG_PROGRAM(
+             [[#include <QtCore>]],[[
+             #if QT_VERSION < 0x050600
+             choke;
+             #endif
+             ]])],
+           [bitcoin_cv_need_platformsupport=yes],
+           [bitcoin_cv_need_platformsupport=no])
+         ])
+         if test x$bitcoin_cv_need_platformsupport = xyes; then
+           BITCOIN_QT_CHECK(AC_CHECK_LIB([${QT_LIB_PREFIX}PlatformSupport],[main],,BITCOIN_QT_FAIL(lib$QT_LIB_PREFIXPlatformSupport not found)))
+         fi
+       fi
+     fi
+  else
+    if test x$qt_plugin_path != x; then
+      QT_LIBS="$QT_LIBS -L$qt_plugin_path/accessible"
+      QT_LIBS="$QT_LIBS -L$qt_plugin_path/codecs"
+    fi
+  fi
+])
+m4trace:build-aux/m4/bitcoin_qt.m4:542: -1- AC_DEFUN([_BITCOIN_QT_FIND_LIBS_WITH_PKGCONFIG], [
+  m4_ifdef([PKG_CHECK_MODULES],[
+  auto_priority_version=$1
+  if test x$auto_priority_version = x; then
+    auto_priority_version=qt5
+  fi
+    if test x$bitcoin_qt_want_version = xqt5 ||  ( test x$bitcoin_qt_want_version = xauto && test x$auto_priority_version = xqt5 ); then
+      QT_LIB_PREFIX=Qt5
+      bitcoin_qt_got_major_vers=5
+    else
+      QT_LIB_PREFIX=Qt
+      bitcoin_qt_got_major_vers=4
+    fi
+    qt5_modules="Qt5Core Qt5Gui Qt5Network Qt5Widgets"
+    qt4_modules="QtCore QtGui QtNetwork"
+    BITCOIN_QT_CHECK([
+      if test x$bitcoin_qt_want_version = xqt5 || ( test x$bitcoin_qt_want_version = xauto && test x$auto_priority_version = xqt5 ); then
+        PKG_CHECK_MODULES([QT], [$qt5_modules], [QT_INCLUDES="$QT_CFLAGS"; have_qt=yes],[have_qt=no])
+      elif test x$bitcoin_qt_want_version = xqt4 || ( test x$bitcoin_qt_want_version = xauto && test x$auto_priority_version = xqt4 ); then
+        PKG_CHECK_MODULES([QT], [$qt4_modules], [QT_INCLUDES="$QT_CFLAGS"; have_qt=yes], [have_qt=no])
+      fi
+
+      dnl qt version is set to 'auto' and the preferred version wasn't found. Now try the other.
+      if test x$have_qt = xno && test x$bitcoin_qt_want_version = xauto; then
+        if test x$auto_priority_version = xqt5; then
+          PKG_CHECK_MODULES([QT], [$qt4_modules], [QT_INCLUDES="$QT_CFLAGS"; have_qt=yes; QT_LIB_PREFIX=Qt; bitcoin_qt_got_major_vers=4], [have_qt=no])
+        else
+          PKG_CHECK_MODULES([QT], [$qt5_modules], [QT_INCLUDES="$QT_CFLAGS"; have_qt=yes; QT_LIB_PREFIX=Qt5; bitcoin_qt_got_major_vers=5], [have_qt=no])
+        fi
+      fi
+      if test x$have_qt != xyes; then
+        have_qt=no
+        BITCOIN_QT_FAIL([Qt dependencies not found])
+      fi
+    ])
+    BITCOIN_QT_CHECK([
+      PKG_CHECK_MODULES([QT_TEST], [${QT_LIB_PREFIX}Test], [QT_TEST_INCLUDES="$QT_TEST_CFLAGS"; have_qt_test=yes], [have_qt_test=no])
+      if test x$use_dbus != xno; then
+        PKG_CHECK_MODULES([QT_DBUS], [${QT_LIB_PREFIX}DBus], [QT_DBUS_INCLUDES="$QT_DBUS_CFLAGS"; have_qt_dbus=yes], [have_qt_dbus=no])
+      fi
+    ])
+  ])
+  true; dnl
+])
+m4trace:build-aux/m4/bitcoin_qt.m4:594: -1- AC_DEFUN([_BITCOIN_QT_FIND_LIBS_WITHOUT_PKGCONFIG], [
+  TEMP_CPPFLAGS="$CPPFLAGS"
+  TEMP_CXXFLAGS="$CXXFLAGS"
+  CXXFLAGS="$PIC_FLAGS $CXXFLAGS"
+  TEMP_LIBS="$LIBS"
+  BITCOIN_QT_CHECK([
+    if test x$qt_include_path != x; then
+      QT_INCLUDES="-I$qt_include_path -I$qt_include_path/QtCore -I$qt_include_path/QtGui -I$qt_include_path/QtWidgets -I$qt_include_path/QtNetwork -I$qt_include_path/QtTest -I$qt_include_path/QtDBus"
+      CPPFLAGS="$QT_INCLUDES $CPPFLAGS"
+    fi
+  ])
+
+  BITCOIN_QT_CHECK([AC_CHECK_HEADER([QtPlugin],,BITCOIN_QT_FAIL(QtCore headers missing))])
+  BITCOIN_QT_CHECK([AC_CHECK_HEADER([QApplication],, BITCOIN_QT_FAIL(QtGui headers missing))])
+  BITCOIN_QT_CHECK([AC_CHECK_HEADER([QLocalSocket],, BITCOIN_QT_FAIL(QtNetwork headers missing))])
+
+  BITCOIN_QT_CHECK([
+    if test x$bitcoin_qt_want_version = xauto; then
+      _BITCOIN_QT_CHECK_QT5
+    fi
+    if test x$bitcoin_cv_qt5 = xyes || test x$bitcoin_qt_want_version = xqt5; then
+      QT_LIB_PREFIX=Qt5
+      bitcoin_qt_got_major_vers=5
+    else
+      QT_LIB_PREFIX=Qt
+      bitcoin_qt_got_major_vers=4
+    fi
+  ])
+
+  BITCOIN_QT_CHECK([
+    LIBS=
+    if test x$qt_lib_path != x; then
+      LIBS="$LIBS -L$qt_lib_path"
+    fi
+
+    if test x$TARGET_OS = xwindows; then
+      AC_CHECK_LIB([imm32],      [main],, BITCOIN_QT_FAIL(libimm32 not found))
+    fi
+  ])
+
+  BITCOIN_QT_CHECK(AC_CHECK_LIB([z] ,[main],,AC_MSG_WARN([zlib not found. Assuming qt has it built-in])))
+  BITCOIN_QT_CHECK(AC_SEARCH_LIBS([png_error] ,[qtpng png],,AC_MSG_WARN([libpng not found. Assuming qt has it built-in])))
+  BITCOIN_QT_CHECK(AC_SEARCH_LIBS([jpeg_create_decompress] ,[qtjpeg jpeg],,AC_MSG_WARN([libjpeg not found. Assuming qt has it built-in])))
+  BITCOIN_QT_CHECK(AC_SEARCH_LIBS([pcre16_exec], [qtpcre pcre16],,AC_MSG_WARN([libpcre16 not found. Assuming qt has it built-in])))
+  BITCOIN_QT_CHECK(AC_SEARCH_LIBS([hb_ot_tags_from_script] ,[qtharfbuzzng harfbuzz],,AC_MSG_WARN([libharfbuzz not found. Assuming qt has it built-in or support is disabled])))
+  BITCOIN_QT_CHECK(AC_CHECK_LIB([${QT_LIB_PREFIX}Core]   ,[main],,BITCOIN_QT_FAIL(lib$QT_LIB_PREFIXCore not found)))
+  BITCOIN_QT_CHECK(AC_CHECK_LIB([${QT_LIB_PREFIX}Gui]    ,[main],,BITCOIN_QT_FAIL(lib$QT_LIB_PREFIXGui not found)))
+  BITCOIN_QT_CHECK(AC_CHECK_LIB([${QT_LIB_PREFIX}Network],[main],,BITCOIN_QT_FAIL(lib$QT_LIB_PREFIXNetwork not found)))
+  if test x$bitcoin_qt_got_major_vers = x5; then
+    BITCOIN_QT_CHECK(AC_CHECK_LIB([${QT_LIB_PREFIX}Widgets],[main],,BITCOIN_QT_FAIL(lib$QT_LIB_PREFIXWidgets not found)))
+  fi
+  QT_LIBS="$LIBS"
+  LIBS="$TEMP_LIBS"
+
+  BITCOIN_QT_CHECK([
+    LIBS=
+    if test x$qt_lib_path != x; then
+      LIBS="-L$qt_lib_path"
+    fi
+    AC_CHECK_LIB([${QT_LIB_PREFIX}Test],      [main],, have_qt_test=no)
+    AC_CHECK_HEADER([QTest],, have_qt_test=no)
+    QT_TEST_LIBS="$LIBS"
+    if test x$use_dbus != xno; then
+      LIBS=
+      if test x$qt_lib_path != x; then
+        LIBS="-L$qt_lib_path"
+      fi
+      AC_CHECK_LIB([${QT_LIB_PREFIX}DBus],      [main],, have_qt_dbus=no)
+      AC_CHECK_HEADER([QtDBus],, have_qt_dbus=no)
+      QT_DBUS_LIBS="$LIBS"
+    fi
+  ])
+  CPPFLAGS="$TEMP_CPPFLAGS"
+  CXXFLAGS="$TEMP_CXXFLAGS"
   LIBS="$TEMP_LIBS"
 ])
 m4trace:build-aux/m4/bitcoin_subdir_to_include.m4:3: -1- AC_DEFUN([BITCOIN_SUBDIR_TO_INCLUDE], [
@@ -3794,7 +4613,7 @@ m4trace:configure.ac:524: -1- BITCOIN_QT_CHECK([
 
       dnl qt version is set to 'auto' and the preferred version wasn't found. Now try the other.
       if test x$have_qt = xno && test x$bitcoin_qt_want_version = xauto; then
-        if test x$auto_priority_version = x$qt5; then
+        if test x$auto_priority_version = xqt5; then
           PKG_CHECK_MODULES([QT], [$qt4_modules], [QT_INCLUDES="$QT_CFLAGS"; have_qt=yes; QT_LIB_PREFIX=Qt; bitcoin_qt_got_major_vers=4], [have_qt=no])
         else
           PKG_CHECK_MODULES([QT], [$qt5_modules], [QT_INCLUDES="$QT_CFLAGS"; have_qt=yes; QT_LIB_PREFIX=Qt5; bitcoin_qt_got_major_vers=5], [have_qt=no])
@@ -3944,139 +4763,240 @@ else
 $as_echo "$as_me: WARNING: zlib not found. Assuming qt has it built-in" >&2;}
 fi
 ])
-m4trace:configure.ac:524: -2- m4_pattern_allow([^HAVE_LIBPNG_$])
-m4trace:configure.ac:524: -1- BITCOIN_QT_CHECK([as_ac_Lib=`$as_echo "ac_cv_lib_png ''_main" | $as_tr_sh`
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for main in -lpng " >&5
-$as_echo_n "checking for main in -lpng ... " >&6; }
-if eval \${$as_ac_Lib+:} false; then :
+m4trace:configure.ac:524: -1- BITCOIN_QT_CHECK([{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for library containing png_error " >&5
+$as_echo_n "checking for library containing png_error ... " >&6; }
+if ${ac_cv_search_png_error_+:} false; then :
   $as_echo_n "(cached) " >&6
 else
-  ac_check_lib_save_LIBS=$LIBS
-LIBS="-lpng   $LIBS"
+  ac_func_search_save_LIBS=$LIBS
 cat confdefs.h - <<_ACEOF >conftest.$ac_ext
 /* end confdefs.h.  */
 
-
+/* Override any GCC internal prototype to avoid an error.
+   Use char because int might match the return type of a GCC
+   builtin and then its argument prototype would still apply.  */
+#ifdef __cplusplus
+extern "C"
+#endif
+char png_error  ();
 int
 main ()
 {
-return main ();
+return png_error  ();
   ;
   return 0;
 }
 _ACEOF
-if ac_fn_cxx_try_link "$LINENO"; then :
-  eval "$as_ac_Lib=yes"
-else
-  eval "$as_ac_Lib=no"
+for ac_lib in '' qtpng png; do
+  if test -z "$ac_lib"; then
+    ac_res="none required"
+  else
+    ac_res=-l$ac_lib
+    LIBS="-l$ac_lib  $ac_func_search_save_LIBS"
+  fi
+  if ac_fn_cxx_try_link "$LINENO"; then :
+  ac_cv_search_png_error_=$ac_res
 fi
 rm -f core conftest.err conftest.$ac_objext \
-    conftest$ac_exeext conftest.$ac_ext
-LIBS=$ac_check_lib_save_LIBS
+    conftest$ac_exeext
+  if ${ac_cv_search_png_error_+:} false; then :
+  break
 fi
-eval ac_res=\$$as_ac_Lib
-	       { $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_res" >&5
-$as_echo "$ac_res" >&6; }
-if eval test \"x\$"$as_ac_Lib"\" = x"yes"; then :
-  cat >>confdefs.h <<_ACEOF
-@%:@define HAVE_LIBPNG_ 1
-_ACEOF
-
-  LIBS="-lpng  $LIBS"
-
+done
+if ${ac_cv_search_png_error_+:} false; then :
+  
+else
+  ac_cv_search_png_error_=no
+fi
+rm conftest.$ac_ext
+LIBS=$ac_func_search_save_LIBS
+fi
+{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_search_png_error_" >&5
+$as_echo "$ac_cv_search_png_error_" >&6; }
+ac_res=$ac_cv_search_png_error_
+if test "$ac_res" != no; then :
+  test "$ac_res" = "none required" || LIBS="$ac_res $LIBS"
+  
 else
   { $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: libpng not found. Assuming qt has it built-in" >&5
 $as_echo "$as_me: WARNING: libpng not found. Assuming qt has it built-in" >&2;}
 fi
 ])
-m4trace:configure.ac:524: -2- m4_pattern_allow([^HAVE_LIBJPEG_$])
-m4trace:configure.ac:524: -1- BITCOIN_QT_CHECK([as_ac_Lib=`$as_echo "ac_cv_lib_jpeg ''_main" | $as_tr_sh`
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for main in -ljpeg " >&5
-$as_echo_n "checking for main in -ljpeg ... " >&6; }
-if eval \${$as_ac_Lib+:} false; then :
+m4trace:configure.ac:524: -1- BITCOIN_QT_CHECK([{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for library containing jpeg_create_decompress " >&5
+$as_echo_n "checking for library containing jpeg_create_decompress ... " >&6; }
+if ${ac_cv_search_jpeg_create_decompress_+:} false; then :
   $as_echo_n "(cached) " >&6
 else
-  ac_check_lib_save_LIBS=$LIBS
-LIBS="-ljpeg   $LIBS"
+  ac_func_search_save_LIBS=$LIBS
 cat confdefs.h - <<_ACEOF >conftest.$ac_ext
 /* end confdefs.h.  */
 
-
+/* Override any GCC internal prototype to avoid an error.
+   Use char because int might match the return type of a GCC
+   builtin and then its argument prototype would still apply.  */
+#ifdef __cplusplus
+extern "C"
+#endif
+char jpeg_create_decompress  ();
 int
 main ()
 {
-return main ();
+return jpeg_create_decompress  ();
   ;
   return 0;
 }
 _ACEOF
-if ac_fn_cxx_try_link "$LINENO"; then :
-  eval "$as_ac_Lib=yes"
-else
-  eval "$as_ac_Lib=no"
+for ac_lib in '' qtjpeg jpeg; do
+  if test -z "$ac_lib"; then
+    ac_res="none required"
+  else
+    ac_res=-l$ac_lib
+    LIBS="-l$ac_lib  $ac_func_search_save_LIBS"
+  fi
+  if ac_fn_cxx_try_link "$LINENO"; then :
+  ac_cv_search_jpeg_create_decompress_=$ac_res
 fi
 rm -f core conftest.err conftest.$ac_objext \
-    conftest$ac_exeext conftest.$ac_ext
-LIBS=$ac_check_lib_save_LIBS
+    conftest$ac_exeext
+  if ${ac_cv_search_jpeg_create_decompress_+:} false; then :
+  break
 fi
-eval ac_res=\$$as_ac_Lib
-	       { $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_res" >&5
-$as_echo "$ac_res" >&6; }
-if eval test \"x\$"$as_ac_Lib"\" = x"yes"; then :
-  cat >>confdefs.h <<_ACEOF
-@%:@define HAVE_LIBJPEG_ 1
-_ACEOF
-
-  LIBS="-ljpeg  $LIBS"
-
+done
+if ${ac_cv_search_jpeg_create_decompress_+:} false; then :
+  
+else
+  ac_cv_search_jpeg_create_decompress_=no
+fi
+rm conftest.$ac_ext
+LIBS=$ac_func_search_save_LIBS
+fi
+{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_search_jpeg_create_decompress_" >&5
+$as_echo "$ac_cv_search_jpeg_create_decompress_" >&6; }
+ac_res=$ac_cv_search_jpeg_create_decompress_
+if test "$ac_res" != no; then :
+  test "$ac_res" = "none required" || LIBS="$ac_res $LIBS"
+  
 else
   { $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: libjpeg not found. Assuming qt has it built-in" >&5
 $as_echo "$as_me: WARNING: libjpeg not found. Assuming qt has it built-in" >&2;}
 fi
 ])
-m4trace:configure.ac:524: -2- m4_pattern_allow([^HAVE_LIBPCRE16_$])
-m4trace:configure.ac:524: -1- BITCOIN_QT_CHECK([as_ac_Lib=`$as_echo "ac_cv_lib_pcre16 ''_main" | $as_tr_sh`
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for main in -lpcre16 " >&5
-$as_echo_n "checking for main in -lpcre16 ... " >&6; }
-if eval \${$as_ac_Lib+:} false; then :
+m4trace:configure.ac:524: -1- BITCOIN_QT_CHECK([{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for library containing pcre16_exec" >&5
+$as_echo_n "checking for library containing pcre16_exec... " >&6; }
+if ${ac_cv_search_pcre16_exec+:} false; then :
   $as_echo_n "(cached) " >&6
 else
-  ac_check_lib_save_LIBS=$LIBS
-LIBS="-lpcre16   $LIBS"
+  ac_func_search_save_LIBS=$LIBS
 cat confdefs.h - <<_ACEOF >conftest.$ac_ext
 /* end confdefs.h.  */
 
-
+/* Override any GCC internal prototype to avoid an error.
+   Use char because int might match the return type of a GCC
+   builtin and then its argument prototype would still apply.  */
+#ifdef __cplusplus
+extern "C"
+#endif
+char pcre16_exec ();
 int
 main ()
 {
-return main ();
+return pcre16_exec ();
   ;
   return 0;
 }
 _ACEOF
-if ac_fn_cxx_try_link "$LINENO"; then :
-  eval "$as_ac_Lib=yes"
-else
-  eval "$as_ac_Lib=no"
+for ac_lib in '' qtpcre pcre16; do
+  if test -z "$ac_lib"; then
+    ac_res="none required"
+  else
+    ac_res=-l$ac_lib
+    LIBS="-l$ac_lib  $ac_func_search_save_LIBS"
+  fi
+  if ac_fn_cxx_try_link "$LINENO"; then :
+  ac_cv_search_pcre16_exec=$ac_res
 fi
 rm -f core conftest.err conftest.$ac_objext \
-    conftest$ac_exeext conftest.$ac_ext
-LIBS=$ac_check_lib_save_LIBS
+    conftest$ac_exeext
+  if ${ac_cv_search_pcre16_exec+:} false; then :
+  break
 fi
-eval ac_res=\$$as_ac_Lib
-	       { $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_res" >&5
-$as_echo "$ac_res" >&6; }
-if eval test \"x\$"$as_ac_Lib"\" = x"yes"; then :
-  cat >>confdefs.h <<_ACEOF
-@%:@define HAVE_LIBPCRE16_ 1
-_ACEOF
-
-  LIBS="-lpcre16  $LIBS"
-
+done
+if ${ac_cv_search_pcre16_exec+:} false; then :
+  
+else
+  ac_cv_search_pcre16_exec=no
+fi
+rm conftest.$ac_ext
+LIBS=$ac_func_search_save_LIBS
+fi
+{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_search_pcre16_exec" >&5
+$as_echo "$ac_cv_search_pcre16_exec" >&6; }
+ac_res=$ac_cv_search_pcre16_exec
+if test "$ac_res" != no; then :
+  test "$ac_res" = "none required" || LIBS="$ac_res $LIBS"
+  
 else
   { $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: libpcre16 not found. Assuming qt has it built-in" >&5
 $as_echo "$as_me: WARNING: libpcre16 not found. Assuming qt has it built-in" >&2;}
+fi
+])
+m4trace:configure.ac:524: -1- BITCOIN_QT_CHECK([{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for library containing hb_ot_tags_from_script " >&5
+$as_echo_n "checking for library containing hb_ot_tags_from_script ... " >&6; }
+if ${ac_cv_search_hb_ot_tags_from_script_+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+  ac_func_search_save_LIBS=$LIBS
+cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+
+/* Override any GCC internal prototype to avoid an error.
+   Use char because int might match the return type of a GCC
+   builtin and then its argument prototype would still apply.  */
+#ifdef __cplusplus
+extern "C"
+#endif
+char hb_ot_tags_from_script  ();
+int
+main ()
+{
+return hb_ot_tags_from_script  ();
+  ;
+  return 0;
+}
+_ACEOF
+for ac_lib in '' qtharfbuzzng harfbuzz; do
+  if test -z "$ac_lib"; then
+    ac_res="none required"
+  else
+    ac_res=-l$ac_lib
+    LIBS="-l$ac_lib  $ac_func_search_save_LIBS"
+  fi
+  if ac_fn_cxx_try_link "$LINENO"; then :
+  ac_cv_search_hb_ot_tags_from_script_=$ac_res
+fi
+rm -f core conftest.err conftest.$ac_objext \
+    conftest$ac_exeext
+  if ${ac_cv_search_hb_ot_tags_from_script_+:} false; then :
+  break
+fi
+done
+if ${ac_cv_search_hb_ot_tags_from_script_+:} false; then :
+  
+else
+  ac_cv_search_hb_ot_tags_from_script_=no
+fi
+rm conftest.$ac_ext
+LIBS=$ac_func_search_save_LIBS
+fi
+{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_search_hb_ot_tags_from_script_" >&5
+$as_echo "$ac_cv_search_hb_ot_tags_from_script_" >&6; }
+ac_res=$ac_cv_search_hb_ot_tags_from_script_
+if test "$ac_res" != no; then :
+  test "$ac_res" = "none required" || LIBS="$ac_res $LIBS"
+  
+else
+  { $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: libharfbuzz not found. Assuming qt has it built-in or support is disabled" >&5
+$as_echo "$as_me: WARNING: libharfbuzz not found. Assuming qt has it built-in or support is disabled" >&2;}
 fi
 ])
 m4trace:configure.ac:524: -3- BITCOIN_QT_FAIL([lib$QT_LIB_PREFIXCore not found])
@@ -4315,30 +5235,35 @@ m4trace:configure.ac:524: -1- BITCOIN_QT_CHECK([
   ])
 m4trace:configure.ac:524: -1- BITCOIN_QT_CHECK([
   TEMP_CPPFLAGS=$CPPFLAGS
-  CPPFLAGS=$QT_INCLUDES
+  TEMP_CXXFLAGS=$CXXFLAGS
+  CPPFLAGS="$QT_INCLUDES $CPPFLAGS"
+  CXXFLAGS="$PIC_FLAGS $CXXFLAGS"
   if test x$bitcoin_qt_got_major_vers = x5; then
     _BITCOIN_QT_IS_STATIC
     if test x$bitcoin_cv_static_qt = xyes; then
+      _BITCOIN_QT_FIND_STATIC_PLUGINS
       AC_DEFINE(QT_STATICPLUGIN, 1, [Define this symbol if qt plugins are static])
-      if test x$qt_plugin_path != x; then
-        QT_LIBS="$QT_LIBS -L$qt_plugin_path/accessible"
-        QT_LIBS="$QT_LIBS -L$qt_plugin_path/platforms"
+      AC_CACHE_CHECK(for Qt < 5.4, bitcoin_cv_need_acc_widget,[AC_COMPILE_IFELSE([AC_LANG_PROGRAM(
+          [[#include <QtCore>]],[[
+          #if QT_VERSION >= 0x050400
+          choke;
+          #endif
+          ]])],
+        [bitcoin_cv_need_acc_widget=yes],
+        [bitcoin_cv_need_acc_widget=no])
+      ])
+      if test "x$bitcoin_cv_need_acc_widget" = "xyes"; then
+        _BITCOIN_QT_CHECK_STATIC_PLUGINS([Q_IMPORT_PLUGIN(AccessibleFactory)], [-lqtaccessiblewidgets])
       fi
-      if test x$use_pkgconfig = xyes; then
-        PKG_CHECK_MODULES([QTPLATFORM], [Qt5PlatformSupport], [QT_LIBS="$QTPLATFORM_LIBS $QT_LIBS"])
-      fi
-      _BITCOIN_QT_CHECK_STATIC_PLUGINS([Q_IMPORT_PLUGIN(AccessibleFactory)], [-lqtaccessiblewidgets])
+      _BITCOIN_QT_CHECK_STATIC_PLUGINS([Q_IMPORT_PLUGIN(QMinimalIntegrationPlugin)],[-lqminimal])
+      AC_DEFINE(QT_QPA_PLATFORM_MINIMAL, 1, [Define this symbol if the minimal qt platform exists])
       if test x$TARGET_OS = xwindows; then
         _BITCOIN_QT_CHECK_STATIC_PLUGINS([Q_IMPORT_PLUGIN(QWindowsIntegrationPlugin)],[-lqwindows])
         AC_DEFINE(QT_QPA_PLATFORM_WINDOWS, 1, [Define this symbol if the qt platform is windows])
       elif test x$TARGET_OS = xlinux; then
-        PKG_CHECK_MODULES([X11XCB], [x11-xcb], [QT_LIBS="$X11XCB_LIBS $QT_LIBS"])
         _BITCOIN_QT_CHECK_STATIC_PLUGINS([Q_IMPORT_PLUGIN(QXcbIntegrationPlugin)],[-lqxcb -lxcb-static])
         AC_DEFINE(QT_QPA_PLATFORM_XCB, 1, [Define this symbol if the qt platform is xcb])
       elif test x$TARGET_OS = xdarwin; then
-        if test x$use_pkgconfig = xyes; then
-          PKG_CHECK_MODULES([QTPRINT], [Qt5PrintSupport], [QT_LIBS="$QTPRINT_LIBS $QT_LIBS"])
-        fi
         AX_CHECK_LINK_FLAG([[-framework IOKit]],[QT_LIBS="$QT_LIBS -framework IOKit"],[AC_MSG_ERROR(could not iokit framework)])
         _BITCOIN_QT_CHECK_STATIC_PLUGINS([Q_IMPORT_PLUGIN(QCocoaIntegrationPlugin)],[-lqcocoa])
         AC_DEFINE(QT_QPA_PLATFORM_COCOA, 1, [Define this symbol if the qt platform is cocoa])
@@ -4347,10 +5272,6 @@ m4trace:configure.ac:524: -1- BITCOIN_QT_CHECK([
   else
     if test x$TARGET_OS = xwindows; then
       AC_DEFINE(QT_STATICPLUGIN, 1, [Define this symbol if qt plugins are static])
-      if test x$qt_plugin_path != x; then
-        QT_LIBS="$QT_LIBS -L$qt_plugin_path/accessible"
-        QT_LIBS="$QT_LIBS -L$qt_plugin_path/codecs"
-      fi
       _BITCOIN_QT_CHECK_STATIC_PLUGINS([
          Q_IMPORT_PLUGIN(qcncodecs)
          Q_IMPORT_PLUGIN(qjpcodecs)
@@ -4361,10 +5282,11 @@ m4trace:configure.ac:524: -1- BITCOIN_QT_CHECK([
     fi
   fi
   CPPFLAGS=$TEMP_CPPFLAGS
+  CXXFLAGS=$TEMP_CXXFLAGS
   ])
 m4trace:configure.ac:524: -1- _BITCOIN_QT_IS_STATIC
 m4trace:configure.ac:524: -1- m4_pattern_allow([^QT_STATICPLUGIN$])
-m4trace:configure.ac:524: -1- m4_pattern_allow([^QT_STATICPLUGIN$])
+m4trace:configure.ac:524: -1- _BITCOIN_QT_FIND_STATIC_PLUGINS
 m4trace:configure.ac:524: -1- PKG_CHECK_MODULES([QTPLATFORM], [Qt5PlatformSupport], [QT_LIBS="$QTPLATFORM_LIBS $QT_LIBS"])
 m4trace:configure.ac:524: -1- m4_pattern_allow([^QTPLATFORM_CFLAGS$])
 m4trace:configure.ac:524: -1- m4_pattern_allow([^QTPLATFORM_LIBS$])
@@ -4373,11 +5295,6 @@ m4trace:configure.ac:524: -1- PKG_CHECK_EXISTS([Qt5PlatformSupport], [pkg_cv_[]Q
 m4trace:configure.ac:524: -1- PKG_CHECK_EXISTS([Qt5PlatformSupport], [pkg_cv_[]QTPLATFORM_LIBS=`$PKG_CONFIG --[]libs "Qt5PlatformSupport" 2>/dev/null`
 		      test "x$?" != "x0" && pkg_failed=yes ], [pkg_failed=yes])
 m4trace:configure.ac:524: -1- _PKG_SHORT_ERRORS_SUPPORTED
-m4trace:configure.ac:524: -1- _BITCOIN_QT_CHECK_STATIC_PLUGINS([Q_IMPORT_PLUGIN(AccessibleFactory)], [-lqtaccessiblewidgets])
-m4trace:configure.ac:524: -1- BITCOIN_QT_FAIL([Could not resolve: -lqtaccessiblewidgets])
-m4trace:configure.ac:524: -1- _BITCOIN_QT_CHECK_STATIC_PLUGINS([Q_IMPORT_PLUGIN(QWindowsIntegrationPlugin)], [-lqwindows])
-m4trace:configure.ac:524: -1- BITCOIN_QT_FAIL([Could not resolve: -lqwindows])
-m4trace:configure.ac:524: -1- m4_pattern_allow([^QT_QPA_PLATFORM_WINDOWS$])
 m4trace:configure.ac:524: -1- PKG_CHECK_MODULES([X11XCB], [x11-xcb], [QT_LIBS="$X11XCB_LIBS $QT_LIBS"])
 m4trace:configure.ac:524: -1- m4_pattern_allow([^X11XCB_CFLAGS$])
 m4trace:configure.ac:524: -1- m4_pattern_allow([^X11XCB_LIBS$])
@@ -4386,9 +5303,14 @@ m4trace:configure.ac:524: -1- PKG_CHECK_EXISTS([x11-xcb], [pkg_cv_[]X11XCB_CFLAG
 m4trace:configure.ac:524: -1- PKG_CHECK_EXISTS([x11-xcb], [pkg_cv_[]X11XCB_LIBS=`$PKG_CONFIG --[]libs "x11-xcb" 2>/dev/null`
 		      test "x$?" != "x0" && pkg_failed=yes ], [pkg_failed=yes])
 m4trace:configure.ac:524: -1- _PKG_SHORT_ERRORS_SUPPORTED
-m4trace:configure.ac:524: -1- _BITCOIN_QT_CHECK_STATIC_PLUGINS([Q_IMPORT_PLUGIN(QXcbIntegrationPlugin)], [-lqxcb -lxcb-static])
-m4trace:configure.ac:524: -1- BITCOIN_QT_FAIL([Could not resolve: -lqxcb -lxcb-static])
-m4trace:configure.ac:524: -1- m4_pattern_allow([^QT_QPA_PLATFORM_XCB$])
+m4trace:configure.ac:524: -1- PKG_CHECK_MODULES([QTXCBQPA], [Qt5XcbQpa], [QT_LIBS="$QTXCBQPA_LIBS $QT_LIBS"])
+m4trace:configure.ac:524: -1- m4_pattern_allow([^QTXCBQPA_CFLAGS$])
+m4trace:configure.ac:524: -1- m4_pattern_allow([^QTXCBQPA_LIBS$])
+m4trace:configure.ac:524: -1- PKG_CHECK_EXISTS([Qt5XcbQpa], [pkg_cv_[]QTXCBQPA_CFLAGS=`$PKG_CONFIG --[]cflags "Qt5XcbQpa" 2>/dev/null`
+		      test "x$?" != "x0" && pkg_failed=yes ], [pkg_failed=yes])
+m4trace:configure.ac:524: -1- PKG_CHECK_EXISTS([Qt5XcbQpa], [pkg_cv_[]QTXCBQPA_LIBS=`$PKG_CONFIG --[]libs "Qt5XcbQpa" 2>/dev/null`
+		      test "x$?" != "x0" && pkg_failed=yes ], [pkg_failed=yes])
+m4trace:configure.ac:524: -1- _PKG_SHORT_ERRORS_SUPPORTED
 m4trace:configure.ac:524: -1- PKG_CHECK_MODULES([QTPRINT], [Qt5PrintSupport], [QT_LIBS="$QTPRINT_LIBS $QT_LIBS"])
 m4trace:configure.ac:524: -1- m4_pattern_allow([^QTPRINT_CFLAGS$])
 m4trace:configure.ac:524: -1- m4_pattern_allow([^QTPRINT_LIBS$])
@@ -4397,6 +5319,72 @@ m4trace:configure.ac:524: -1- PKG_CHECK_EXISTS([Qt5PrintSupport], [pkg_cv_[]QTPR
 m4trace:configure.ac:524: -1- PKG_CHECK_EXISTS([Qt5PrintSupport], [pkg_cv_[]QTPRINT_LIBS=`$PKG_CONFIG --[]libs "Qt5PrintSupport" 2>/dev/null`
 		      test "x$?" != "x0" && pkg_failed=yes ], [pkg_failed=yes])
 m4trace:configure.ac:524: -1- _PKG_SHORT_ERRORS_SUPPORTED
+m4trace:configure.ac:524: -3- BITCOIN_QT_FAIL([lib$QT_LIB_PREFIXPlatformSupport not found])
+m4trace:configure.ac:524: -1- BITCOIN_QT_CHECK([as_ac_Lib=`$as_echo "ac_cv_lib_${QT_LIB_PREFIX}PlatformSupport''_main" | $as_tr_sh`
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for main in -l${QT_LIB_PREFIX}PlatformSupport" >&5
+$as_echo_n "checking for main in -l${QT_LIB_PREFIX}PlatformSupport... " >&6; }
+if eval \${$as_ac_Lib+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+  ac_check_lib_save_LIBS=$LIBS
+LIBS="-l${QT_LIB_PREFIX}PlatformSupport  $LIBS"
+cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+
+
+int
+main ()
+{
+return main ();
+  ;
+  return 0;
+}
+_ACEOF
+if ac_fn_cxx_try_link "$LINENO"; then :
+  eval "$as_ac_Lib=yes"
+else
+  eval "$as_ac_Lib=no"
+fi
+rm -f core conftest.err conftest.$ac_objext \
+    conftest$ac_exeext conftest.$ac_ext
+LIBS=$ac_check_lib_save_LIBS
+fi
+eval ac_res=\$$as_ac_Lib
+	       { $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_res" >&5
+$as_echo "$ac_res" >&6; }
+if eval test \"x\$"$as_ac_Lib"\" = x"yes"; then :
+  cat >>confdefs.h <<_ACEOF
+@%:@define `$as_echo "HAVE_LIB${QT_LIB_PREFIX}PlatformSupport" | $as_tr_cpp` 1
+_ACEOF
+
+  LIBS="-l${QT_LIB_PREFIX}PlatformSupport $LIBS"
+
+else
+  
+  if test "x$bitcoin_qt_want_version" = "xauto" && test x$bitcoin_qt_force != xyes; then
+    if test x$bitcoin_enable_qt != xno; then
+      { $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: lib$QT_LIB_PREFIXPlatformSupport not found; bitcoin-qt frontend will not be built" >&5
+$as_echo "$as_me: WARNING: lib$QT_LIB_PREFIXPlatformSupport not found; bitcoin-qt frontend will not be built" >&2;}
+    fi
+    bitcoin_enable_qt=no
+  else
+    as_fn_error $? "lib$QT_LIB_PREFIXPlatformSupport not found" "$LINENO" 5
+  fi
+
+fi
+])
+m4trace:configure.ac:524: -1- m4_pattern_allow([^QT_STATICPLUGIN$])
+m4trace:configure.ac:524: -1- _BITCOIN_QT_CHECK_STATIC_PLUGINS([Q_IMPORT_PLUGIN(AccessibleFactory)], [-lqtaccessiblewidgets])
+m4trace:configure.ac:524: -1- BITCOIN_QT_FAIL([Could not resolve: -lqtaccessiblewidgets])
+m4trace:configure.ac:524: -1- _BITCOIN_QT_CHECK_STATIC_PLUGINS([Q_IMPORT_PLUGIN(QMinimalIntegrationPlugin)], [-lqminimal])
+m4trace:configure.ac:524: -1- BITCOIN_QT_FAIL([Could not resolve: -lqminimal])
+m4trace:configure.ac:524: -1- m4_pattern_allow([^QT_QPA_PLATFORM_MINIMAL$])
+m4trace:configure.ac:524: -1- _BITCOIN_QT_CHECK_STATIC_PLUGINS([Q_IMPORT_PLUGIN(QWindowsIntegrationPlugin)], [-lqwindows])
+m4trace:configure.ac:524: -1- BITCOIN_QT_FAIL([Could not resolve: -lqwindows])
+m4trace:configure.ac:524: -1- m4_pattern_allow([^QT_QPA_PLATFORM_WINDOWS$])
+m4trace:configure.ac:524: -1- _BITCOIN_QT_CHECK_STATIC_PLUGINS([Q_IMPORT_PLUGIN(QXcbIntegrationPlugin)], [-lqxcb -lxcb-static])
+m4trace:configure.ac:524: -1- BITCOIN_QT_FAIL([Could not resolve: -lqxcb -lxcb-static])
+m4trace:configure.ac:524: -1- m4_pattern_allow([^QT_QPA_PLATFORM_XCB$])
 m4trace:configure.ac:524: -1- AX_CHECK_LINK_FLAG([[-framework IOKit]], [QT_LIBS="$QT_LIBS -framework IOKit"], [AC_MSG_ERROR(could not iokit framework)])
 m4trace:configure.ac:524: -1- _BITCOIN_QT_CHECK_STATIC_PLUGINS([Q_IMPORT_PLUGIN(QCocoaIntegrationPlugin)], [-lqcocoa])
 m4trace:configure.ac:524: -1- BITCOIN_QT_FAIL([Could not resolve: -lqcocoa])

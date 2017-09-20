@@ -16,10 +16,10 @@
 
 
 
-pkgdatadir = $(datadir)/safecoin
-pkgincludedir = $(includedir)/safecoin
-pkglibdir = $(libdir)/safecoin
-pkglibexecdir = $(libexecdir)/safecoin
+pkgdatadir = $(datadir)/bitcoin
+pkgincludedir = $(includedir)/bitcoin
+pkglibdir = $(libdir)/bitcoin
+pkglibexecdir = $(libexecdir)/bitcoin
 am__cd = CDPATH="$${ZSH_VERSION+.}$(PATH_SEPARATOR)" && cd
 install_sh_DATA = $(install_sh) -c -m 644
 install_sh_PROGRAM = $(install_sh) -c
@@ -141,13 +141,13 @@ distuninstallcheck_listfiles = find . -type f -print
 am__distuninstallcheck_listfiles = $(distuninstallcheck_listfiles) \
   | sed 's|^\./|$(prefix)/|' | grep -v '$(infodir)/dir$$'
 distcleancheck_listfiles = find . -type f -print
-ACLOCAL = ${SHELL} /home/ntrung/PROJ/GLB/BitcoreFullNode/safecoin-0.10/build-aux/missing --run aclocal-1.11
+ACLOCAL = ${SHELL} /home/ntrung/PROJ/GLB/FlashcoinBlockChain/FlashcoinD/flashcoin-mining-jim/build-aux/missing --run aclocal-1.11
 AMTAR = $${TAR-tar}
 AM_DEFAULT_VERBOSITY = 0
 AR = /usr/bin/ar
-AUTOCONF = ${SHELL} /home/ntrung/PROJ/GLB/BitcoreFullNode/safecoin-0.10/build-aux/missing --run autoconf
-AUTOHEADER = ${SHELL} /home/ntrung/PROJ/GLB/BitcoreFullNode/safecoin-0.10/build-aux/missing --run autoheader
-AUTOMAKE = ${SHELL} /home/ntrung/PROJ/GLB/BitcoreFullNode/safecoin-0.10/build-aux/missing --run automake-1.11
+AUTOCONF = ${SHELL} /home/ntrung/PROJ/GLB/FlashcoinBlockChain/FlashcoinD/flashcoin-mining-jim/build-aux/missing --run autoconf
+AUTOHEADER = ${SHELL} /home/ntrung/PROJ/GLB/FlashcoinBlockChain/FlashcoinD/flashcoin-mining-jim/build-aux/missing --run autoheader
+AUTOMAKE = ${SHELL} /home/ntrung/PROJ/GLB/FlashcoinBlockChain/FlashcoinD/flashcoin-mining-jim/build-aux/missing --run automake-1.11
 AWK = mawk
 BDB_CPPFLAGS = 
 BDB_LIBS = -ldb_cxx
@@ -226,7 +226,7 @@ LRELEASE = /usr/bin/lrelease-qt4
 LTLIBOBJS = 
 LUPDATE = /usr/bin/lupdate-qt4
 MAINT = 
-MAKEINFO = ${SHELL} /home/ntrung/PROJ/GLB/BitcoreFullNode/safecoin-0.10/build-aux/missing --run makeinfo
+MAKEINFO = ${SHELL} /home/ntrung/PROJ/GLB/FlashcoinBlockChain/FlashcoinD/flashcoin-mining-jim/build-aux/missing --run makeinfo
 MAKENSIS = 
 MANIFEST_TOOL = :
 MINIUPNPC_CPPFLAGS = 
@@ -242,13 +242,13 @@ OBJDUMP = objdump
 OBJEXT = o
 OTOOL = 
 OTOOL64 = 
-PACKAGE = safecoin
-PACKAGE_BUGREPORT = info@safe.cash
-PACKAGE_NAME = Safecoin Core
-PACKAGE_STRING = Safecoin Core 0.10.3.0
-PACKAGE_TARNAME = safecoin
+PACKAGE = bitcoin
+PACKAGE_BUGREPORT = info@bitcoin.org
+PACKAGE_NAME = Flashcoin Core
+PACKAGE_STRING = Flashcoin Core 0.10.3
+PACKAGE_TARNAME = bitcoin
 PACKAGE_URL = 
-PACKAGE_VERSION = 0.10.3.0
+PACKAGE_VERSION = 0.10.3
 PATH_SEPARATOR = :
 PKG_CONFIG = /usr/bin/pkg-config
 PKG_CONFIG_LIBDIR = 
@@ -266,6 +266,8 @@ QTPLATFORM_CFLAGS =
 QTPLATFORM_LIBS = 
 QTPRINT_CFLAGS = 
 QTPRINT_LIBS = 
+QTXCBQPA_CFLAGS = 
+QTXCBQPA_LIBS = 
 QT_CFLAGS = -DQT_SHARED -I/usr/include/qt4 -I/usr/include/qt4/QtCore -I/usr/include/qt4/QtGui -I/usr/include/qt4/QtNetwork  
 QT_DBUS_CFLAGS = -DQT_SHARED -I/usr/include/qt4 -I/usr/include/qt4/QtDBus -I/usr/include/qt4/QtCore -I/usr/include/qt4/QtXml  
 QT_DBUS_INCLUDES = -DQT_SHARED -I/usr/include/qt4 -I/usr/include/qt4/QtDBus -I/usr/include/qt4/QtCore -I/usr/include/qt4/QtXml  
@@ -291,16 +293,16 @@ TESTDEFS =  -DBOOST_TEST_DYN_LINK
 UIC = /usr/bin/uic-qt4
 USE_QRCODE = 
 USE_UPNP = 
-VERSION = 0.10.3.0
+VERSION = 0.10.3
 WINDOWS_BITS = 
 WINDRES = 
 X11XCB_CFLAGS = 
 X11XCB_LIBS = 
 XGETTEXT = 
-abs_builddir = /home/ntrung/PROJ/GLB/BitcoreFullNode/safecoin-0.10
-abs_srcdir = /home/ntrung/PROJ/GLB/BitcoreFullNode/safecoin-0.10
-abs_top_builddir = /home/ntrung/PROJ/GLB/BitcoreFullNode/safecoin-0.10
-abs_top_srcdir = /home/ntrung/PROJ/GLB/BitcoreFullNode/safecoin-0.10
+abs_builddir = /home/ntrung/PROJ/GLB/FlashcoinBlockChain/FlashcoinD/flashcoin-mining-jim
+abs_srcdir = /home/ntrung/PROJ/GLB/FlashcoinBlockChain/FlashcoinD/flashcoin-mining-jim
+abs_top_builddir = /home/ntrung/PROJ/GLB/FlashcoinBlockChain/FlashcoinD/flashcoin-mining-jim
+abs_top_srcdir = /home/ntrung/PROJ/GLB/FlashcoinBlockChain/FlashcoinD/flashcoin-mining-jim
 ac_ct_AR = ar
 ac_ct_CC = gcc
 ac_ct_CXX = g++
@@ -332,7 +334,7 @@ host_vendor = unknown
 htmldir = ${docdir}
 includedir = ${prefix}/include
 infodir = ${datarootdir}/info
-install_sh = ${SHELL} /home/ntrung/PROJ/GLB/BitcoreFullNode/safecoin-0.10/build-aux/install-sh
+install_sh = ${SHELL} /home/ntrung/PROJ/GLB/FlashcoinBlockChain/FlashcoinD/flashcoin-mining-jim/build-aux/install-sh
 libdir = ${exec_prefix}/lib
 libexecdir = ${exec_prefix}/libexec
 localedir = ${datarootdir}/locale
@@ -356,12 +358,12 @@ top_srcdir = .
 ACLOCAL_AMFLAGS = -I build-aux/m4
 SUBDIRS = src
 GZIP_ENV = "-9n"
-BITCOIND_BIN = $(top_builddir)/src/safecoind$(EXEEXT)
-BITCOIN_QT_BIN = $(top_builddir)/src/qt/safecoin-qt$(EXEEXT)
-BITCOIN_CLI_BIN = $(top_builddir)/src/safecoin-cli$(EXEEXT)
+BITCOIND_BIN = $(top_builddir)/src/flashcoind$(EXEEXT)
+BITCOIN_QT_BIN = $(top_builddir)/src/qt/flashcoin-qt$(EXEEXT)
+BITCOIN_CLI_BIN = $(top_builddir)/src/flashcoin-cli$(EXEEXT)
 BITCOIN_WIN_INSTALLER = $(PACKAGE)-$(PACKAGE_VERSION)-win$(WINDOWS_BITS)-setup$(EXEEXT)
-OSX_APP = Safecoin-Qt.app
-OSX_DMG = Safecoin-Qt.dmg
+OSX_APP = Flashcoin-Qt.app
+OSX_DMG = Flashcoin-Qt.dmg
 OSX_DEPLOY_SCRIPT = $(top_srcdir)/contrib/macdeploy/macdeployqtplus
 OSX_FANCY_PLIST = $(top_srcdir)/contrib/macdeploy/fancy.plist
 OSX_INSTALLER_ICONS = $(top_srcdir)/src/qt/res/icons/bitcoin.icns
@@ -386,7 +388,7 @@ COVERAGE_INFO = baseline_filtered_combined.info baseline.info block_test.info \
 
 OSX_APP_BUILT = $(OSX_APP)/Contents/PkgInfo $(OSX_APP)/Contents/Resources/empty.lproj \
   $(OSX_APP)/Contents/Resources/bitcoin.icns $(OSX_APP)/Contents/Info.plist \
-  $(OSX_APP)/Contents/MacOS/Safecoin-Qt
+  $(OSX_APP)/Contents/MacOS/Flashcoin-Qt
 
 APP_DIST_DIR = $(top_builddir)/dist
 APP_DIST_EXTRAS = $(APP_DIST_DIR)/.background/background.png $(APP_DIST_DIR)/.DS_Store $(APP_DIST_DIR)/Applications
@@ -955,7 +957,7 @@ $(OSX_APP)/Contents/Resources/bitcoin.icns: $(OSX_INSTALLER_ICONS)
 	$(MKDIR_P) $(@D)
 	$(INSTALL_DATA) $< $@
 
-$(OSX_APP)/Contents/MacOS/Safecoin-Qt: $(BITCOIN_QT_BIN)
+$(OSX_APP)/Contents/MacOS/Flashcoin-Qt: $(BITCOIN_QT_BIN)
 	$(MKDIR_P) $(@D)
 	STRIPPROG="$(STRIP)" $(INSTALL_STRIP_PROGRAM)  $< $@
 
@@ -968,10 +970,10 @@ $(APP_DIST_DIR)/Applications:
 	@rm -f $@
 	@cd $(@D); $(LN_S) /Applications $(@F)
 
-$(APP_DIST_EXTRAS): $(APP_DIST_DIR)/$(OSX_APP)/Contents/MacOS/Safecoin-Qt
+$(APP_DIST_EXTRAS): $(APP_DIST_DIR)/$(OSX_APP)/Contents/MacOS/Flashcoin-Qt
 
 $(OSX_DMG): $(APP_DIST_EXTRAS)
-	$(GENISOIMAGE) -no-cache-inodes -D -l -probe -V "Safecoin-Qt" -no-pad -r -apple -o $@ dist
+	$(GENISOIMAGE) -no-cache-inodes -D -l -probe -V "Flashcoin-Qt" -no-pad -r -apple -o $@ dist
 
 $(APP_DIST_DIR)/.background/background.png:
 	$(MKDIR_P) $(@D)
@@ -979,7 +981,7 @@ $(APP_DIST_DIR)/.background/background.png:
 $(APP_DIST_DIR)/.DS_Store:
 	$(INSTALL) $(top_srcdir)/contrib/macdeploy/DS_Store $@
 
-$(APP_DIST_DIR)/$(OSX_APP)/Contents/MacOS/Safecoin-Qt: $(OSX_APP_BUILT) $(OSX_PACKAGING)
+$(APP_DIST_DIR)/$(OSX_APP)/Contents/MacOS/Flashcoin-Qt: $(OSX_APP_BUILT) $(OSX_PACKAGING)
 	INSTALLNAMETOOL=$(INSTALLNAMETOOL)  OTOOL=$(OTOOL) STRIP=$(STRIP) $(OSX_DEPLOY_SCRIPT) $(OSX_APP) -translations-dir=$(QT_TRANSLATION_DIR) -add-qt-tr $(OSX_QT_TRANSLATIONS) -verbose 2
 
 deploydir: $(APP_DIST_EXTRAS)

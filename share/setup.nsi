@@ -1,4 +1,4 @@
-Name "Safecoin Core (-bit)"
+Name "Flashcoin Core (-bit)"
 
 RequestExecutionLevel highest
 SetCompressor /SOLID lzma
@@ -6,23 +6,23 @@ SetCompressor /SOLID lzma
 # General Symbol Definitions
 !define REGKEY "SOFTWARE\$(^Name)"
 !define VERSION 0.10.3.0
-!define COMPANY "Litecoin Core project"
-!define URL http://www.litecoin.org/
+!define COMPANY "flashcoin Core project"
+!define URL http://www.flashcoin.org/
 
 # MUI Symbol Definitions
-!define MUI_ICON "/home/ntrung/PROJ/GLB/BitcoreFullNode/safecoin-0.10/share/pixmaps/bitcoin.ico"
-!define MUI_WELCOMEFINISHPAGE_BITMAP "/home/ntrung/PROJ/GLB/BitcoreFullNode/safecoin-0.10/share/pixmaps/nsis-wizard.bmp"
+!define MUI_ICON "/home/ntrung/PROJ/GLB/FlashcoinBlockChain/FlashcoinD/flashcoin-mining-jim/share/pixmaps/bitcoin.ico"
+!define MUI_WELCOMEFINISHPAGE_BITMAP "/home/ntrung/PROJ/GLB/FlashcoinBlockChain/FlashcoinD/flashcoin-mining-jim/share/pixmaps/nsis-wizard.bmp"
 !define MUI_HEADERIMAGE
 !define MUI_HEADERIMAGE_RIGHT
-!define MUI_HEADERIMAGE_BITMAP "/home/ntrung/PROJ/GLB/BitcoreFullNode/safecoin-0.10/share/pixmaps/nsis-header.bmp"
+!define MUI_HEADERIMAGE_BITMAP "/home/ntrung/PROJ/GLB/FlashcoinBlockChain/FlashcoinD/flashcoin-mining-jim/share/pixmaps/nsis-header.bmp"
 !define MUI_FINISHPAGE_NOAUTOCLOSE
 !define MUI_STARTMENUPAGE_REGISTRY_ROOT HKLM
 !define MUI_STARTMENUPAGE_REGISTRY_KEY ${REGKEY}
 !define MUI_STARTMENUPAGE_REGISTRY_VALUENAME StartMenuGroup
-!define MUI_STARTMENUPAGE_DEFAULTFOLDER "Safecoin Core"
-!define MUI_FINISHPAGE_RUN $INSTDIR\litecoin-qt.exe
+!define MUI_STARTMENUPAGE_DEFAULTFOLDER "Flashcoin Core"
+!define MUI_FINISHPAGE_RUN $INSTDIR\flashcoin-qt.exe
 !define MUI_UNICON "${NSISDIR}\Contrib\Graphics\Icons\modern-uninstall.ico"
-!define MUI_UNWELCOMEFINISHPAGE_BITMAP "/home/ntrung/PROJ/GLB/BitcoreFullNode/safecoin-0.10/share/pixmaps/nsis-wizard.bmp"
+!define MUI_UNWELCOMEFINISHPAGE_BITMAP "/home/ntrung/PROJ/GLB/FlashcoinBlockChain/FlashcoinD/flashcoin-mining-jim/share/pixmaps/nsis-wizard.bmp"
 !define MUI_UNFINISHPAGE_NOAUTOCLOSE
 
 # Included files
@@ -48,18 +48,18 @@ Var StartMenuGroup
 !insertmacro MUI_LANGUAGE English
 
 # Installer attributes
-OutFile /home/ntrung/PROJ/GLB/BitcoreFullNode/safecoin-0.10/litecoin-${VERSION}-win-setup.exe
+OutFile /home/ntrung/PROJ/GLB/FlashcoinBlockChain/FlashcoinD/flashcoin-mining-jim/flashcoin-${VERSION}-win-setup.exe
 !if "" == "64"
-InstallDir $PROGRAMFILES64\Litecoin
+InstallDir $PROGRAMFILES64\flashcoin
 !else
-InstallDir $PROGRAMFILES\Litecoin
+InstallDir $PROGRAMFILES\flashcoin
 !endif
 CRCCheck on
 XPStyle on
 BrandingText " "
 ShowInstDetails show
 VIProductVersion ${VERSION}.0
-VIAddVersionKey ProductName "Litecoin Core"
+VIAddVersionKey ProductName "flashcoin Core"
 VIAddVersionKey ProductVersion "${VERSION}"
 VIAddVersionKey CompanyName "${COMPANY}"
 VIAddVersionKey CompanyWebsite "${URL}"
@@ -73,19 +73,19 @@ ShowUninstDetails show
 Section -Main SEC0000
     SetOutPath $INSTDIR
     SetOverwrite on
-    File /home/ntrung/PROJ/GLB/BitcoreFullNode/safecoin-0.10/release/litecoin-qt.exe
-    File /oname=COPYING.txt /home/ntrung/PROJ/GLB/BitcoreFullNode/safecoin-0.10/COPYING
-    File /oname=readme.txt /home/ntrung/PROJ/GLB/BitcoreFullNode/safecoin-0.10/doc/README_windows.txt
+    File /home/ntrung/PROJ/GLB/FlashcoinBlockChain/FlashcoinD/flashcoin-mining-jim/release/flashcoin-qt.exe
+    File /oname=COPYING.txt /home/ntrung/PROJ/GLB/FlashcoinBlockChain/FlashcoinD/flashcoin-mining-jim/COPYING
+    File /oname=readme.txt /home/ntrung/PROJ/GLB/FlashcoinBlockChain/FlashcoinD/flashcoin-mining-jim/doc/README_windows.txt
     SetOutPath $INSTDIR\daemon
-    File /home/ntrung/PROJ/GLB/BitcoreFullNode/safecoin-0.10/release/litecoind.exe
-    File /home/ntrung/PROJ/GLB/BitcoreFullNode/safecoin-0.10/release/litecoin-cli.exe
+    File /home/ntrung/PROJ/GLB/FlashcoinBlockChain/FlashcoinD/flashcoin-mining-jim/release/flashcoind.exe
+    File /home/ntrung/PROJ/GLB/FlashcoinBlockChain/FlashcoinD/flashcoin-mining-jim/release/flashcoin-cli.exe
     SetOutPath $INSTDIR\doc
-    File /r /home/ntrung/PROJ/GLB/BitcoreFullNode/safecoin-0.10/doc\*.*
+    File /r /home/ntrung/PROJ/GLB/FlashcoinBlockChain/FlashcoinD/flashcoin-mining-jim/doc\*.*
     SetOutPath $INSTDIR
     WriteRegStr HKCU "${REGKEY}\Components" Main 1
 
-    # Remove old wxwidgets-based-litecoin executable and locales:
-    Delete /REBOOTOK $INSTDIR\litecoin.exe
+    # Remove old wxwidgets-based-flashcoin executable and locales:
+    Delete /REBOOTOK $INSTDIR\flashcoin.exe
     RMDir /r /REBOOTOK $INSTDIR\locale
 SectionEnd
 
@@ -95,7 +95,7 @@ Section -post SEC0001
     WriteUninstaller $INSTDIR\uninstall.exe
     !insertmacro MUI_STARTMENU_WRITE_BEGIN Application
     CreateDirectory $SMPROGRAMS\$StartMenuGroup
-    CreateShortcut "$SMPROGRAMS\$StartMenuGroup\$(^Name).lnk" $INSTDIR\litecoin-qt.exe
+    CreateShortcut "$SMPROGRAMS\$StartMenuGroup\$(^Name).lnk" $INSTDIR\flashcoin-qt.exe
     CreateShortcut "$SMPROGRAMS\$StartMenuGroup\Uninstall $(^Name).lnk" $INSTDIR\uninstall.exe
     !insertmacro MUI_STARTMENU_WRITE_END
     WriteRegStr HKCU "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)" DisplayName "$(^Name)"
@@ -106,10 +106,10 @@ Section -post SEC0001
     WriteRegStr HKCU "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)" UninstallString $INSTDIR\uninstall.exe
     WriteRegDWORD HKCU "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)" NoModify 1
     WriteRegDWORD HKCU "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)" NoRepair 1
-    WriteRegStr HKCR "litecoin" "URL Protocol" ""
-    WriteRegStr HKCR "litecoin" "" "URL:Litecoin"
-    WriteRegStr HKCR "litecoin\DefaultIcon" "" $INSTDIR\litecoin-qt.exe
-    WriteRegStr HKCR "litecoin\shell\open\command" "" '"$INSTDIR\litecoin-qt.exe" "%1"'
+    WriteRegStr HKCR "flashcoin" "URL Protocol" ""
+    WriteRegStr HKCR "flashcoin" "" "URL:flashcoin"
+    WriteRegStr HKCR "flashcoin\DefaultIcon" "" $INSTDIR\flashcoin-qt.exe
+    WriteRegStr HKCR "flashcoin\shell\open\command" "" '"$INSTDIR\flashcoin-qt.exe" "%1"'
 SectionEnd
 
 # Macro for selecting uninstaller sections
@@ -127,7 +127,7 @@ done${UNSECTION_ID}:
 
 # Uninstaller sections
 Section /o -un.Main UNSEC0000
-    Delete /REBOOTOK $INSTDIR\litecoin-qt.exe
+    Delete /REBOOTOK $INSTDIR\flashcoin-qt.exe
     Delete /REBOOTOK $INSTDIR\COPYING.txt
     Delete /REBOOTOK $INSTDIR\readme.txt
     RMDir /r /REBOOTOK $INSTDIR\daemon
@@ -139,7 +139,7 @@ Section -un.post UNSEC0001
     DeleteRegKey HKCU "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)"
     Delete /REBOOTOK "$SMPROGRAMS\$StartMenuGroup\Uninstall $(^Name).lnk"
     Delete /REBOOTOK "$SMPROGRAMS\$StartMenuGroup\$(^Name).lnk"
-    Delete /REBOOTOK "$SMSTARTUP\Litecoin.lnk"
+    Delete /REBOOTOK "$SMSTARTUP\flashcoin.lnk"
     Delete /REBOOTOK $INSTDIR\uninstall.exe
     Delete /REBOOTOK $INSTDIR\debug.log
     Delete /REBOOTOK $INSTDIR\db.log
@@ -147,7 +147,7 @@ Section -un.post UNSEC0001
     DeleteRegValue HKCU "${REGKEY}" Path
     DeleteRegKey /IfEmpty HKCU "${REGKEY}\Components"
     DeleteRegKey /IfEmpty HKCU "${REGKEY}"
-    DeleteRegKey HKCR "litecoin"
+    DeleteRegKey HKCR "flashcoin"
     RmDir /REBOOTOK $SMPROGRAMS\$StartMenuGroup
     RmDir /REBOOTOK $INSTDIR
     Push $R0
