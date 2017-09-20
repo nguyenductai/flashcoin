@@ -6,8 +6,11 @@
 //amount.h
 typedef int64_t CAmount;
 
-static const CAmount COIN = 100000000;
+static const CAmount COIN = 10000000000;
 static const CAmount CENT = 1000000;
+static const CAmount FLASH = COIN;
+
+static const bool DISABLE_MINING = false;
 
 /** No amount larger than this (in satoshi) is valid.
  *
@@ -18,26 +21,26 @@ static const CAmount CENT = 1000000;
  * critical; in unusual circumstances like a(nother) overflow bug that allowed
  * for the creation of coins out of thin air modification could lead to a fork.
  * */
-static const CAmount MAX_MONEY = 30000000000 * COIN;
+static const CAmount MAX_MONEY = 900000000 * FLASH;
 inline bool MoneyRange(const CAmount& nValue) { return (nValue >= 0 && nValue <= MAX_MONEY); }
 
 
 //consensus.h
 /** The maximum allowed size for a serialized block, in bytes (network rule) */
-static const unsigned int MAX_BLOCK_SIZE = 4000000;                      // 4000KB block hard limit
+static const unsigned int MAX_BLOCK_SIZE = 50000000;                      // 4000KB block hard limit // 50Mb
 /** The maximum allowed number of signature check operations in a block (network rule) */
 static const unsigned int MAX_BLOCK_SIGOPS = MAX_BLOCK_SIZE/50;
 /** Coinbase transaction outputs can only be spent after this number of new blocks (network rule) */
-static const int COINBASE_MATURITY = 10;
+static const int COINBASE_MATURITY = 100;
 
 //policy.h
 /** Default for -blockmaxsize and -blockminsize, which control the range of sizes the mining code will create **/
-static const unsigned int DEFAULT_BLOCK_MAX_SIZE = 1000000; // 750000;
+static const unsigned int DEFAULT_BLOCK_MAX_SIZE = 50000000; // 750000; 50 Mb
 static const unsigned int DEFAULT_BLOCK_MIN_SIZE = 0;
 /** Default for -blockprioritysize, maximum space for zero/low-fee transactions **/
-static const unsigned int DEFAULT_BLOCK_PRIORITY_SIZE = 1000000; //17000;
+static const unsigned int DEFAULT_BLOCK_PRIORITY_SIZE = 50000000; //17000; 50 Mb
 /** The maximum size for transactions we're willing to relay/mine */
-static const unsigned int MAX_STANDARD_TX_SIZE = 100000;
+static const unsigned int MAX_STANDARD_TX_SIZE = 1000000;  // 1Mb
 /** Maximum number of signature check operations in an IsStandard() P2SH script */
 static const unsigned int MAX_P2SH_SIGOPS = 15;
 /** The maximum number of sigops we're willing to relay/mine in a single tx */
@@ -45,7 +48,7 @@ static const unsigned int MAX_STANDARD_TX_SIGOPS = MAX_BLOCK_SIGOPS/5;
 /** The maximum number of sigops we're willing to relay/mine in a single tx */
 static const unsigned int MAX_TX_SIGOPS = MAX_BLOCK_SIGOPS/5;
 /** Default for -maxmempool, maximum megabytes of mempool memory usage */
-static const unsigned int DEFAULT_MAX_MEMPOOL_SIZE = 300;
+static const unsigned int DEFAULT_MAX_MEMPOOL_SIZE = 1000;  // 1Gb
 
 //main.h
 /** Default for accepting alerts from the P2P network. */
@@ -113,8 +116,16 @@ static const bool DEFAULT_TESTSAFEMODE = false;
 static const unsigned int MAX_BLOCKS_TO_ANNOUNCE = 8;
 
 /** coin value reward in mining */
-static const int CONF_REWARD_COIN_VALUE = 10000000;
-static const int CONF_NUMBER_BLOCK_HAS_REWARD = 3000;
+static const int CONF_REWARD_COIN_VALUE = 100000;
+static const int CONF_NUMBER_BLOCK_HAS_REWARD = 9000;
+
+/** Flashcoin: Dust Threshold: outputs below this value in satoshis are assessed an additional 1000 bytes per txout */
+static const CAmount DUST_THRESHOLD = 10000; // 0.01 FLC
+/** Flashcoin: Default TX Fee per 1000 bytes */
+static const CAmount DEFAULT_TX_FEE = 10000; // 0.01 FLC
+
+/** Flashcoin: default minimum input threshold, override with -mininput */
+static const CAmount DEFAULT_MINIMUM_INPUT_THRESHOLD = DUST_THRESHOLD / 100; // 0.0001 FLC
 
 //end main.h
 
@@ -164,48 +175,48 @@ static const unsigned int MEMPOOL_HEIGHT = 0x7FFFFFFF;
 
 
 /** Crytocurrency addresses start with character */
-#define CONF_PUBKEY_ADDRESS 28 // 38-G; 28-C;
-#define CONF_SCRIPT_ADDRESS 5
-#define CONF_SECRET_KEY 156
+#define CONF_PUBKEY_ADDRESS 68 // 38-G; 28-C; 68-U
+#define CONF_SCRIPT_ADDRESS 130
+#define CONF_SECRET_KEY 196
 
 #define CONF_PUBKEY_ADDRESS_TEST 111
 #define CONF_SCRIPT_ADDRESS_TEST 196
 #define CONF_SECRET_KEY_TEST 239
 
 //Genesis block
-#define  CONF_GENESIS_BLOCK "0xa24c6ffe1f9e1d3a70f3c16861c0111558cbe2c8ff7348787acfdcc08c113c38"
-#define  CONF_GENESIS_BLOCK_TESTNET "0xe583a384c0517ab115379ca535b7af203436232b56c38573ba9e8840d17dffc1"
-#define  CONF_BLOCK_HASH_MERKLE_ROOT "0x3b40bc8273afa3646b561e5ea318687902183c62bd7fc897f07e80a29d15b907"
-#define  CONF_PSZTIMESTAMP "CoolCash 15/01/2015 The new future has begun"
+#define  CONF_GENESIS_BLOCK "0xaa0cf4f5ce0a3c550ce5674c1e808c417cf5077b4e95bda1d6fbaeaf4258972b"
+#define  CONF_GENESIS_BLOCK_TESTNET "0x04c3466b5bccc7094d34baa4ccf518bc505d6e4b56798c7885b89bc181d51038"
+#define  CONF_BLOCK_HASH_MERKLE_ROOT "0xa1e405ddcb5dacf2953ad79660992ce5c88d8bb2dbdeecb3b9eb523cd43ce5c0"
+#define  CONF_PSZTIMESTAMP "Uni.Cash 27/01/2016 21:30:00 We are all one body."
 #define  CONF_SCRIPT_PUBKEY "040184710fa689ad5023690c80f3a49c8f13f8d45b8c857fbcbc8bc4a8e4d3eb4b10f4d4604fa08dce601aaf0f470216fe1b51850b4acf21b179c45070ac7b03a9"
 static const uint32_t CONF_BLOCK_NVERSION = 1;
-static const uint32_t CONF_BLOCK_NTIME = 1421280000; //15/01/2015
+static const uint32_t CONF_BLOCK_NTIME = 1453930200; //27/01/2016
 static const uint32_t CONF_BLOCK_NBITS = 0x1e0ffff0;
-static const uint32_t CONF_BLOCK_NNONCE = 2085383345;
-static const uint32_t CONF_BLOCK_NTIME_TESTNET = 1421270000;
-static const uint32_t CONF_BLOCK_NNONCE_TESTNET = 2084851830;
+static const uint32_t CONF_BLOCK_NNONCE = 2087290740;
+static const uint32_t CONF_BLOCK_NTIME_TESTNET = 1446801510;
+static const uint32_t CONF_BLOCK_NNONCE_TESTNET = 2085979433;
 
 //Speed generate block
 static const int64_t def_nTargetTimespan = 0.25 * 24 * 60 * 60; // Coolcash: 0.25 days
-static const int64_t def_nTargetSpacing = 30; // Coolcash: 30s
+static const int64_t def_nTargetSpacing = 1; // Coolcash: 1s
 static const int64_t nInterval = def_nTargetTimespan / def_nTargetSpacing;
 
 //Port for network p2p
-#define  CONF_TESTNET_PORT 19109
-#define  CONF_PORT 9109
-#define  CONF_TESTNET_PORT_STRING "19109"
-#define  CONF_PORT_STRING "9109"
+#define  CONF_TESTNET_PORT 17107
+#define  CONF_PORT 7107
+#define  CONF_TESTNET_PORT_STRING "17107"
+#define  CONF_PORT_STRING "7107"
 
-#define  CONF_DEFAULT_CLENT_NAME "Coolcash Desktop Wallet"
-#define  CONF_DEFAULT_DATA_DIR_WINDOW "Coolcash"
-#define  CONF_DEFAULT_DATA_DIR_MAC_OSX "Coolcash"
-#define  CONF_DEFAULT_DATA_DIR_UNIX ".coolcash"
+#define  CONF_DEFAULT_CLENT_NAME "Flashcoin Desktop Wallet"
+#define  CONF_DEFAULT_DATA_DIR_WINDOW "flashcoin"
+#define  CONF_DEFAULT_DATA_DIR_MAC_OSX "flashcoin"
+#define  CONF_DEFAULT_DATA_DIR_UNIX ".flashcoin"
 
-//#define  CONF_DEFAULT_CONFIG_FILE "coolcash.conf"
-//#define  CONF_DEFAULT_PIG_FILE "coolcash.pid"
+//#define  CONF_DEFAULT_CONFIG_FILE "unicash.conf"
+//#define  CONF_DEFAULT_PIG_FILE "unicash.pid"
 
-const char * const BITCOIN_CONF_FILENAME = "coolcash.conf";
-const char * const BITCOIN_PID_FILENAME = "coolcash.pid";
+const char * const BITCOIN_CONF_FILENAME = "flashcoin.conf";
+const char * const BITCOIN_PID_FILENAME = "flashcoin.pid";
 
 
 #endif // CONFIG_H
