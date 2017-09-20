@@ -22,14 +22,14 @@ BITCOIN_INCLUDES=-I$(builddir) -I$(builddir)/obj $(BOOST_CPPFLAGS) $(LEVELDB_CPP
 
 BITCOIN_INCLUDES += -I$(srcdir)/secp256k1/include
 
-LIBBITCOIN_SERVER=libbitcoin_server.a
-LIBBITCOIN_WALLET=libbitcoin_wallet.a
-LIBBITCOIN_COMMON=libbitcoin_common.a
-LIBBITCOIN_CLI=libbitcoin_cli.a
-LIBBITCOIN_UTIL=libbitcoin_util.a
-LIBBITCOIN_CRYPTO=crypto/libbitcoin_crypto.a
-LIBBITCOIN_UNIVALUE=univalue/libbitcoin_univalue.a
-LIBBITCOINQT=qt/libbitcoinqt.a
+LIBBITCOIN_SERVER=libflashcoin_server.a
+LIBBITCOIN_WALLET=libflashcoin_wallet.a
+LIBBITCOIN_COMMON=libflashcoin_common.a
+LIBBITCOIN_CLI=libflashcoin_cli.a
+LIBBITCOIN_UTIL=libflashcoin_util.a
+LIBBITCOIN_CRYPTO=crypto/libflashcoin_crypto.a
+LIBBITCOIN_UNIVALUE=univalue/libflashcoin_univalue.a
+LIBBITCOINQT=qt/libflashcoinqt.a
 LIBSECP256K1=secp256k1/libsecp256k1.la
 
 $(LIBSECP256K1): $(wildcard secp256k1/src/*) $(wildcard secp256k1/include/*)
@@ -38,20 +38,20 @@ $(LIBSECP256K1): $(wildcard secp256k1/src/*) $(wildcard secp256k1/include/*)
 # Make is not made aware of per-object dependencies to avoid limiting building parallelization
 # But to build the less dependent modules first, we manually select their order here:
 EXTRA_LIBRARIES = \
-  crypto/libbitcoin_crypto.a \
-  libbitcoin_util.a \
-  libbitcoin_common.a \
-  univalue/libbitcoin_univalue.a \
-  libbitcoin_server.a \
-  libbitcoin_cli.a
+  crypto/libflashcoin_crypto.a \
+  libflashcoin_util.a \
+  libflashcoin_common.a \
+  univalue/libflashcoin_univalue.a \
+  libflashcoin_server.a \
+  libflashcoin_cli.a
 if ENABLE_WALLET
 BITCOIN_INCLUDES += $(BDB_CPPFLAGS)
-EXTRA_LIBRARIES += libbitcoin_wallet.a
+EXTRA_LIBRARIES += libflashcoin_wallet.a
 endif
 
 if BUILD_BITCOIN_LIBS
-lib_LTLIBRARIES = libbitcoinconsensus.la
-LIBBITCOIN_CONSENSUS=libbitcoinconsensus.la
+lib_LTLIBRARIES = libflashcoinconsensus.la
+LIBBITCOIN_CONSENSUS=libflashcoinconsensus.la
 else
 LIBBITCOIN_CONSENSUS=
 endif
@@ -60,11 +60,11 @@ bin_PROGRAMS =
 TESTS =
 
 if BUILD_BITCOIND
-  bin_PROGRAMS += safecoind
+  bin_PROGRAMS += flashcoind
 endif
 
 if BUILD_BITCOIN_UTILS
-  bin_PROGRAMS += safecoin-cli safecoin-tx
+  bin_PROGRAMS += flashcoin-cli flashcoin-tx
 endif
 
 .PHONY: FORCE
@@ -81,6 +81,7 @@ BITCOIN_CORE_H = \
   chainparamsbase.h \
   chainparamsseeds.h \
   checkpoints.h \
+  checkpointsync.h \
   checkqueue.h \
   clientversion.h \
   coincontrol.h \
@@ -157,16 +158,17 @@ obj/build.h: FORCE
 	@$(MKDIR_P) $(builddir)/obj
 	@$(top_srcdir)/share/genbuild.sh $(abs_top_builddir)/src/obj/build.h \
 	  $(abs_top_srcdir)
-libbitcoin_util_a-clientversion.$(OBJEXT): obj/build.h
+libflashcoin_util_a-clientversion.$(OBJEXT): obj/build.h
 
 # server: shared between bitcoind and bitcoin-qt
-libbitcoin_server_a_CPPFLAGS = $(BITCOIN_INCLUDES) $(MINIUPNPC_CPPFLAGS)
-libbitcoin_server_a_SOURCES = \
+libflashcoin_server_a_CPPFLAGS = $(BITCOIN_INCLUDES) $(MINIUPNPC_CPPFLAGS)
+libflashcoin_server_a_SOURCES = \
   addrman.cpp \
   alert.cpp \
   bloom.cpp \
   chain.cpp \
   checkpoints.cpp \
+  checkpointsync.cpp \
   init.cpp \
   leveldbwrapper.cpp \
   main.cpp \
@@ -191,8 +193,8 @@ libbitcoin_server_a_SOURCES = \
 
 # wallet: shared between bitcoind and bitcoin-qt, but only linked
 # when wallet enabled
-libbitcoin_wallet_a_CPPFLAGS = $(BITCOIN_INCLUDES)
-libbitcoin_wallet_a_SOURCES = \
+libflashcoin_wallet_a_CPPFLAGS = $(BITCOIN_INCLUDES)
+libflashcoin_wallet_a_SOURCES = \
   db.cpp \
   crypter.cpp \
   rpcdump.cpp \
@@ -203,28 +205,28 @@ libbitcoin_wallet_a_SOURCES = \
   $(BITCOIN_CORE_H)
 
 # crypto primitives library
-crypto_libbitcoin_crypto_a_CPPFLAGS = $(BITCOIN_CONFIG_INCLUDES)
-crypto_libbitcoin_crypto_a_SOURCES = \
+crypto_libflashcoin_crypto_a_CPPFLAGS = $(BITCOIN_CONFIG_INCLUDES)
+crypto_libflashcoin_crypto_a_SOURCES = \
+  crypto/scrypt.cpp \
   crypto/sha1.cpp \
   crypto/sha256.cpp \
   crypto/sha512.cpp \
   crypto/hmac_sha256.cpp \
   crypto/rfc6979_hmac_sha256.cpp \
   crypto/hmac_sha512.cpp \
-  crypto/scrypt.cpp \
   crypto/ripemd160.cpp \
   crypto/common.h \
+  crypto/scrypt.h \
   crypto/sha256.h \
   crypto/sha512.h \
   crypto/hmac_sha256.h \
   crypto/rfc6979_hmac_sha256.h \
   crypto/hmac_sha512.h \
-  crypto/scrypt.h \
   crypto/sha1.h \
   crypto/ripemd160.h
 
 # univalue JSON library
-univalue_libbitcoin_univalue_a_SOURCES = \
+univalue_libflashcoin_univalue_a_SOURCES = \
   univalue/univalue.cpp \
   univalue/univalue_read.cpp \
   univalue/univalue_write.cpp \
@@ -232,8 +234,8 @@ univalue_libbitcoin_univalue_a_SOURCES = \
   univalue/univalue.h
 
 # common: shared between bitcoind, and bitcoin-qt and non-server tools
-libbitcoin_common_a_CPPFLAGS = $(BITCOIN_INCLUDES)
-libbitcoin_common_a_SOURCES = \
+libflashcoin_common_a_CPPFLAGS = $(BITCOIN_INCLUDES)
+libflashcoin_common_a_SOURCES = \
   allocators.cpp \
   amount.cpp \
   base58.cpp \
@@ -262,8 +264,8 @@ libbitcoin_common_a_SOURCES = \
 # util: shared between all executables.
 # This library *must* be included to make sure that the glibc
 # backward-compatibility objects and their sanity checks are linked.
-libbitcoin_util_a_CPPFLAGS = $(BITCOIN_INCLUDES)
-libbitcoin_util_a_SOURCES = \
+libflashcoin_util_a_CPPFLAGS = $(BITCOIN_INCLUDES)
+libflashcoin_util_a_SOURCES = \
   compat/strnlen.cpp \
   compat/glibc_sanity.cpp \
   compat/glibcxx_sanity.cpp \
@@ -280,21 +282,21 @@ libbitcoin_util_a_SOURCES = \
   $(BITCOIN_CORE_H)
 
 if GLIBC_BACK_COMPAT
-libbitcoin_util_a_SOURCES += compat/glibc_compat.cpp
-libbitcoin_util_a_SOURCES += compat/glibcxx_compat.cpp
+libflashcoin_util_a_SOURCES += compat/glibc_compat.cpp
+libflashcoin_util_a_SOURCES += compat/glibcxx_compat.cpp
 endif
 
 # cli: shared between bitcoin-cli and bitcoin-qt
-libbitcoin_cli_a_CPPFLAGS = $(BITCOIN_INCLUDES)
-libbitcoin_cli_a_SOURCES = \
+libflashcoin_cli_a_CPPFLAGS = $(BITCOIN_INCLUDES)
+libflashcoin_cli_a_SOURCES = \
   rpcclient.cpp \
   $(BITCOIN_CORE_H)
 
-nodist_libbitcoin_util_a_SOURCES = $(srcdir)/obj/build.h
+nodist_libflashcoin_util_a_SOURCES = $(srcdir)/obj/build.h
 #
 
-# safecoind binary #
-safecoind_LDADD = \
+# bitcoind binary #
+flashcoind_LDADD = \
   $(LIBBITCOIN_SERVER) \
   $(LIBBITCOIN_COMMON) \
   $(LIBBITCOIN_UNIVALUE) \
@@ -305,35 +307,35 @@ safecoind_LDADD = \
   $(LIBSECP256K1)
 
 if ENABLE_WALLET
-safecoind_LDADD += libbitcoin_wallet.a
+flashcoind_LDADD += libflashcoin_wallet.a
 endif
-safecoind_SOURCES = bitcoind.cpp
+flashcoind_SOURCES = bitcoind.cpp
 #
 
 if TARGET_WINDOWS
-safecoind_SOURCES += bitcoind-res.rc
+flashcoind_SOURCES += bitcoind-res.rc
 endif
 
-safecoind_LDADD += $(BOOST_LIBS) $(BDB_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(MINIUPNPC_LIBS)
-safecoind_CPPFLAGS = $(BITCOIN_INCLUDES)
-safecoind_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+flashcoind_LDADD += $(BOOST_LIBS) $(BDB_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(MINIUPNPC_LIBS)
+flashcoind_CPPFLAGS = $(BITCOIN_INCLUDES)
+flashcoind_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 
 # bitcoin-cli binary #
-safecoin_cli_LDADD = \
+flashcoin_cli_LDADD = \
   $(LIBBITCOIN_CLI) \
   $(LIBBITCOIN_UTIL) \
   $(BOOST_LIBS) \
   $(SSL_LIBS) \
   $(CRYPTO_LIBS)
 
-safecoin_cli_SOURCES = \
+flashcoin_cli_SOURCES = \
   bitcoin-cli.cpp
 
-safecoin_cli_CPPFLAGS = $(BITCOIN_INCLUDES)
+flashcoin_cli_CPPFLAGS = $(BITCOIN_INCLUDES)
 #
 
 # bitcoin-tx binary #
-safecoin_tx_LDADD = \
+flashcoin_tx_LDADD = \
   $(LIBBITCOIN_UNIVALUE) \
   $(LIBBITCOIN_COMMON) \
   $(LIBBITCOIN_UTIL) \
@@ -342,19 +344,19 @@ safecoin_tx_LDADD = \
   $(BOOST_LIBS) \
   $(CRYPTO_LIBS)
 
-safecoin_tx_SOURCES = bitcoin-tx.cpp
-safecoin_tx_CPPFLAGS = $(BITCOIN_INCLUDES)
+flashcoin_tx_SOURCES = bitcoin-tx.cpp
+flashcoin_tx_CPPFLAGS = $(BITCOIN_INCLUDES)
 #
-safecoin_tx_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+flashcoin_tx_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 
 if TARGET_WINDOWS
-safecoin_cli_SOURCES += bitcoin-cli-res.rc
+flashcoin_cli_SOURCES += bitcoin-cli-res.rc
 endif
-safecoin_cli_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+flashcoin_cli_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 
 if BUILD_BITCOIN_LIBS
 include_HEADERS = script/bitcoinconsensus.h
-libbitcoinconsensus_la_SOURCES = \
+libflashcoinconsensus_la_SOURCES = \
   primitives/transaction.cpp \
   crypto/hmac_sha512.cpp \
   crypto/scrypt.cpp \
@@ -373,15 +375,15 @@ libbitcoinconsensus_la_SOURCES = \
   utilstrencodings.cpp
 
 if GLIBC_BACK_COMPAT
-  libbitcoinconsensus_la_SOURCES += compat/glibc_compat.cpp
-  libbitcoinconsensus_la_SOURCES += compat/glibcxx_compat.cpp
+  libflashcoinconsensus_la_SOURCES += compat/glibc_compat.cpp
+  libflashcoinconsensus_la_SOURCES += compat/glibcxx_compat.cpp
 endif
 
-libbitcoinconsensus_la_LDFLAGS = -no-undefined $(RELDFLAGS)
-libbitcoinconsensus_la_LIBADD = $(CRYPTO_LIBS)
-libbitcoinconsensus_la_CPPFLAGS = $(CRYPTO_CFLAGS) -I$(builddir)/obj -DBUILD_BITCOIN_INTERNAL
+libflashcoinconsensus_la_LDFLAGS = -no-undefined $(RELDFLAGS)
+libflashcoinconsensus_la_LIBADD = $(CRYPTO_LIBS)
+libflashcoinconsensus_la_CPPFLAGS = $(CRYPTO_CFLAGS) -I$(builddir)/obj -DBUILD_BITCOIN_INTERNAL
 if USE_LIBSECP256K1
-libbitcoinconsensus_la_LIBADD += secp256k1/libsecp256k1.la
+libflashcoinconsensus_la_LIBADD += secp256k1/libsecp256k1.la
 endif
 endif
 
