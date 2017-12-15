@@ -2979,8 +2979,8 @@ Adresa: %4
         <translation>Eroare: Argument nesuportat -tor găsit, folosiţi -onion.</translation>
     </message>
     <message>
-        <source>Fee (in FLC/kB) to add to transactions you send (default: %s)</source>
-        <translation>Taxa (în FLC/kB) de adăugat la tranzacţiile pe care le trimiteţi(implicit: %s)</translation>
+        <source>Fee (in TFLC/kB) to add to transactions you send (default: %s)</source>
+        <translation>Taxa (în TFLC/kB) de adăugat la tranzacţiile pe care le trimiteţi(implicit: %s)</translation>
     </message>
     <message>
         <source>Information</source>

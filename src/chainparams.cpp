@@ -54,8 +54,7 @@ static void convertSeed6(std::vector<CAddress> &vSeedsOut, const SeedSpec6 *data
  */
 static Checkpoints::MapCheckpoints mapCheckpoints =
         boost::assign::map_list_of
-        ( 0, uint256(CONF_GENESIS_BLOCK))
-        ( 57742, uint256("0xfdc91783d135a0891c8c86a4ade070a5ddf3b39fec2ecfcfe520295f6c4f244f"));
+        ( 0, uint256(CONF_GENESIS_BLOCK));
 
 static const Checkpoints::CCheckpointData data = {
         &mapCheckpoints,
@@ -141,11 +140,13 @@ public:
         assert(hashGenesisBlock == uint256(CONF_GENESIS_BLOCK));
         assert(genesis.hashMerkleRoot == uint256(CONF_BLOCK_HASH_MERKLE_ROOT));
 
+        /*
         vSeeds.push_back(CDNSSeedData("Seed Node", "88.150.227.120"));
         vSeeds.push_back(CDNSSeedData("Seed Node 2", "108.170.20.78"));
         vSeeds.push_back(CDNSSeedData("Seed Node 3", "66.85.173.32"));
         vSeeds.push_back(CDNSSeedData("flashcointools.com", "dnsseed.flashcointools.com"));
         vSeeds.push_back(CDNSSeedData("flashcoinpool.org", "dnsseed.flashcoinpool.org"));
+        */
 
 
         base58Prefixes[PUBKEY_ADDRESS] = list_of(CONF_PUBKEY_ADDRESS);
@@ -205,11 +206,13 @@ public:
 
         vFixedSeeds.clear();
         vSeeds.clear();
+        /*
         vSeeds.push_back(CDNSSeedData("Seed Node", "88.150.227.120"));
         vSeeds.push_back(CDNSSeedData("Seed Node 2", "108.170.20.78"));
         vSeeds.push_back(CDNSSeedData("Seed Node 3", "66.85.173.32"));
         vSeeds.push_back(CDNSSeedData("flashcointools.com", "dnsseed.flashcointools.com"));
         vSeeds.push_back(CDNSSeedData("flashcoinpool.org", "dnsseed.flashcoinpool.org"));
+        */
 
         base58Prefixes[PUBKEY_ADDRESS] = list_of(CONF_PUBKEY_ADDRESS_TEST);
         base58Prefixes[SCRIPT_ADDRESS] = list_of(CONF_SCRIPT_ADDRESS_TEST);

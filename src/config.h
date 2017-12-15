@@ -120,12 +120,12 @@ static const int CONF_REWARD_COIN_VALUE = 100000;
 static const int CONF_NUMBER_BLOCK_HAS_REWARD = 9000;
 
 /** Flashcoin: Dust Threshold: outputs below this value in satoshis are assessed an additional 1000 bytes per txout */
-static const CAmount DUST_THRESHOLD = 10000; // 0.01 FLC
+static const CAmount DUST_THRESHOLD = 10000; // 0.01 TFLC
 /** Flashcoin: Default TX Fee per 1000 bytes */
-static const CAmount DEFAULT_TX_FEE = 10000; // 0.01 FLC
+static const CAmount DEFAULT_TX_FEE = 10000; // 0.01 TFLC
 
 /** Flashcoin: default minimum input threshold, override with -mininput */
-static const CAmount DEFAULT_MINIMUM_INPUT_THRESHOLD = DUST_THRESHOLD / 100; // 0.0001 FLC
+static const CAmount DEFAULT_MINIMUM_INPUT_THRESHOLD = DUST_THRESHOLD / 100; // 0.0001 TFLC
 
 //end main.h
 
@@ -175,26 +175,26 @@ static const unsigned int MEMPOOL_HEIGHT = 0x7FFFFFFF;
 
 
 /** Crytocurrency addresses start with character */
-#define CONF_PUBKEY_ADDRESS 68 // 38-G; 28-C; 68-U
+#define CONF_PUBKEY_ADDRESS 65 // 38-G; 28-C; 68-U ; 65-T
 #define CONF_SCRIPT_ADDRESS 130
-#define CONF_SECRET_KEY 196
+#define CONF_SECRET_KEY 193
 
 #define CONF_PUBKEY_ADDRESS_TEST 111
 #define CONF_SCRIPT_ADDRESS_TEST 196
 #define CONF_SECRET_KEY_TEST 239
 
 //Genesis block
-#define  CONF_GENESIS_BLOCK "0xaa0cf4f5ce0a3c550ce5674c1e808c417cf5077b4e95bda1d6fbaeaf4258972b"
-#define  CONF_GENESIS_BLOCK_TESTNET "0x04c3466b5bccc7094d34baa4ccf518bc505d6e4b56798c7885b89bc181d51038"
-#define  CONF_BLOCK_HASH_MERKLE_ROOT "0xa1e405ddcb5dacf2953ad79660992ce5c88d8bb2dbdeecb3b9eb523cd43ce5c0"
-#define  CONF_PSZTIMESTAMP "Uni.Cash 27/01/2016 21:30:00 We are all one body."
+#define  CONF_GENESIS_BLOCK "0x8681f8c52205c5d9ad6cec3c792d68b0a6dd1b0d048eb83e15beb8249fcbc9e6"
+#define  CONF_GENESIS_BLOCK_TESTNET "0x816dd765097ef4e16e6119fb32610909468f2466c3c574d4dd2d78a57a3ff1b7"
+#define  CONF_BLOCK_HASH_MERKLE_ROOT "0xe6c8482921c503c02eddc7e06700db0a4a8bb78228961649a13159fbdc952102"
+#define  CONF_PSZTIMESTAMP "TFLASH Network for development 12 December 2017"
 #define  CONF_SCRIPT_PUBKEY "040184710fa689ad5023690c80f3a49c8f13f8d45b8c857fbcbc8bc4a8e4d3eb4b10f4d4604fa08dce601aaf0f470216fe1b51850b4acf21b179c45070ac7b03a9"
 static const uint32_t CONF_BLOCK_NVERSION = 1;
-static const uint32_t CONF_BLOCK_NTIME = 1453930200; //27/01/2016
+static const uint32_t CONF_BLOCK_NTIME = 1513052503; //27/01/2016
 static const uint32_t CONF_BLOCK_NBITS = 0x1e0ffff0;
-static const uint32_t CONF_BLOCK_NNONCE = 2087290740;
+static const uint32_t CONF_BLOCK_NNONCE = 2087447213;
 static const uint32_t CONF_BLOCK_NTIME_TESTNET = 1446801510;
-static const uint32_t CONF_BLOCK_NNONCE_TESTNET = 2085979433;
+static const uint32_t CONF_BLOCK_NNONCE_TESTNET = 2086608345;
 
 //Speed generate block
 static const int64_t def_nTargetTimespan = 0.25 * 24 * 60 * 60; // Coolcash: 0.25 days
@@ -202,21 +202,21 @@ static const int64_t def_nTargetSpacing = 1; // Coolcash: 1s
 static const int64_t nInterval = def_nTargetTimespan / def_nTargetSpacing;
 
 //Port for network p2p
-#define  CONF_TESTNET_PORT 17107
-#define  CONF_PORT 7107
-#define  CONF_TESTNET_PORT_STRING "17107"
-#define  CONF_PORT_STRING "7107"
+#define  CONF_TESTNET_PORT 18108
+#define  CONF_PORT 8108
+#define  CONF_TESTNET_PORT_STRING "18108"
+#define  CONF_PORT_STRING "8108"
 
-#define  CONF_DEFAULT_CLENT_NAME "Flashcoin Desktop Wallet"
-#define  CONF_DEFAULT_DATA_DIR_WINDOW "flashcoin"
-#define  CONF_DEFAULT_DATA_DIR_MAC_OSX "flashcoin"
-#define  CONF_DEFAULT_DATA_DIR_UNIX ".flashcoin"
+#define  CONF_DEFAULT_CLENT_NAME "T-Flashcoin Desktop Wallet"
+#define  CONF_DEFAULT_DATA_DIR_WINDOW "tflashcoin"
+#define  CONF_DEFAULT_DATA_DIR_MAC_OSX "tflashcoin"
+#define  CONF_DEFAULT_DATA_DIR_UNIX ".tflashcoin"
 
 //#define  CONF_DEFAULT_CONFIG_FILE "unicash.conf"
 //#define  CONF_DEFAULT_PIG_FILE "unicash.pid"
 
-const char * const BITCOIN_CONF_FILENAME = "flashcoin.conf";
-const char * const BITCOIN_PID_FILENAME = "flashcoin.pid";
+const char * const BITCOIN_CONF_FILENAME = "tflashcoin.conf";
+const char * const BITCOIN_PID_FILENAME = "tflashcoin.pid";
 
 
 #endif // CONFIG_H
