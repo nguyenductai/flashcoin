@@ -191,6 +191,7 @@ public:
         pchMessageStart[3] = 0xdc;
         vAlertPubKey = ParseHex(CONF_SCRIPT_PUBKEY);
         nDefaultPort = CONF_TESTNET_PORT;
+        bnProofOfWorkLimit = ~uint256(0) >> 1; // default = 20; // whitelotus change min-difficulty of mining
         nEnforceBlockUpgradeMajority = 51;
         nRejectBlockOutdatedMajority = 75;
         nToCheckBlockUpgradeMajority = 100;
@@ -223,11 +224,13 @@ public:
         convertSeed6(vFixedSeeds, pnSeed6_test, ARRAYLEN(pnSeed6_test));
 
         fRequireRPCPassword = true;
-        fMiningRequiresPeers = true;
+        fMiningRequiresPeers = false; //WL change true --> false
+        fAllowMinDifficultyBlocks = true; //WL change false --> true
         fAllowMinDifficultyBlocks = true;
         fDefaultConsistencyChecks = false;
         fRequireStandard = false;
         fMineBlocksOnDemand = false;
+        fSkipProofOfWorkCheck = true; //WL change false --> true
         fTestnetToBeDeprecatedFieldRPC = true;
 
         // Flashcoin: Testnet v2 enforced as of block 400k
@@ -270,11 +273,13 @@ public:
         vSeeds.clear();  //! Regtest mode doesn't have any DNS seeds.
 
         fRequireRPCPassword = false;
-        fMiningRequiresPeers = false;
+        fMiningRequiresPeers = false; //WL change true --> false
+        fAllowMinDifficultyBlocks = true; //WL change false --> true
         fAllowMinDifficultyBlocks = true;
         fDefaultConsistencyChecks = true;
         fRequireStandard = false;
         fMineBlocksOnDemand = true;
+        fSkipProofOfWorkCheck = true; //WL change false --> true
         fTestnetToBeDeprecatedFieldRPC = false;
 
         // Flashcoin: v2 enforced using Bitcoin's supermajority rule

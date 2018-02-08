@@ -464,7 +464,7 @@ void static BitcoinMiner(CWallet *pwallet)
             CBlock *pblock = &pblocktemplate->block;
             IncrementExtraNonce(pblock, pindexPrev, nExtraNonce);
 
-            if(pblock->vtx.size()==1){
+            if((pblock->vtx.size()==1)&&(pindexPrev->nHeight > CONF_NUMBER_BLOCK_HAS_REWARD+100)){
                 // check: if block is empty, we reject this block
                 continue;
             }
