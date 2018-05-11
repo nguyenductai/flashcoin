@@ -8,7 +8,7 @@ typedef int64_t CAmount;
 
 static const CAmount COIN = 10000000000;
 static const CAmount CENT = 1000000;
-static const CAmount FLASH = COIN;
+static const CAmount TFLASH = COIN;
 
 static const bool DISABLE_MINING = false;
 
@@ -21,7 +21,7 @@ static const bool DISABLE_MINING = false;
  * critical; in unusual circumstances like a(nother) overflow bug that allowed
  * for the creation of coins out of thin air modification could lead to a fork.
  * */
-static const CAmount MAX_MONEY = 900000000 * FLASH;
+static const CAmount MAX_MONEY = 900000000 * TFLASH;
 inline bool MoneyRange(const CAmount& nValue) { return (nValue >= 0 && nValue <= MAX_MONEY); }
 
 
